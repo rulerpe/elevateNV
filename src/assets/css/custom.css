@@ -1,0 +1,53 @@
+.custom-layout {
+  max-width: 800px;
+  margin-left:auto;
+  margin-right:auto
+}
+
+.custom-subheading {
+  font-weight: 500
+}
+
+.mainNav {
+  width: 100%;
+}
+.footerNav{
+  padding:0;
+  margin: 0 auto 0 auto !important
+}
+
+.mainNavFixed {
+  position: fixed;
+  top: -76px;
+  z-index:5
+}
+.mobileNavFixed{
+  position: fixed;
+  z-index: 5
+}
+
+.drawBtn {
+  margin: 6px 8px
+}
+.customCardTitle {
+  height: 76px
+}
+
+.absolutePosition {
+  position: absolute;
+}
+.fixedPosition {
+  position: fixed;
+}
+.absolutePositionSocial {
+  position: absolute;
+  bottom:100px;
+}
+.fixedPositionSocial {
+  position: fixed;
+  top:200px;
+}
+
+.xsicon {
+  font-size:18px
+}
