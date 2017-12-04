@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <div class="mt-3">
-      <h1 class="headline mt-2 mb-2">Top Articles</h1>
+      <h1 class="display-1 mt-2 mb-2">Top Articles</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row wrap >
         <v-flex d-flex xs12 sm6>
@@ -15,8 +15,8 @@
             </v-card-media>
             <v-card-title primary-title>
               <div>
-                <h4 class="custom-subheading subheading mb-0">Making your list and checking it twice</h4>
-                <div>Nevada’s dispensaries have a wide variety of gifting ideas for the cannasseur in your life</div>
+                <h4 class="custom-headline headline mb-0">Making your list and checking it twice</h4>
+                <div class="subheading">Nevada’s dispensaries have a wide variety of gifting ideas for the cannasseur in your life</div>
               </div>
             </v-card-title>
               <v-list two-line>
@@ -40,7 +40,7 @@
                 </v-card-media>
                 <v-card-title primary-title>
                   <div>
-                    <h4 class="custom-subheading subheading mb-0">A dog’s tale</h4>
+                    <h4 class="custom-headline headline mb-0">A dog’s tale</h4>
                   </div>
                 </v-card-title>
                 <v-list two-line>
@@ -62,7 +62,7 @@
                 </v-card-media>
                 <v-card-title primary-title>
                   <div>
-                    <h4 class="custom-subheading subheading mb-0">Trimming services: save money and time</h4>
+                    <h4 class="custom-headline headline mb-0">Trimming services: save money and time</h4>
                   </div>
                 </v-card-title>
                 <v-list two-line>
@@ -83,7 +83,7 @@
       </v-layout>
     </div>
     <div style="margin-top:40px">
-      <h1 class="headline mt-2 mb-2">Trends</h1>
+      <h1 class="display-1 mt-2 mb-2">Trends</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row wrap >
         <v-flex d-flex xs12 sm4>
@@ -92,8 +92,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">Making your list and checking</h4>
-                <div class="caption">Nevada’s dispensaries have a wide variety of gifting ideas for the cannasseur </div>
+                <h4 class="custom-headline headline mb-0">Making your list and checking</h4>
               </div>
             </v-card-title>
               <v-list two-line>
@@ -115,7 +114,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">A dog’s tale</h4>
+                <h4 class="custom-headline headline mb-0">A dog’s tale</h4>
               </div>
             </v-card-title>
             <v-list two-line>
@@ -137,7 +136,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">Trimming services: save money and time</h4>
+                <h4 class="custom-headline headline mb-0">Trimming services: save money and time</h4>
               </div>
             </v-card-title>
             <v-list two-line>
@@ -159,8 +158,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">Making your list and checking</h4>
-                <div class="caption">Nevada’s dispensaries have a wide variety of gifting ideas for the cannasseur </div>
+                <h4 class="custom-headline headline mb-0">Making your list and checking</h4>
               </div>
             </v-card-title>
               <v-list two-line>
@@ -182,7 +180,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">A dog’s tale</h4>
+                <h4 class="custom-headline headline mb-0">A dog’s tale</h4>
               </div>
             </v-card-title>
             <v-list two-line>
@@ -204,7 +202,7 @@
             </v-card-media>
             <v-card-title class="pb-0 customCardTitle">
               <div>
-                <h4 class="custom-subheading subheading mb-0">Trimming services: save money and time</h4>
+                <h4 class="custom-headline headline mb-0">Trimming services: save money and time</h4>
               </div>
             </v-card-title>
             <v-list two-line>

@@ -23,9 +23,9 @@
           </v-flex>
           <v-flex xs2 sm4 class="pt-2 pb-2">
             <div align="right" class="hidden-xs-only">
-              <v-icon class="xsicon">mdi-twitter</v-icon>
-              <v-icon class="ml-2 mr-2 xsicon">mdi-facebook</v-icon>
-              <v-icon class="xsicon">mdi-magnify</v-icon>
+              <v-icon>mdi-twitter</v-icon>
+              <v-icon class="ml-2 mr-2">mdi-facebook</v-icon>
+              <v-icon>mdi-magnify</v-icon>
             </div>
           </v-flex>
         </v-layout>
@@ -33,7 +33,7 @@
           <v-container style=" padding-bottom:0;padding-top:0" id="mainNav">
             <v-layout row class="custom-layout" justify-space-between>
               <v-flex xs12 class="text-xs-center" v-for="item in menuItems" :key="item.title">
-              <v-btn flat :to="item.link" small  style="margin:0; font-weight:400">
+              <v-btn flat :to="item.link" large style="margin:0; font-weight:400">
                 {{ item.title }}
               </v-btn>
             </v-flex>
@@ -49,16 +49,16 @@
       <v-container class="footerNav">
             <v-layout row class="custom-layout">
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="body-1">About</div>
+                <div class="subheading">About</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="body-1">Careers</div>
+                <div class="subheading">Careers</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="body-1">Contact</div>
+                <div class="subheading">Contact</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="body-1">Advertise</div>
+                <div class="subheading">Advertise</div>
               </v-flex>
             </v-layout>
           </v-container>
@@ -83,7 +83,7 @@
         mainNavFixed: false,
         mobileNavFixed: false,
         logoSize: '250px',
-        navHeight: '103.1px',
+        navHeight: '120px',
         scroPosition: window.innerHeight + 1
       }
     },
@@ -92,17 +92,17 @@
         if (document.getElementById('content')) {
           this.scroPosition = document.getElementById('content').getBoundingClientRect().bottom
         }
-        this.mainNavFixed = window.scrollY > 75 && window.outerWidth > 600
+        this.mainNavFixed = window.scrollY > 76 && window.outerWidth > 600
       },
       handleResize (event) {
         console.log(window.outerWidth)
-        if (window.outerWidth < 600) {
+        if (window.outerWidth < 1000) {
           this.logoSize = '100px'
           this.navHeight = '48px'
           this.mobileNavFixed = true
         } else {
           this.logoSize = '250px'
-          this.navHeight = '103.1px'
+          this.navHeight = '120px'
         }
       }
     },
