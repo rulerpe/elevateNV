@@ -18,7 +18,7 @@
 
 .mainNavFixed {
   position: fixed;
-  top: -76.5px;
+  top: -74px;
   z-index:5
 }
 .mobileNavFixed{
@@ -50,4 +50,8 @@
 
 .xsicon {
   font-size:18px
+}
+
+.btn--large .btn__content {
+  padding: 0;
 }

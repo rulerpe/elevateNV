@@ -10,10 +10,11 @@ import './assets/css/custom.css'
 import '../node_modules/mdi/css/materialdesignicons.min.css'
 import App from './App'
 import router from './router'
+import { store } from './store'
 
 Vue.use(Vuetify, { theme: {
-  primary: '#c8e6c9',
-  secondary: '#ff5252',
+  primary: '#e0e0e0',
+  secondary: '#81c784',
   accent: '#424242',
   error: '#FF5252',
   info: '#2196F3',
@@ -28,6 +29,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App),
   created () {
     firebase.initializeApp({

@@ -2,6 +2,13 @@
   <v-app light>
     <v-navigation-drawer fixed app temporary v-model="sideNav">
       <v-list>
+        <v-list-tile>
+          <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content  class="accent--text">Digital Issues</v-list-tile-content>
+        </v-list-tile>
+        <v-divider></v-divider>
         <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.link">
           <v-list-tile-content  class="accent--text">{{ item.title }}</v-list-tile-content>
         </v-list-tile>
@@ -10,30 +17,42 @@
     <div :style="{height: navHeight}">
       <div class="primary accent--text elevation-2 mainNav" :class="{ mainNavFixed: mainNavFixed ,mobileNavFixed:mobileNavFixed}" :style="{height: navHeight}">
         <v-layout row class="custom-layout">
-          <v-flex xs2 sm4 style="padding:5px">
+          <v-flex xs4 sm4 class="pa-1">
             <v-icon
               @click.stop="sideNav = !sideNav"
               class="hidden-sm-and-up drawBtn">menu</v-icon>
+              <div align="left" class="hidden-xs-only" >
+                <v-btn color="primary" light style="margin:0; font-weight:400">
+                  Dispensary Finder
+                </v-btn>
+                <v-btn color="primary" light style="margin:0; font-weight:400">
+                  Digital Issues
+                </v-btn>
+              </div>
           </v-flex>
-          <v-flex align-content-center xs8 sm4 class="pt-2 pb-2">
+          <v-flex align-content-center xs4 sm4 class="pt-2 pb-1">
             <div class="text-xs-center">
               <a href="/">
               <img src="./assets/ELEVATE-LOGO.png" alt="" :style="{width: logoSize}"></a>
             </div>
           </v-flex>
-          <v-flex xs2 sm4 class="pt-2 pb-2">
-            <div align="right" class="hidden-xs-only">
-              <v-icon>mdi-twitter</v-icon>
-              <v-icon class="ml-2 mr-2">mdi-facebook</v-icon>
-              <v-icon>mdi-magnify</v-icon>
+          <v-flex xs4 sm4 class="pa-1">
+            <div align="right" >
+              <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400">
+                Blog
+              </v-btn>
+              <v-icon class="ml-1">mdi-instagram</v-icon>
+              <v-icon class="ml-1">mdi-twitter</v-icon>
+              <v-icon class="ml-1">mdi-facebook</v-icon>
+              <v-icon class="ml-1">mdi-magnify</v-icon>
             </div>
           </v-flex>
         </v-layout>
         <v-layout row class="hidden-xs-only">
           <v-container style=" padding-bottom:0;padding-top:0" id="mainNav">
             <v-layout row class="custom-layout" justify-space-between>
-              <v-flex xs12 class="text-xs-center" v-for="item in menuItems" :key="item.title">
-              <v-btn flat :to="item.link" large style="margin:0; font-weight:400">
+              <v-flex xs2 class="text-xs-center" v-for="item in menuItems" :key="item.title">
+              <v-btn block flat :to="item.link" large style="margin:0; font-weight:400">
                 {{ item.title }}
               </v-btn>
             </v-flex>
@@ -52,7 +71,7 @@
                 <div class="subheading">About</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="subheading">Careers</div>
+                <div class="subheading">Subsribe</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
                 <div class="subheading">Contact</div>
@@ -73,17 +92,18 @@
         sideNav: false,
         menuItems: [
             { icon: 'supervisor_account', title: 'Home', link: '/' },
-            { icon: 'room', title: 'CONVERSATION', link: '/CONVERSATION' },
+            { icon: 'room', title: 'Patient', link: '/Patient' },
             { icon: 'person', title: 'DISCOVER', link: '/DISCOVER' },
             { icon: 'supervisor_account', title: 'COOKING', link: '/COOKING' },
             { icon: 'room', title: 'MEDICINE', link: '/MEDICINE' },
             { icon: 'room', title: 'TRENDS', link: '/TRENDS' },
-            { icon: 'room', title: 'GROW', link: '/GROW' }
+            { icon: 'room', title: 'News', link: '/News' },
+            { icon: 'room', title: 'Review', link: '/Review' }
         ],
         mainNavFixed: false,
         mobileNavFixed: false,
         logoSize: '250px',
-        navHeight: '120px',
+        navHeight: '117px',
         scroPosition: window.innerHeight + 1
       }
     },
@@ -92,17 +112,17 @@
         if (document.getElementById('content')) {
           this.scroPosition = document.getElementById('content').getBoundingClientRect().bottom
         }
-        this.mainNavFixed = window.scrollY > 76 && window.outerWidth > 600
+        this.mainNavFixed = window.scrollY > 74 && window.outerWidth > 600
       },
       handleResize (event) {
         console.log(window.outerWidth)
         if (window.outerWidth < 1000) {
           this.logoSize = '100px'
-          this.navHeight = '48px'
+          this.navHeight = '44px'
           this.mobileNavFixed = true
         } else {
           this.logoSize = '250px'
-          this.navHeight = '120px'
+          this.navHeight = '117px'
         }
       }
     },
