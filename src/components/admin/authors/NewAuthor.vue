@@ -25,7 +25,7 @@
                 label="Bio"
                 id="bio"
                 v-model="bio"
-                required></v-text-field>
+                ></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -67,9 +67,7 @@ export default {
   },
   computed: {
     formIsValid () {
-      return this.name !== '' &&
-        this.bio !== '' &&
-        this.imageUrl !== ''
+      return this.name !== ''
     }
   },
   methods: {
@@ -77,8 +75,8 @@ export default {
       if (!this.formIsValid) {
         return
       }
-      if (this.iamge === null) {
-        return
+      if (this.image === null) {
+        this.image = 'default'
       }
       const authorData = {
         name: this.name,

@@ -24,8 +24,7 @@
                 name="bio"
                 label="Bio"
                 id="bio"
-                v-model="bio"
-                required></v-text-field>
+                v-model="bio"></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -69,9 +68,7 @@ export default {
   },
   computed: {
     formIsValid () {
-      return this.name !== '' &&
-        this.bio !== '' &&
-        this.imageUrl !== ''
+      return this.name !== ''
     }
   },
   mounted () {
