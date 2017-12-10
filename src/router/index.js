@@ -5,6 +5,7 @@ import PostDetail from '@/components/pages/PostDetail'
 import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
 import UpdateAuthor from '@/components/admin/authors/updateAuthor'
+import NewPost from '@/components/admin/post/NewPost'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/post/new',
+      name: 'NewPost',
+      component: NewPost
     },
     {
       path: '/post/:id',

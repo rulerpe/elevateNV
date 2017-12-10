@@ -3,9 +3,7 @@ require('firebase/firestore')
 
 export default{
   state: {
-    authors: [],
-    loading: false,
-    errot: null
+    authors: []
   },
   mutations: {
     setLoadedAuthors (state, payload) {
@@ -192,12 +190,6 @@ export default{
     },
     author (state) {
 
-    },
-    loading (state) {
-      return state.loading
-    },
-    error (state) {
-      return state.error
     }
 
   }
