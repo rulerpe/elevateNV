@@ -2,7 +2,7 @@
   <v-container class="pa-0 custom-layout">
     <v-layout row>
       <v-flex xs12 sm10 offset-sm1>
-        <form @submit.prevent="onNewPost">
+        <form @submit.prevent="onEditPost">
           <v-layout row>
             <v-flex xs12 sm6>
               <v-layout row>
@@ -11,7 +11,7 @@
                     name="title"
                     label="Title"
                     id="title"
-                    v-model="title"
+                    v-model="postData.title"
                     required></v-text-field>
                 </v-flex>
               </v-layout>
@@ -21,19 +21,19 @@
                     name="subtitle"
                     label="Subtitle"
                     id="subtitle"
-                    v-model="subtitle"
+                    v-model="postData.subtitle"
                     ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row>
                 <v-flex xs12>
-                  <v-select label="Author" :items="authors" v-model="author"></v-select>
+                  <v-select label="Author" :items="authors" v-model="postData.author"></v-select>
                 </v-flex>
               </v-layout>
             </v-flex>
             <v-flex xs12 sm5 offset-sm1>
               <h2>Post date</h2>
-              <v-date-picker v-model="postDate"></v-date-picker>
+              <v-date-picker v-model="postData.postDate"></v-date-picker>
             </v-flex>
           </v-layout>
 
@@ -48,7 +48,7 @@
     <v-layout row>
       <v-flex xs12 sm10 offset-sm1>
          <quill-editor ref="myTextEditor"
-                      v-model="content"
+                      v-model="postData.content"
                       :options="editorOption"
                       @blur="onEditorBlur($event)"
                       @focus="onEditorFocus($event)"
@@ -108,10 +108,14 @@ import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
 
+import * as firebase from 'firebase'
+require('firebase/firestore')
+
 export default {
   components: {
     quillEditor
   },
+  props: ['shortname'],
   data () {
     return {
       imageUrl: '',
@@ -120,13 +124,21 @@ export default {
       editorOption: {
         modules: {
           toolbar: '#toolbar'
+        },
+        clipboard: {
+          matchVisual: false
         }
       },
-      title: '',
-      subtitle: '',
-      author: '',
-      postDate: null,
-      category: []
+      test: `<p>test</p><h4>heading</h4>`,
+      postData: {
+        title: '',
+        subtitle: '',
+        author: '',
+        content: '',
+        postDate: '',
+        shortname: ''
+      },
+      orgPostData: {}
     }
   },
   methods: {
@@ -143,30 +155,16 @@ export default {
       const currentPosition = this.$refs.myTextEditor.quill.getSelection()
       this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.imageUrl)
     },
-    onNewPost () {
-      const postData = {
-        title: this.title,
-        subtitle: this.subtitle,
-        author: this.author,
-        postDate: this.postDate,
-        content: this.content,
-        category: this.category
-      }
-      this.$store.dispatch('newPost', postData)
+    onEditPost () {
+      this.$store.dispatch('editPost', {orginal: this.orgPostData, new: this.postData})
     },
     showcontent () {
-      console.log(this.content)
-      console.log(this.authors)
-      console.log(this.postDate)
-      console.log(this.$refs.myTextEditor.quill.getSelection())
+      console.log(this.postData)
     }
   },
   computed: {
     editor () {
       return this.$refs.myTextEditor.quill
-    },
-    categories () {
-      return this.$store.getters.categories
     },
     contentCode () {
       return this.content
@@ -185,7 +183,22 @@ export default {
   },
   mounted () {
     this.$store.dispatch('loadAuthors')
-    this.$store.dispatch('loadCategories')
+    firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
+      .then((data) => {
+        var postData = data.docs[0].data()
+        for (const key in postData) {
+          this.orgPostData[key] = postData[key]
+          this.postData[key] = postData[key]
+        }
+        this.orgPostData.updateAt = postData.updateAt.slice(0)
+        this.postData.updateAt = postData.updateAt.slice(0)
+        this.orgPostData.id = data.docs[0].id
+        this.postData.id = data.docs[0].id
+        console.log(this.postData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 </script>

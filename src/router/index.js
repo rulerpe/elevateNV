@@ -6,6 +6,9 @@ import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
 import UpdateAuthor from '@/components/admin/authors/updateAuthor'
 import NewPost from '@/components/admin/post/NewPost'
+import EditPost from '@/components/admin/post/EditPost'
+import Posts from '@/components/admin/post/Posts'
+import FileUpload from '@/components/admin/FileUpload'
 
 Vue.use(Router)
 
@@ -17,12 +20,23 @@ export default new Router({
       component: Home
     },
     {
+      path: '/posts',
+      name: 'Posts',
+      component: Posts
+    },
+    {
       path: '/post/new',
       name: 'NewPost',
       component: NewPost
     },
     {
-      path: '/post/:id',
+      path: '/post/edit/:shortname',
+      name: 'EditPost',
+      props: true,
+      component: EditPost
+    },
+    {
+      path: '/post/:shortname',
       name: 'PostDetail',
       props: true,
       component: PostDetail
@@ -42,6 +56,11 @@ export default new Router({
       name: 'UpdateAuthor',
       props: true,
       component: UpdateAuthor
+    },
+    {
+      path: '/admin/fileupload',
+      name: 'FileUpload',
+      component: FileUpload
     }
   ],
   mode: 'history'

@@ -149,7 +149,7 @@ import * as firebase from 'firebase'
 require('firebase/firestore')
 
 export default {
-  props: ['id', 'scrollPosition'],
+  props: ['shortname', 'scrollPosition'],
   data () {
     return {
       postData: {
@@ -196,13 +196,14 @@ export default {
     }
   },
   mounted () {
-    firebase.firestore().collection('posts').doc(this.id).get()
+    firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
       .then((data) => {
-        var postData = data.data()
+        var postData = data.docs[0].data()
         this.postData.title = postData.title
         this.postData.subtitle = postData.subtitle
         this.postData.content = postData.content
         this.postData.postDate = postData.postDate
+        this.postData.shortname = postData.shortname
         console.log(this.postData)
         return firebase.firestore().collection('authors').doc(postData.author).get()
       })
