@@ -30,6 +30,11 @@
                   <v-select label="Author" :items="authors" v-model="postData.author"></v-select>
                 </v-flex>
               </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-select label="Category" :items="allCategories" v-model="postData.categories" multiple></v-select>
+                </v-flex>
+              </v-layout>
             </v-flex>
             <v-flex xs12 sm5 offset-sm1>
               <h2>Post date</h2>
@@ -136,7 +141,8 @@ export default {
         author: '',
         content: '',
         postDate: '',
-        shortname: ''
+        shortname: '',
+        categories: []
       },
       orgPostData: {}
     }
@@ -156,6 +162,11 @@ export default {
       this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.imageUrl)
     },
     onEditPost () {
+      const text = this.$refs.myTextEditor.quill.getText()
+      const wordcount = text.split(/\s+/).length
+      const readtime = Math.ceil(wordcount / 200) // in minute, round up the number
+      this.postData.wordcount = wordcount
+      this.postData.readtime = readtime
       this.$store.dispatch('editPost', {orginal: this.orgPostData, new: this.postData})
     },
     showcontent () {
@@ -179,10 +190,14 @@ export default {
         })
       }
       return formatAuthors
+    },
+    allCategories () {
+      return this.$store.getters.categories
     }
   },
   mounted () {
     this.$store.dispatch('loadAuthors')
+    this.$store.dispatch('loadCategories')
     firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
       .then((data) => {
         var postData = data.docs[0].data()

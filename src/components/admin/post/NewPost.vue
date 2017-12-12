@@ -30,6 +30,27 @@
                   <v-select label="Author" :items="authors" v-model="author"></v-select>
                 </v-flex>
               </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-select label="Category" :items="allCategories" v-model="categories" multiple></v-select>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-btn class="error" raised dark @click="onPickFile">Feature image</v-btn>
+                <input 
+                  ref="fileInput" 
+                  type="file" 
+                  style="display: none" 
+                  accept="image/*"
+                  @change="onFilePicked">
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <img :src="featureImageUrl">
+              </v-flex>
+            </v-layout>
             </v-flex>
             <v-flex xs12 sm5 offset-sm1>
               <h2>Post date</h2>
@@ -50,9 +71,6 @@
          <quill-editor ref="myTextEditor"
                       v-model="content"
                       :options="editorOption"
-                      @blur="onEditorBlur($event)"
-                      @focus="onEditorFocus($event)"
-                      @ready="onEditorReady($event)"
                       class="post-content">
             <div id="toolbar" slot="toolbar">
             <!-- Add a bold button -->
@@ -90,7 +108,7 @@
             </select>
 
             <div>
-              <input type="text" v-model="imageUrl">
+              <input type="text" v-model="contentImage">
               <button @click="insertImage()">Insert</button>
             </div>
           </div>
@@ -114,7 +132,7 @@ export default {
   },
   data () {
     return {
-      imageUrl: '',
+      contentImage: '',
       name: '01-example',
       content: '',
       editorOption: {
@@ -126,47 +144,56 @@ export default {
       subtitle: '',
       author: '',
       postDate: null,
-      category: []
+      categories: [],
+      featureImageUrl: '',
+      image: null
     }
   },
   methods: {
-    onEditorBlur (editor) {
-      // console.log('editor blur!', editor)
-    },
-    onEditorFocus (editor) {
-      // console.log('editor focus!', editor)
-    },
-    onEditorReady (editor) {
-      // console.log('editor ready!', editor)
-    },
     insertImage () {
       const currentPosition = this.$refs.myTextEditor.quill.getSelection()
-      this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.imageUrl)
+      this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.contentImage)
     },
     onNewPost () {
+      const text = this.$refs.myTextEditor.quill.getText()
+      const wordcount = text.split(/\s+/).length
+      const readtime = Math.ceil(wordcount / 200) // in minute, round up the number
       const postData = {
         title: this.title,
         subtitle: this.subtitle,
         author: this.author,
         postDate: this.postDate,
         content: this.content,
-        category: this.category
+        categories: this.categories,
+        wordcount: wordcount,
+        readtime: readtime,
+        image: this.image
       }
       this.$store.dispatch('newPost', postData)
     },
+    onPickFile () {
+      this.$refs.fileInput.click()
+    },
+    onFilePicked (event) {
+      const files = event.target.files
+      let filename = files[0].name
+      if (filename.lastIndexOf('.') <= 0) {
+        return alert('please add a vild file!')
+      }
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () => {
+        this.featureImageUrl = fileReader.result
+      })
+      fileReader.readAsDataURL(files[0])
+      this.image = files[0]
+    },
     showcontent () {
-      console.log(this.content)
-      console.log(this.authors)
-      console.log(this.postDate)
-      console.log(this.$refs.myTextEditor.quill.getSelection())
+      console.log(this.image)
     }
   },
   computed: {
     editor () {
       return this.$refs.myTextEditor.quill
-    },
-    categories () {
-      return this.$store.getters.categories
     },
     contentCode () {
       return this.content
@@ -181,6 +208,9 @@ export default {
         })
       }
       return formatAuthors
+    },
+    allCategories () {
+      return this.$store.getters.categories
     }
   },
   mounted () {

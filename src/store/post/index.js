@@ -3,7 +3,8 @@ require('firebase/firestore')
 
 export default{
   state: {
-    posts: []
+    posts: [],
+    categories: []
   },
   mutations: {
     setLoadedPosts (state, payload) {
@@ -11,6 +12,9 @@ export default{
     },
     deletePost (state, payload) {
       state.posts.splice(state.posts.indexOf(payload.id), 1)
+    },
+    setLoadedCategories (state, payload) {
+      state.categories = payload
     }
   },
   actions: {
@@ -142,13 +146,33 @@ export default{
           console.log(error)
         })
     },
-    loadCategories ({commit}) {
-      //
+    loadCategories ({commit, getters}) {
+      if (getters.categories.length <= 0) {
+        firebase.firestore().collection('categories').orderBy('label').get()
+          .then((snapshot) => {
+            var categories = []
+            snapshot.forEach((doc) => {
+              let obj = doc.data()
+              categories.push({
+                text: obj.label,
+                value: obj.value
+              })
+            })
+            commit('setLoadedCategories', categories)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     }
   },
   getters: {
     posts (state) {
       return state.posts
+    },
+    categories (state) {
+      return state.categories
     }
+
   }
 }

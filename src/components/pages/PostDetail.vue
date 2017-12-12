@@ -26,7 +26,7 @@
               <v-content style="margin-left:10px">
                 <div class="subheading">{{postData.author.name}}</div>
                 <div class="body-1">{{postData.author.bio}}</div>
-                <div class="body-1">{{postData.postDate}} . 4 min read</div>
+                <div class="body-1">{{postData.postDate}} . {{postData.readtime}} min read</div>
               </v-content>
             </v-flex>
           </v-layout>
@@ -198,14 +198,9 @@ export default {
   mounted () {
     firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
       .then((data) => {
-        var postData = data.docs[0].data()
-        this.postData.title = postData.title
-        this.postData.subtitle = postData.subtitle
-        this.postData.content = postData.content
-        this.postData.postDate = postData.postDate
-        this.postData.shortname = postData.shortname
+        this.postData = data.docs[0].data()
         console.log(this.postData)
-        return firebase.firestore().collection('authors').doc(postData.author).get()
+        return firebase.firestore().collection('authors').doc(this.postData.author).get()
       })
       .then((data) => {
         this.postData.author = data.data()
