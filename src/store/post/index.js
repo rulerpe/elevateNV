@@ -10,11 +10,17 @@ export default{
     setLoadedPosts (state, payload) {
       state.posts = payload
     },
+    addPost (state, payload) {
+      state.posts = state.posts.concat(payload)
+    },
     deletePost (state, payload) {
       state.posts.splice(state.posts.indexOf(payload.id), 1)
     },
     setLoadedCategories (state, payload) {
       state.categories = payload
+    },
+    clearPosts (state) {
+      state.posts = []
     }
   },
   actions: {
@@ -22,8 +28,16 @@ export default{
       let postId = ''
       commit('setLoading', true)
       payload.shortname = payload.title.replace(/\s+/g, '-').toLowerCase()
-      payload.createAt = firebase.firestore.FieldValue.serverTimestamp()
+      payload.createAt = Date.now()
       payload.updateAt = []
+      var categories = {}
+      payload.categories.forEach((value) => {
+        categories[value] = payload.createAt
+      })
+      let mainCategory = {}
+      mainCategory[payload.mainCategory] = payload.createAt
+      payload.mainCategory = mainCategory
+      payload.categories = categories
       console.log(payload)
       firebase.firestore().collection('posts').add(payload)
         .then((data) => {
@@ -69,9 +83,78 @@ export default{
           })
       }
     },
+    loadHomePagePosts ({commit}, payload) {
+      commit('setLoading', true)
+      payload.forEach((category) => {
+        firebase.firestore().collection('posts')
+        .where('mainCategory.' + category, '>', 0)
+        .orderBy('mainCategory.' + category)
+        .get()
+        .then((snapshot) => {
+          let posts = []
+          if (snapshot.docs.length > 0) {
+            snapshot.forEach((doc) => {
+              let obj = doc.data()
+              posts.push({
+                ...obj,
+                id: doc.id
+              })
+            })
+            console.log(posts)
+            commit('addPost', posts)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      })
+    },
+    loadTopicPosts ({commit}, payload) {
+      commit('clearPosts')
+      commit('setLoading', true)
+      firebase.firestore().collection('categories')
+        .where('label', '==', payload)
+        .get()
+        .then((snapshot) => {
+          const topic = snapshot.docs[0].data().value
+          return firebase.firestore().collection('posts')
+            .where('categories.' + topic, '>', 0)
+            .orderBy('categories.' + topic)
+            .get()
+        })
+        .then((snapshot) => {
+          let posts = []
+          if (snapshot.docs.length > 0) {
+            snapshot.forEach((doc) => {
+              let obj = doc.data()
+              posts.push({
+                ...obj,
+                id: doc.id
+              })
+            })
+            console.log(posts)
+            commit('setLoadedPosts', posts)
+            commit('setLoading', false)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          commit('setLoading', false)
+        })
+    },
     editPost ({commit}, payload) {
       payload.new.updateAt.push(new Date())
       console.log(payload)
+      var categories = {}
+      if (payload.new.categories) {
+        payload.new.categories.forEach((value) => {
+          categories[value] = payload.new.createAt
+        })
+        payload.new.categories = categories
+      }
+      let mainCategory = {}
+      mainCategory[payload.new.mainCategory] = payload.new.createAt
+      payload.new.mainCategory = mainCategory
       const postData = {}
       for (const key in payload.new) {
         if (payload.new[key] !== payload.orginal[key]) {

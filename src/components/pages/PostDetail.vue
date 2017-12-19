@@ -25,9 +25,13 @@
               </v-avatar>
               <v-content style="margin-left:10px">
                 <div class="subheading">{{postData.author.name}}</div>
-                <div class="body-1">{{postData.author.bio}}</div>
                 <div class="body-1">{{postData.postDate}} . {{postData.readtime}} min read</div>
               </v-content>
+            </v-flex>
+          </v-layout>
+          <v-layout row class="pt-2 pb-2 post-content" v-if="postData.showFeatureImage">
+            <v-flex xs12>
+              <img :src="postData.featureImageUrl" :alt="postData.shortname">
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
@@ -40,6 +44,11 @@
           </v-layout>
           <v-layout>
             <v-flex xs12 v-html="postData.content" class="post-content">
+            </v-flex>
+          </v-layout>
+          <v-layout row class="pt-2 pb-2">
+            <v-flex xs12>
+              <v-chip label v-for="(category, key) in postData.categories" :key="category.value">{{allCategories[key].text}}</v-chip>
             </v-flex>
           </v-layout>
         </v-container>
@@ -187,6 +196,9 @@ export default {
           fixedPositionSocial: false
         }
       }
+    },
+    allCategories () {
+      return this.$store.getters.categories
     }
   },
   methods: {
@@ -196,6 +208,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch('loadCategories')
     firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
       .then((data) => {
         this.postData = data.docs[0].data()

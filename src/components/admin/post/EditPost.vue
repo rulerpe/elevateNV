@@ -35,6 +35,31 @@
                   <v-select label="Category" :items="allCategories" v-model="postData.categories" multiple></v-select>
                 </v-flex>
               </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-select label="Main Category" :items="allCategories" v-model="postData.mainCategory"></v-select>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-text-field
+                    name="featureImageUrl"
+                    label="Feature Image Url"
+                    id="featureImageUrl"
+                    v-model="postData.featureImageUrl"
+                    ></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12 sm6 offset-sm3>
+                  <img :src="postData.featureImageUrl">
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-checkbox label="showFeatureImage" v-model="postData.showFeatureImage"></v-checkbox>
+                </v-flex>
+              </v-layout>
             </v-flex>
             <v-flex xs12 sm5 offset-sm1>
               <h2>Post date</h2>
@@ -44,7 +69,7 @@
 
           <v-layout row>
             <v-flex xs12>
-              <v-btn class="error" type="submit">Post</v-btn>
+              <v-btn class="error" type="submit">Update</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -55,9 +80,6 @@
          <quill-editor ref="myTextEditor"
                       v-model="postData.content"
                       :options="editorOption"
-                      @blur="onEditorBlur($event)"
-                      @focus="onEditorFocus($event)"
-                      @ready="onEditorReady($event)"
                       class="post-content">
             <div id="toolbar" slot="toolbar">
             <!-- Add a bold button -->
@@ -93,8 +115,8 @@
               <option value="blue"></option>
               <option value="purple"></option>
             </select>
-
-            <div>
+            <button class="ql-link"></button>
+            <div style="position: reletive">
               <input type="text" v-model="imageUrl">
               <button @click="insertImage()">Insert</button>
             </div>
@@ -142,21 +164,15 @@ export default {
         content: '',
         postDate: '',
         shortname: '',
-        categories: []
+        mainCategory: [],
+        categories: [],
+        featureImageUrl: '',
+        showFeatureImage: false
       },
       orgPostData: {}
     }
   },
   methods: {
-    onEditorBlur (editor) {
-      // console.log('editor blur!', editor)
-    },
-    onEditorFocus (editor) {
-      // console.log('editor focus!', editor)
-    },
-    onEditorReady (editor) {
-      // console.log('editor ready!', editor)
-    },
     insertImage () {
       const currentPosition = this.$refs.myTextEditor.quill.getSelection()
       this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.imageUrl)
@@ -167,6 +183,7 @@ export default {
       const readtime = Math.ceil(wordcount / 200) // in minute, round up the number
       this.postData.wordcount = wordcount
       this.postData.readtime = readtime
+      console.log(this.postData)
       this.$store.dispatch('editPost', {orginal: this.orgPostData, new: this.postData})
     },
     showcontent () {
@@ -209,6 +226,16 @@ export default {
         this.postData.updateAt = postData.updateAt.slice(0)
         this.orgPostData.id = data.docs[0].id
         this.postData.id = data.docs[0].id
+        var categories = []
+        for (const value in this.postData.categories) {
+          categories.push(parseInt(value))
+        }
+        this.postData.categories = categories
+        var mainCategory = ''
+        for (const value in this.postData.mainCategory) {
+          mainCategory = (parseInt(value))
+        }
+        this.postData.mainCategory = mainCategory
         console.log(this.postData)
       })
       .catch((error) => {
@@ -219,8 +246,9 @@ export default {
 </script>
 
 <style scoped>
-  .quill-code {
+  .quill-editor {
     border: none;
-    height: auto;
+    height: 700px;
+    margin-bottom: 50px
   }
 </style>

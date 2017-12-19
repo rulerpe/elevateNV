@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/Home'
 import PostDetail from '@/components/pages/PostDetail'
+import Topic from '@/components/pages/Topic'
 import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
 import UpdateAuthor from '@/components/admin/authors/updateAuthor'
@@ -42,6 +43,12 @@ export default new Router({
       component: PostDetail
     },
     {
+      path: '/topic/:category',
+      name: 'Topic',
+      props: true,
+      component: Topic
+    },
+    {
       path: '/authors',
       name: 'Authors',
       component: Authors
@@ -63,5 +70,8 @@ export default new Router({
       component: FileUpload
     }
   ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   mode: 'history'
 })

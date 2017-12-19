@@ -25,6 +25,9 @@ export default{
       var authors = state.authors
       authors.splice(authors.findIndex(author => author.id === payload.id), 1)
     },
+    loadAuthor (state, payload) {
+      state.authors.push(payload)
+    },
     setUser (state, payload) {
       state.user = payload
     },
@@ -122,6 +125,24 @@ export default{
           })
       }
     },
+    loadAuthor ({commit}, payload) {
+      firebase.firestore().collection('authors').doc(payload).get()
+        .then((doc) => {
+          const obj = doc.data()
+          const author = {
+            id: doc.id,
+            name: obj.name,
+            bio: obj.bio,
+            imageUrl: obj.imageUrl,
+            imageName: obj.imageName,
+            posts: obj.posts
+          }
+          commit('loadAuthor', author)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     updateAuthor ({commit, getters}, payload) {
       commit('setLoading', true)
       const uploadObj = {}
@@ -189,7 +210,11 @@ export default{
       })
     },
     author (state) {
-
+      return (authorId) => {
+        return state.authors.find((author) => {
+          return author.id === authorId
+        })
+      }
     }
 
   }

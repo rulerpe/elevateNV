@@ -6,11 +6,15 @@ import 'vuetify/dist/vuetify.css'
 import VueScrollTo from 'vue-scrollto'
 import * as firebase from 'firebase'
 
+import lodash from 'lodash'
+import VueLodash from 'vue-lodash'
+
 import './assets/css/custom.css'
 import '../node_modules/mdi/css/materialdesignicons.min.css'
 import App from './App'
 import router from './router'
 import { store } from './store'
+import PostTile from './components/pages/homepage/HomePageTile.vue'
 
 Vue.use(Vuetify, { theme: {
   primary: '#e0e0e0',
@@ -22,6 +26,9 @@ Vue.use(Vuetify, { theme: {
   warning: '#FFC107'
 }})
 Vue.use(VueScrollTo)
+Vue.use(VueLodash, lodash)
+
+Vue.component('elevate-post-tile', PostTile)
 
 Vue.config.productionTip = false
 

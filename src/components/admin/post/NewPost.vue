@@ -36,21 +36,30 @@
                 </v-flex>
               </v-layout>
               <v-layout row>
-              <v-flex xs12 sm6 offset-sm3>
-                <v-btn class="error" raised dark @click="onPickFile">Feature image</v-btn>
-                <input 
-                  ref="fileInput" 
-                  type="file" 
-                  style="display: none" 
-                  accept="image/*"
-                  @change="onFilePicked">
-              </v-flex>
-            </v-layout>
-            <v-layout row>
-              <v-flex xs12 sm6 offset-sm3>
-                <img :src="featureImageUrl">
-              </v-flex>
-            </v-layout>
+                <v-flex xs12>
+                  <v-select label="Main Category" :items="allCategories" v-model="mainCategory"></v-select>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-text-field
+                    name="featureImageUrl"
+                    label="Feature Image Url"
+                    id="featureImageUrl"
+                    v-model="featureImageUrl"
+                    ></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12 sm6 offset-sm3>
+                  <img :src="featureImageUrl">
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-checkbox label="showFeatureImage" v-model="showFeatureImage"></v-checkbox>
+                </v-flex>
+              </v-layout>
             </v-flex>
             <v-flex xs12 sm5 offset-sm1>
               <h2>Post date</h2>
@@ -63,6 +72,7 @@
               <v-btn class="error" type="submit">Post</v-btn>
             </v-flex>
           </v-layout>
+          <button @click="showcontent">show</button>
         </form>
       </v-flex>
     </v-layout>
@@ -106,14 +116,13 @@
               <option value="blue"></option>
               <option value="purple"></option>
             </select>
-
-            <div>
+            <button class="ql-link"></button>
+            <div style="position: reletive">
               <input type="text" v-model="contentImage">
               <button @click="insertImage()">Insert</button>
             </div>
           </div>
         </quill-editor>
-        <button @click="showcontent">show</button>
       </v-flex>
     </v-layout>
   </v-container>
@@ -144,9 +153,10 @@ export default {
       subtitle: '',
       author: '',
       postDate: null,
+      mainCategory: [],
       categories: [],
       featureImageUrl: '',
-      image: null
+      showFeatureImage: false
     }
   },
   methods: {
@@ -164,10 +174,12 @@ export default {
         author: this.author,
         postDate: this.postDate,
         content: this.content,
+        mainCategory: this.mainCategory,
         categories: this.categories,
         wordcount: wordcount,
         readtime: readtime,
-        image: this.image
+        featureImageUrl: this.featureImageUrl,
+        showFeatureImage: this.showFeatureImage
       }
       this.$store.dispatch('newPost', postData)
     },
@@ -221,8 +233,9 @@ export default {
 </script>
 
 <style scoped>
-  .quill-code {
+  .quill-editor {
     border: none;
-    height: auto;
+    height: 700px;
+    margin-bottom: 50px
   }
 </style>

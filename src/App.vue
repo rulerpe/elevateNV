@@ -91,14 +91,14 @@
       return {
         sideNav: false,
         menuItems: [
-            { icon: 'supervisor_account', title: 'Home', link: '/' },
-            { icon: 'room', title: 'Patient', link: '/Patient' },
-            { icon: 'person', title: 'DISCOVER', link: '/DISCOVER' },
-            { icon: 'supervisor_account', title: 'COOKING', link: '/COOKING' },
-            { icon: 'room', title: 'MEDICINE', link: '/MEDICINE' },
-            { icon: 'room', title: 'TRENDS', link: '/TRENDS' },
-            { icon: 'room', title: 'News', link: '/News' },
-            { icon: 'room', title: 'Review', link: '/Review' }
+            { title: 'Home', link: '/' },
+            { title: 'Patient', link: '/topic/patient' },
+            { title: 'DISCOVER', link: '/topic/discover' },
+            { title: 'COOKING', link: '/topic/cooking' },
+            { title: 'MEDICINE', link: '/topic/medicine' },
+            { title: 'TRENDS', link: '/topic/trends' },
+            { title: 'News', link: '/topic/news' },
+            { title: 'Review', link: '/topic/review' }
         ],
         mainNavFixed: false,
         mobileNavFixed: false,
