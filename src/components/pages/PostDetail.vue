@@ -4,17 +4,32 @@
       <v-flex hidden-xs-only sm1 style="position:relative"> 
         <div  
           :class="reachBottomSocial">
-          <div>
-            <v-icon>mdi-twitter</v-icon>
-          </div>
-          <div class="mt-3 mb-3">
-            <v-icon>mdi-facebook</v-icon>
-          </div>
-          <div>
-            <v-icon>mdi-bookmark</v-icon>
-          </div>
+          <social-sharing :url="currentUrl"
+                      :title="postData.title"
+                      :description="postData.subtitle"
+                      quote="Vue is a progressive framework for building user interfaces."
+                      hashtags="marijuana,cannabis,weed"
+                      twitter-user="rulerpe"
+                      inline-template>
+            <div>
+              <div style="cursor: pointer">
+                <network network="facebook">
+                  <v-icon>mdi-facebook</v-icon>
+                </network>
+              </div>
+              <div class="mt-3 mb-3" style="cursor: pointer">
+                <network network="twitter">
+                  <v-icon>mdi-twitter</v-icon>
+                </network>
+              </div>
+              <div style="cursor: pointer">
+                <network network="googleplus">
+                  <v-icon>mdi-google-plus</v-icon>
+                </network>
+              </div>
+            </div>
+          </social-sharing>
         </div>
-        
       </v-flex>
       <v-flex xs12 sm10>
         <v-container>
@@ -48,7 +63,11 @@
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
-              <v-chip label v-for="(category, key) in postData.categories" :key="category.value">{{allCategories[key].text}}</v-chip>
+              <v-chip v-for="(category, key) in postData.categories" :key="category.value" label >
+                <a style="cursor: pointer;text-decoration: none" :href="'/topic/'+allCategories[key].text" >
+                  {{allCategories[key].text}}
+                </a>
+              </v-chip>
             </v-flex>
           </v-layout>
         </v-container>
@@ -167,7 +186,8 @@ export default {
         author: {},
         content: '',
         postDate: ''
-      }
+      },
+      currentUrl: ''
     }
   },
   computed: {
@@ -205,10 +225,19 @@ export default {
     scrollTop () {
       var domRect = document.getElementById('content').getBoundingClientRect()
       console.log(domRect)
+    },
+    createBookmark () {
+      console.log('test')
+        if (window.external) {
+          window.external.AddFavorite(window.location.href,'test')
+        } else { 
+          alert("Sorry! Your browser doesn't support this function.");
+        }
     }
   },
   mounted () {
     this.$store.dispatch('loadCategories')
+    this.currentUrl = window.location.href
     firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
       .then((data) => {
         this.postData = data.docs[0].data()

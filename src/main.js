@@ -9,6 +9,8 @@ import * as firebase from 'firebase'
 import lodash from 'lodash'
 import VueLodash from 'vue-lodash'
 
+import SocialSharing from 'vue-social-sharing'
+
 import './assets/css/custom.css'
 import '../node_modules/mdi/css/materialdesignicons.min.css'
 import App from './App'
@@ -27,6 +29,7 @@ Vue.use(Vuetify, { theme: {
 }})
 Vue.use(VueScrollTo)
 Vue.use(VueLodash, lodash)
+Vue.use(SocialSharing)
 
 Vue.component('elevate-post-tile', PostTile)
 
