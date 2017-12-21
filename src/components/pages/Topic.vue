@@ -20,7 +20,7 @@ export default {
   props: ['category'],
   computed: {
     topicTitle () {
-      return this._.capitalize(this.category)
+      return this._.capitalize(this.category.replace(/-/g, ' '))
     },
     trendPosts () {
       return this.$store.getters.posts

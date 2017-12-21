@@ -63,10 +63,8 @@
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
-              <v-chip v-for="(category, key) in postData.categories" :key="category.value" label >
-                <a style="cursor: pointer;text-decoration: none" :href="'/topic/'+allCategories[key].text" >
-                  {{allCategories[key].text}}
-                </a>
+              <v-chip class="custom-a" v-for="(category, key) in postData.categories" :key="category.value" label >
+                <router-link :to="{name: 'Topic', params: {category:allCategories[key].link}}">{{allCategories[key].text}}</router-link>
               </v-chip>
             </v-flex>
           </v-layout>
@@ -225,14 +223,6 @@ export default {
     scrollTop () {
       var domRect = document.getElementById('content').getBoundingClientRect()
       console.log(domRect)
-    },
-    createBookmark () {
-      console.log('test')
-        if (window.external) {
-          window.external.AddFavorite(window.location.href,'test')
-        } else { 
-          alert("Sorry! Your browser doesn't support this function.");
-        }
     }
   },
   mounted () {

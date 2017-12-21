@@ -46,9 +46,7 @@ export default {
       return moment(this.post.postDate).format('MMM DD')
     },
     author () {
-      if (this.post !== undefined) {
-        return this.$store.getters.author(this.post.author)
-      }
+      return this.$store.getters.author(this.post.author)
     }
   },
   methods: {

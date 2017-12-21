@@ -112,8 +112,9 @@ export default{
     loadTopicPosts ({commit}, payload) {
       commit('clearPosts')
       commit('setLoading', true)
+      const category = payload.replace(/-/g, ' ')
       firebase.firestore().collection('categories')
-        .where('label', '==', payload)
+        .where('label', '==', category)
         .get()
         .then((snapshot) => {
           const topic = snapshot.docs[0].data().value
@@ -238,7 +239,8 @@ export default{
               let obj = doc.data()
               categories.push({
                 text: obj.label,
-                value: obj.value
+                value: obj.value,
+                link: obj.label.replace(/\s+/g, '-')
               })
             })
             commit('setLoadedCategories', categories)
@@ -247,6 +249,9 @@ export default{
             console.log(error)
           })
       }
+    },
+    clearPosts ({commit}) {
+      commit('clearPosts')
     }
   },
   getters: {

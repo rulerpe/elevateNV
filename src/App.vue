@@ -52,7 +52,7 @@
           <v-container style=" padding-bottom:0;padding-top:0" id="mainNav">
             <v-layout row class="custom-layout" justify-space-between>
               <v-flex xs2 class="text-xs-center" v-for="item in menuItems" :key="item.title">
-              <v-btn block flat :to="item.link" large style="margin:0; font-weight:400">
+              <v-btn active-class="" block flat :to="{name: item.page, params: {category:item.link}}" large style="margin:0; font-weight:400">
                 {{ item.title }}
               </v-btn>
             </v-flex>
@@ -91,14 +91,14 @@
       return {
         sideNav: false,
         menuItems: [
-            { title: 'Home', link: '/' },
-            { title: 'Patient', link: '/topic/patient' },
-            { title: 'DISCOVER', link: '/topic/discover' },
-            { title: 'COOKING', link: '/topic/cooking' },
-            { title: 'MEDICINE', link: '/topic/medicine' },
-            { title: 'TRENDS', link: '/topic/trends' },
-            { title: 'News', link: '/topic/news' },
-            { title: 'Review', link: '/topic/review' }
+            { title: 'Home', link: '', page: 'Home' },
+            { title: 'Patient', link: 'patient-profiles', page: 'Topic' },
+            { title: 'DISCOVER', link: 'discover', page: 'Topic' },
+            { title: 'COOKING', link: 'cooking-with-cannabis', page: 'Topic' },
+            { title: 'MEDICINE', link: 'medicine', page: 'Topic' },
+            { title: 'TRENDS', link: 'trends', page: 'Topic' },
+            { title: 'News', link: 'in-the-news', page: 'Topic' },
+            { title: 'Reviews', link: 'reviews', page: 'Topic' }
         ],
         mainNavFixed: false,
         mobileNavFixed: false,
