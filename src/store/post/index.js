@@ -143,6 +143,28 @@ export default{
           commit('setLoading', false)
         })
     },
+    addPost ({commit}, payload) {
+      commit('addPost', payload)
+    },
+    getRecommendPost ({commit}, payload) {
+      console.log(payload)
+      firebase.firestore().collection('posts')
+        .where('categories.' + payload.category, '>', 0)
+        .orderBy('categories.' + payload.category)
+        .limit(4)
+        .get()
+        .then((snapshot) => {
+          let posts = []
+          snapshot.forEach((doc) => {
+            let obj = doc.data()
+            posts.push({
+              ...obj,
+              id: doc.id
+            })
+          })
+          commit('addPost', posts)
+        })
+    },
     editPost ({commit}, payload) {
       payload.new.updateAt.push(new Date())
       console.log(payload)

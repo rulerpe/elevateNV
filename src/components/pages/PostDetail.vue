@@ -1,12 +1,12 @@
 <template>
-  <v-container class="pa-0 custom-layout">
+  <v-container class="pa-0 custom-layout" v-if = "post">
     <v-layout row class="mt-4" id="content">
       <v-flex hidden-xs-only sm1 style="position:relative"> 
         <div  
           :class="reachBottomSocial">
           <social-sharing :url="currentUrl"
-                      :title="postData.title"
-                      :description="postData.subtitle"
+                      :title="post.title"
+                      :description="post.subtitle"
                       quote="Vue is a progressive framework for building user interfaces."
                       hashtags="marijuana,cannabis,weed"
                       twitter-user="rulerpe"
@@ -36,34 +36,34 @@
           <v-layout row>
             <v-flex xs12 style="display: flex;">
               <v-avatar size="60px" slot="activator">
-                <img :src="postData.author.imageUrl" alt="">
+                <img :src="post.author.imageUrl" alt="">
               </v-avatar>
               <v-content style="margin-left:10px">
-                <div class="subheading">{{postData.author.name}}</div>
-                <div class="body-1">{{postData.postDate}} . {{postData.readtime}} min read</div>
+                <div class="subheading">{{post.author.name}}</div>
+                <div class="body-1">{{post.postDate}} . {{post.readtime}} min read</div>
               </v-content>
             </v-flex>
           </v-layout>
-          <v-layout row class="pt-2 pb-2 post-content" v-if="postData.showFeatureImage">
+          <v-layout row class="pt-2 pb-2 post-content" v-if="post.showFeatureImage">
             <v-flex xs12>
-              <img :src="postData.featureImageUrl" :alt="postData.shortname">
+              <img :src="post.featureImageUrl" :alt="post.shortname">
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
-            <h3 class="display-2 hidden-xs-only" style="font-weight:500">{{postData.title}}</h3>
-            <h3 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{postData.title}}</h3>
+            <h3 class="display-2 hidden-xs-only" style="font-weight:500">{{post.title}}</h3>
+            <h3 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{post.title}}</h3>
           </v-layout>
           <v-layout row class=" pb-2">
-            <h6 class="headline grey--text lighten-1 hidden-xs-only">{{postData.subtitle}}</h6>
-            <h6 class="subheading grey--text lighten-1 hidden-sm-and-up">{{postData.subtitle}}</h6>
+            <h6 class="headline grey--text lighten-1 hidden-xs-only">{{post.subtitle}}</h6>
+            <h6 class="subheading grey--text lighten-1 hidden-sm-and-up">{{post.subtitle}}</h6>
           </v-layout>
           <v-layout>
-            <v-flex xs12 v-html="postData.content" class="post-content">
+            <v-flex xs12 v-html="post.content" class="post-content">
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
-              <v-chip class="custom-a" v-for="(category, key) in postData.categories" :key="category.value" label >
+              <v-chip v-if="showCategories(allCategories[key].value)" class="custom-a" v-for="(category, key) in post.categories" :key="category.value" label >
                 <router-link :to="{name: 'Topic', params: {category:allCategories[key].link}}">{{allCategories[key].text}}</router-link>
               </v-chip>
             </v-flex>
@@ -97,72 +97,7 @@
       <v-flex xs12>
         <v-container fluid grid-list-md>
             <v-layout row wrap>
-              <v-flex xs12 sm4>
-                <v-card>
-                  <v-card-media src="https://elevatenv.com/wp-content/uploads/2017/11/santa-letter-780x641.jpg" height="100px">
-                  </v-card-media>
-                  <v-card-title class="pb-0 customCardTitle">
-                    <div>
-                      <h4 class="custom-headline headline mb-0">Making your list and checking</h4>
-                    </div>
-                  </v-card-title>
-                    <v-list two-line>
-                        <v-list-tile avatar>
-                          <v-list-tile-avatar>
-                            <img src="https://elevatenv.com/wp-content/uploads/2015/04/Elevate-May-Issue_Page_04_Image_0001-150x150.jpg">
-                          </v-list-tile-avatar>
-                          <v-list-tile-content>
-                            <v-list-tile-title>Beth Schwartz</v-list-tile-title>
-                            <v-list-tile-sub-title>With an open mind</v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                    </v-list>
-                </v-card>
-              </v-flex>
-              <v-flex xs12 sm4>
-                <v-card>
-                  <v-card-media src="https://elevatenv.com/wp-content/uploads/2017/11/Franklin.jpg" height="100px">
-                  </v-card-media>
-                  <v-card-title class="pb-0 customCardTitle">
-                    <div>
-                      <h4 class="custom-headline headline mb-0">A dog’s tale</h4>
-                    </div>
-                  </v-card-title>
-                  <v-list two-line>
-                    <v-list-tile avatar>
-                      <v-list-tile-avatar>
-                        <img src="https://elevatenv.com/wp-content/uploads/2015/04/Elevate-May-Issue_Page_04_Image_0001-150x150.jpg">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Beth Schwartz</v-list-tile-title>
-                        <v-list-tile-sub-title>With an open mind</v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-                </v-card>
-              </v-flex>
-              <v-flex xs12 sm4>
-                <v-card>
-                  <v-card-media src="https://elevatenv.com/wp-content/uploads/2017/11/trim-1-1140x641.jpg" height="100px">
-                  </v-card-media>
-                  <v-card-title class="pb-0 customCardTitle">
-                    <div>
-                      <h4 class="custom-headline headline mb-0">Trimming services: save money and time</h4>
-                    </div>
-                  </v-card-title>
-                  <v-list two-line>
-                    <v-list-tile avatar>
-                      <v-list-tile-avatar>
-                        <img src="https://elevatenv.com/wp-content/uploads/2015/04/Elevate-May-Issue_Page_04_Image_0001-150x150.jpg">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Beth Schwartz</v-list-tile-title>
-                        <v-list-tile-sub-title>With an open mind</v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-                </v-card>
-              </v-flex>
+              <elevate-post-tile v-for="post in recommendedList" :key="post.id" :post="post" size="4" imageHeight="100" height="270"></elevate-post-tile>
             </v-layout>
         </v-container>
       </v-flex>
@@ -217,30 +152,52 @@ export default {
     },
     allCategories () {
       return this.$store.getters.categories
+    },
+    recommendedList () {
+      return this.$store.getters.posts.filter((post) => {
+        console.log(post.mainCategory)
+        const find = post.categories[Object.keys(this.post.mainCategory)[0]]
+        return find && post.shortname !== this.shortname
+      })
+    },
+    post () {
+      var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
+      if (hasPost && typeof hasPost.author === 'string') {
+        hasPost.author = this.$store.getters.author(hasPost.author)
+        return hasPost
+      } else {
+        return hasPost
+      }
     }
   },
   methods: {
     scrollTop () {
       var domRect = document.getElementById('content').getBoundingClientRect()
       console.log(domRect)
-    }
+    },
+    showCategories (categories) {
+      return categories && categories !== '0' && categories !== '1'
+    },
   },
   mounted () {
     this.$store.dispatch('loadCategories')
     this.currentUrl = window.location.href
-    firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
-      .then((data) => {
-        this.postData = data.docs[0].data()
-        console.log(this.postData)
-        return firebase.firestore().collection('authors').doc(this.postData.author).get()
-      })
-      .then((data) => {
-        this.postData.author = data.data()
-        console.log(this.postData)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    let hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
+    if (!hasPost) {
+      firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
+        .then((data) => {
+          hasPost = data.docs[0].data()
+          return firebase.firestore().collection('authors').doc(hasPost.author).get()
+        })
+        .then((data) => {
+          hasPost.author = data.data()
+          this.$store.dispatch('addPost', hasPost)
+          this.$store.dispatch('getRecommendPost', {shortname:this.shortname, category: Object.keys(hasPost.mainCategory)[0]})
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 }
 </script>

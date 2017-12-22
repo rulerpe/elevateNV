@@ -21,7 +21,9 @@
     <div style="margin-top:40px">
       <v-layout row>
         <v-flex xs12 sm6 text-xs-left>
-          <h1 class="display-1 mt-2 mb-2">Trends</h1>
+          <h1 class="display-1 custom-a mt-2 mb-2">
+            <router-link :to="{name: 'Topic', params: {category:'trends'}}">Trends</router-link>
+            </h1>
         </v-flex>
         <v-flex hidden-xs-only sm6 text-sm-right>
           <h4 class="subheading custom-a mt-4 mr-4">
