@@ -143,6 +143,28 @@ export default{
           commit('setLoading', false)
         })
     },
+    searchPost ({commit}, payload) {
+      commit('setLoading', true)
+      firebase.firestore().collection('posts')
+        .where('shortname', '>=', payload)
+        .get()
+        .then((snapshot) => {
+          const posts = []
+          snapshot.forEach((doc) => {
+            var obj = doc.data()
+            posts.push({
+              ...obj,
+              id: doc.id
+            })
+          })
+          commit('setLoadedPosts', posts)
+          commit('setLoading', false)
+        })
+        .catch((error) => {
+          commit('setLoading', false)
+          console.log(error)
+        })
+    },
     addPost ({commit}, payload) {
       commit('addPost', payload)
     },

@@ -177,7 +177,7 @@ export default {
     },
     showCategories (categories) {
       return categories && categories !== '0' && categories !== '1'
-    },
+    }
   },
   mounted () {
     this.$store.dispatch('loadCategories')
@@ -192,7 +192,7 @@ export default {
         .then((data) => {
           hasPost.author = data.data()
           this.$store.dispatch('addPost', hasPost)
-          this.$store.dispatch('getRecommendPost', {shortname:this.shortname, category: Object.keys(hasPost.mainCategory)[0]})
+          this.$store.dispatch('getRecommendPost', {shortname: this.shortname, category: Object.keys(hasPost.mainCategory)[0]})
         })
         .catch((error) => {
           console.log(error)

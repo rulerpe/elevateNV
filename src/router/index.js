@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/pages/Home'
 import PostDetail from '@/components/pages/PostDetail'
 import Topic from '@/components/pages/Topic'
+import Search from '@/components/pages/Search'
+import DispensaryFinder from '@/components/pages/DispensaryFinder'
 import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
 import UpdateAuthor from '@/components/admin/authors/updateAuthor'
@@ -47,6 +49,17 @@ export default new Router({
       name: 'Topic',
       props: true,
       component: Topic
+    },
+    {
+      path: '/dispensary-finder',
+      name: 'DispensaryFinder',
+      component: DispensaryFinder
+    },
+    {
+      path: '/search/:keyword',
+      name: 'Search',
+      props: true,
+      component: Search
     },
     {
       path: '/authors',

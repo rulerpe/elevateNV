@@ -14,7 +14,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <div :style="{height: navHeight}">
+    <div :style="navStyle">
       <div class="primary accent--text elevation-2 mainNav" :class="{ mainNavFixed: mainNavFixed ,mobileNavFixed:mobileNavFixed}" :style="{height: navHeight}">
         <v-layout row class="custom-layout">
           <v-flex xs4 sm4 class="pa-1">
@@ -38,13 +38,20 @@
           </v-flex>
           <v-flex xs4 sm4 class="pa-1">
             <div align="right" >
+              <v-text-field
+                v-model="searchKeyword"
+                style="width: 120px; position:absolute;" 
+                class="pt-0"
+                v-if="showSearch"
+                @keyup.enter="search"
+              ></v-text-field>
+              <v-icon v-on:click="showSearch = !showSearch" class="mr-1" style="cursor: pointer; z-index:9">mdi-magnify</v-icon>
+              <v-icon class="mr-1">mdi-instagram</v-icon>
+              <v-icon class="mr-1">mdi-twitter</v-icon>
+              <v-icon class="mr-1">mdi-facebook</v-icon>
               <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400">
                 Blog
               </v-btn>
-              <v-icon class="ml-1">mdi-instagram</v-icon>
-              <v-icon class="ml-1">mdi-twitter</v-icon>
-              <v-icon class="ml-1">mdi-facebook</v-icon>
-              <v-icon class="ml-1">mdi-magnify</v-icon>
             </div>
           </v-flex>
         </v-layout>
@@ -104,7 +111,13 @@
         mobileNavFixed: false,
         logoSize: '250px',
         navHeight: '117px',
-        scroPosition: window.innerHeight + 1
+        scroPosition: window.innerHeight + 1,
+        showSearch: false,
+        searchKeyword: '',
+        navStyle: {
+          height: this.navHeight,
+          zIndex: 500
+        }
       }
     },
     methods: {
@@ -124,6 +137,12 @@
           this.logoSize = '250px'
           this.navHeight = '117px'
         }
+      },
+      search () {
+        console.log(this.searchKeyword)
+        this.$router.push({name: 'Search', params: { keyword: this.searchKeyword }})
+        this.searchKeyword = ''
+        this.showSearch = false
       }
     },
     mounted  () {
