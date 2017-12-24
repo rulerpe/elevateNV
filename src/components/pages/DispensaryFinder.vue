@@ -1,7 +1,7 @@
 <template>
   <v-container style="width: 100%; max-width: none;" class="pa-0 ma-0">
     <v-layout row>
-      <v-flex hidden-xs-only sm2>
+      <v-flex v-show="listView" xs12 sm2 :style="listStyle">
         <v-list two-line>
           <template v-for="(dispensary, index) in dispensaries">
             <v-list-tile avatar v-bind:key="dispensary.name" :class="getBackground(index)" @click="findOnMap(dispensary)">
@@ -16,10 +16,24 @@
           </template>
         </v-list>
       </v-flex>
-      <v-flex xs12 sm10>
+      <v-flex v-show="mapView" xs12 sm10>
         <div id="mapid" :style="mapStyle"></div>
       </v-flex>
     </v-layout>
+    <div v-if="mobile" :style="listToggleStyle">
+      <v-layout row>
+        <v-flex xs6 class="pa-2">
+          <v-btn @click="listToggle('list')" block style="color: black" large color="primary">
+            <v-icon class="mr-1">mdi-format-list-bulleted</v-icon>List View
+          </v-btn>
+        </v-flex>
+        <v-flex xs6 class="pa-2">
+          <v-btn @click="listToggle('map')" block style="color: black" large color="primary">
+            <v-icon class="mr-1">mdi-map</v-icon>Map View
+          </v-btn>
+        </v-flex>
+      </v-layout>
+    </div>
   </v-container>
 </template>
 
@@ -30,8 +44,19 @@ export default {
   data () {
     return {
       mapStyle: {
-        height: document.documentElement.clientHeight - 117 - 36 + 'px'
+        height: document.documentElement.clientHeight - 117 -36 + 'px',
+        'z-index': 0
       },
+      listStyle: {
+        'margin-top': '0'
+      },
+      listToggleStyle: {
+        position: 'absolute',
+        bottom: '0px',
+        width: document.documentElement.clientWidth + 'px'
+      },
+      mapView: true,
+      listView: true,
       myMap: {},
       popup: {}
     }
@@ -41,14 +66,30 @@ export default {
       return {'dispensaryListBackground': index % 2}
     },
     findOnMap (dispensary) {
-      var geo = dispensary.geo.split(',')
-      this.popup[dispensary.id]
-        .setLatLng([geo[0], geo[1]])
-        .openOn(this.myMap)
-      this.myMap.setView([geo[0], geo[1]], 11);
+      if (this.mobile){
+        this.$router.push(dispensary.detailUrl)
+      } else {
+        var geo = dispensary.geo.split(',')
+        this.popup[dispensary.id]
+          .setLatLng([geo[0], geo[1]])
+          .openOn(this.myMap)
+        this.myMap.setView([geo[0], geo[1]], 11)
+      }
+    },
+    listToggle (view) {
+      if (view === 'map'){
+        this.mapView = true
+        this.listView = false
+      } else {
+        this.mapView = false
+        this.listView = true
+      }
     }
   },
   computed: {
+    mobile () {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    },
     dispensaries () {
       var dispensariesList = this.$store.getters.dispensaries
       var MarkerIcon = Leaflet.Icon.extend({
@@ -59,7 +100,6 @@ export default {
         }
       })
       dispensariesList.forEach(function (dispensary) {
-        console.log(MarkerIcon)
         var geo = dispensary.geo.split(',')
         this.popup[dispensary.id] = Leaflet.popup({closeButton: false})
           .setContent(`<a style="text-decoration: none" href="${dispensary.website}">
@@ -77,7 +117,6 @@ export default {
             </div>
           </div>
         </a>`)
-        console.log(geo)
         var theicon = new MarkerIcon({iconUrl: require('../../assets/marker.svg')})
         Leaflet.marker([geo[0], geo[1]], {icon: theicon}).addTo(this.myMap).bindPopup(this.popup[dispensary.id])
       }, this)
@@ -86,13 +125,27 @@ export default {
   },
   mounted () {
     this.$store.dispatch('loadDispensaries')
-    this.myMap = Leaflet.map('mapid').setView([36.153198, -115.174281], 11)
-    Leaflet.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    let mapSetting = {
+      center: [36.153198, -115.174281],
+      zoom: 11
+    }
+    let titleLayerSetting = {
+      attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a>,© <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox.streets',
       accessToken: 'pk.eyJ1IjoiZWxldmF0ZW52IiwiYSI6ImNqYml6dnNnYjBhbHcyd2p2eXFvb2p1M2wifQ.50iom2BApYbuptk_SuiaEg'
-    }).addTo(this.myMap)
+    }
+    console.log(navigator.userAgent)
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      mapSetting.zoomControl = false
+      this.mapStyle.height = document.documentElement.clientHeight + 'px'
+      this.listStyle['margin-top'] = '44px',
+      this.listStyle.height = document.documentElement.clientHeight - 44 + 'px'
+      this.listStyle.overflow = 'heidden'
+      this.listView = false
+    }
+    this.myMap = Leaflet.map('mapid',mapSetting)
+    Leaflet.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', titleLayerSetting).addTo(this.myMap)
   }
 }
 </script>

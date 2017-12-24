@@ -1,15 +1,15 @@
 <template>
   <v-app light>
-    <v-navigation-drawer fixed app temporary v-model="sideNav">
+    <v-navigation-drawer fixed app temporary v-model="sideNav" style="z-index: 900">
       <v-list>
-        <v-list-tile>
+        <v-list-tile href="/dispensary-finder">
           <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
           <v-list-tile-content  class="accent--text">Digital Issues</v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.link">
+        <v-list-tile v-for="item in menuItems" :key="item.title" :to="{name: item.page, params: {category:item.link}}">
           <v-list-tile-content  class="accent--text">{{ item.title }}</v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -22,7 +22,7 @@
               @click.stop="sideNav = !sideNav"
               class="hidden-sm-and-up drawBtn">menu</v-icon>
               <div align="left" class="hidden-xs-only" >
-                <v-btn color="primary" light style="margin:0; font-weight:400" :to="{name: 'DispensaryFinder'}">
+                <v-btn color="primary" light style="margin:0; font-weight:400" href="/dispensary-finder">
                   Dispensary Finder
                 </v-btn>
                 <v-btn color="primary" light style="margin:0; font-weight:400">
@@ -71,7 +71,7 @@
     <v-content>
         <router-view :scrollPosition="scroPosition"></router-view>
     </v-content>
-    <v-footer app class="primary accent--text elevation-10" >
+    <v-footer app class="primary accent--text elevation-10 hidden-xs-only">
       <v-container class="footerNav">
             <v-layout row class="custom-layout">
               <v-flex xs2 sm1 class="text-xs-center">
