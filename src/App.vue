@@ -22,7 +22,7 @@
               @click.stop="sideNav = !sideNav"
               class="hidden-sm-and-up drawBtn">menu</v-icon>
               <div align="left" class="hidden-xs-only" >
-                <v-btn color="primary" light style="margin:0; font-weight:400">
+                <v-btn color="primary" light style="margin:0; font-weight:400" :to="{name: 'DispensaryFinder'}">
                   Dispensary Finder
                 </v-btn>
                 <v-btn color="primary" light style="margin:0; font-weight:400">

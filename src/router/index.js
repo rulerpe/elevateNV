@@ -4,7 +4,12 @@ import Home from '@/components/pages/Home'
 import PostDetail from '@/components/pages/PostDetail'
 import Topic from '@/components/pages/Topic'
 import Search from '@/components/pages/Search'
+
 import DispensaryFinder from '@/components/pages/DispensaryFinder'
+import NewDispensary from '@/components/admin/dispensary/NewDispensary'
+import Dispensaries from '@/components/admin/dispensary/Dispensaries'
+import UpdateDispensary from '@/components/admin/dispensary/UpdateDispensary'
+
 import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
 import UpdateAuthor from '@/components/admin/authors/updateAuthor'
@@ -54,6 +59,22 @@ export default new Router({
       path: '/dispensary-finder',
       name: 'DispensaryFinder',
       component: DispensaryFinder
+    },
+    {
+      path: '/admin/dispensaries',
+      name: 'Dispensaries',
+      component: Dispensaries
+    },
+    {
+      path: '/admin/newdispensary',
+      name: 'NewDispensary',
+      component: NewDispensary
+    },
+    {
+      path: '/admin/updatedispensary/:id',
+      name: 'UpdateDispensary',
+      props: true,
+      component: UpdateDispensary
     },
     {
       path: '/search/:keyword',
