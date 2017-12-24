@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted () {
-    if (this.post !== undefined && this.$store.getters.author(this.post.author) === undefined) {
+    if (this.post !== undefined && typeof this.post.author === 'string' && this.$store.getters.author(this.post.author) === undefined) {
       this.$store.dispatch('loadAuthor', this.post.author)
     }
   }
