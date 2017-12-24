@@ -49,9 +49,16 @@
               <v-icon class="mr-1">mdi-instagram</v-icon>
               <v-icon class="mr-1">mdi-twitter</v-icon>
               <v-icon class="mr-1">mdi-facebook</v-icon>
-              <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400">
-                Blog
-              </v-btn>
+              <v-menu transition="fade-transition">
+                <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400" slot="activator">
+                  Blog
+                </v-btn>
+                <v-list>
+                  <v-list-tile v-for="blog in blogList" :key="blog.link" :to="{name: blog.page, params: {category: blog.link,shortname: blog.link}}">
+                    <v-list-tile-title v-text="blog.title"></v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
             </div>
           </v-flex>
         </v-layout>
@@ -68,7 +75,7 @@
         </v-layout>
       </div>
     </div>
-    <v-content>
+    <v-content :style="contentStyle">
         <router-view :scrollPosition="scroPosition"></router-view>
     </v-content>
     <v-footer app class="primary accent--text elevation-10 hidden-xs-only">
@@ -107,6 +114,10 @@
             { title: 'News', link: 'in-the-news', page: 'Topic' },
             { title: 'Reviews', link: 'reviews', page: 'Topic' }
         ],
+        blogList: [
+            { title: 'Blackabis', link: 'blackabis', page: 'PostDetail' },
+            { title: 'The Grow', link: 'the-grow', page: 'Topic' }
+        ],
         mainNavFixed: false,
         mobileNavFixed: false,
         logoSize: '250px',
@@ -120,6 +131,22 @@
         }
       }
     },
+    computed: {
+      isMobile () {
+        return this.$store.getters.mobile
+      },
+      contentStyle () {
+        if (this.isMobile) {
+          return {
+            'margin-top': '44px'
+          }
+        } else {
+          return {
+            'margin-top': 0
+          }
+        }
+      }
+    },
     methods: {
       handleScroll (event) {
         if (document.getElementById('content')) {
@@ -129,7 +156,7 @@
       },
       handleResize (event) {
         console.log(window.outerWidth)
-        if (window.outerWidth < 1000) {
+        if (this.$store.getters.mobile) {
           this.logoSize = '100px'
           this.navHeight = '44px'
           this.mobileNavFixed = true
@@ -146,6 +173,7 @@
       }
     },
     mounted  () {
+      this.$store.dispatch('setMobile')
       window.addEventListener('scroll', this.handleScroll)
       window.addEventListener('resize', this.handleResize)
       this.handleResize()

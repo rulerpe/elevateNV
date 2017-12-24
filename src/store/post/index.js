@@ -276,7 +276,7 @@ export default{
     },
     loadCategories ({commit, getters}) {
       if (getters.categories.length <= 0) {
-        firebase.firestore().collection('categories').orderBy('label').get()
+        firebase.firestore().collection('categories').orderBy('value').get()
           .then((snapshot) => {
             var categories = []
             snapshot.forEach((doc) => {

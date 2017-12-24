@@ -209,7 +209,7 @@ export default{
       return state.dispensaries.sort((dispensaryA, dispensaryB) => {
         return dispensaryA.name < dispensaryB.name
       })
-    },
+    }
     // author (state) {
     //   return (authorId) => {
     //     return state.authors.find((author) => {

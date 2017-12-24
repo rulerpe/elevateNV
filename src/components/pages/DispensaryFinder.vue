@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       mapStyle: {
-        height: document.documentElement.clientHeight - 117 -36 + 'px',
+        height: document.documentElement.clientHeight - 117 - 36 + 'px',
         'z-index': 0
       },
       listStyle: {
@@ -66,7 +66,7 @@ export default {
       return {'dispensaryListBackground': index % 2}
     },
     findOnMap (dispensary) {
-      if (this.mobile){
+      if (this.mobile) {
         this.$router.push(dispensary.detailUrl)
       } else {
         var geo = dispensary.geo.split(',')
@@ -77,7 +77,7 @@ export default {
       }
     },
     listToggle (view) {
-      if (view === 'map'){
+      if (view === 'map') {
         this.mapView = true
         this.listView = false
       } else {
@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     mobile () {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      return this.$store.getters.mobile
     },
     dispensaries () {
       var dispensariesList = this.$store.getters.dispensaries
@@ -138,13 +138,12 @@ export default {
     console.log(navigator.userAgent)
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       mapSetting.zoomControl = false
-      this.mapStyle.height = document.documentElement.clientHeight + 'px'
-      this.listStyle['margin-top'] = '44px',
+      this.mapStyle.height = document.documentElement.clientHeight - 44 + 'px'
       this.listStyle.height = document.documentElement.clientHeight - 44 + 'px'
       this.listStyle.overflow = 'heidden'
       this.listView = false
     }
-    this.myMap = Leaflet.map('mapid',mapSetting)
+    this.myMap = Leaflet.map('mapid', mapSetting)
     Leaflet.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', titleLayerSetting).addTo(this.myMap)
   }
 }

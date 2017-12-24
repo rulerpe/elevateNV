@@ -63,8 +63,8 @@
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
-              <v-chip v-if="showCategories(allCategories[key].value)" class="custom-a" v-for="(category, key) in post.categories" :key="category.value" label >
-                <router-link :to="{name: 'Topic', params: {category:allCategories[key].link}}">{{allCategories[key].text}}</router-link>
+              <v-chip v-show="showCategories(key)" class="custom-a" v-for="(category, key) in post.categories" :key="category.value" label >
+                <router-link :to="{name: 'Topic', params: {category:getCategory(key).link}}">{{getCategory(key).text}}</router-link>
               </v-chip>
             </v-flex>
           </v-layout>
@@ -175,8 +175,15 @@ export default {
       var domRect = document.getElementById('content').getBoundingClientRect()
       console.log(domRect)
     },
-    showCategories (categories) {
-      return categories && categories !== '0' && categories !== '1'
+    showCategories (categoryIndex) {
+      return categoryIndex !== '0' && categoryIndex.value !== '1'
+    },
+    getCategory (categoryIndex) {
+      if (this.allCategories.length > 0) {
+        return this.allCategories[categoryIndex]
+      } else {
+        return {link: null, text: null}
+      }
     }
   },
   mounted () {
