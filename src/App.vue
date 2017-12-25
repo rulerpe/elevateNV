@@ -25,7 +25,7 @@
                 <v-btn color="primary" light style="margin:0; font-weight:400" href="/dispensary-finder">
                   Dispensary Finder
                 </v-btn>
-                <v-btn color="primary" light style="margin:0; font-weight:400">
+                <v-btn color="primary" light style="margin:0; font-weight:400" href="/digital-issue">
                   Digital Issues
                 </v-btn>
               </div>
@@ -49,7 +49,7 @@
               <v-icon class="mr-1">mdi-instagram</v-icon>
               <v-icon class="mr-1">mdi-twitter</v-icon>
               <v-icon class="mr-1">mdi-facebook</v-icon>
-              <v-menu transition="fade-transition">
+              <v-menu offset-y>
                 <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400" slot="activator">
                   Blog
                 </v-btn>

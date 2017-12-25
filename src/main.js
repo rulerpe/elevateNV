@@ -17,6 +17,9 @@ import App from './App'
 import router from './router'
 import { store } from './store'
 import PostTile from './components/pages/homepage/HomePageTile.vue'
+import IssuuComponent from './components/pages/IssuuComponent.vue'
+
+
 
 Vue.use(Vuetify, { theme: {
   primary: '#e0e0e0',
@@ -32,6 +35,7 @@ Vue.use(VueLodash, lodash)
 Vue.use(SocialSharing)
 
 Vue.component('elevate-post-tile', PostTile)
+Vue.component('issuu-component', IssuuComponent)
 
 Vue.config.productionTip = false
 

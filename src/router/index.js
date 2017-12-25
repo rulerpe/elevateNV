@@ -7,6 +7,8 @@ import Search from '@/components/pages/Search'
 import Contact from '@/components/pages/Contact'
 
 import DispensaryFinder from '@/components/pages/DispensaryFinder'
+import DigitalIssue from '@/components/pages/DigitalIssue'
+
 import NewDispensary from '@/components/admin/dispensary/NewDispensary'
 import Dispensaries from '@/components/admin/dispensary/Dispensaries'
 import UpdateDispensary from '@/components/admin/dispensary/UpdateDispensary'
@@ -60,6 +62,11 @@ export default new Router({
       path: '/dispensary-finder',
       name: 'DispensaryFinder',
       component: DispensaryFinder
+    },
+    {
+      path: '/digital-issue',
+      name: 'DigitalIssue',
+      component: DigitalIssue
     },
     {
       path: '/admin/dispensaries',
