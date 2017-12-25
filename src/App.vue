@@ -88,7 +88,9 @@
                 <div class="subheading">Subsribe</div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
-                <div class="subheading">Contact</div>
+                <div class="subheading custom-a">
+                  <router-link :to="{ name: 'Contact'}">Contact</router-link>
+                  </div>
               </v-flex>
               <v-flex xs2 sm1 class="text-xs-center">
                 <div class="subheading">Advertise</div>

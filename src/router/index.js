@@ -4,6 +4,7 @@ import Home from '@/components/pages/Home'
 import PostDetail from '@/components/pages/PostDetail'
 import Topic from '@/components/pages/Topic'
 import Search from '@/components/pages/Search'
+import Contact from '@/components/pages/Contact'
 
 import DispensaryFinder from '@/components/pages/DispensaryFinder'
 import NewDispensary from '@/components/admin/dispensary/NewDispensary'
@@ -81,6 +82,11 @@ export default new Router({
       name: 'Search',
       props: true,
       component: Search
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: Contact
     },
     {
       path: '/authors',

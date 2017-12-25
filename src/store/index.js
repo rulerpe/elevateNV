@@ -5,6 +5,7 @@ import author from './author'
 import post from './post'
 import dispensary from './dispensary'
 import shared from './shared'
+import contact from './contact'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
     author: author,
     post: post,
     dispensary: dispensary,
-    shared: shared
+    shared: shared,
+    contact: contact
   }
 })
