@@ -6,6 +6,7 @@ import post from './post'
 import dispensary from './dispensary'
 import shared from './shared'
 import contact from './contact'
+import subscribe from './subscribe'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export const store = new Vuex.Store({
     post: post,
     dispensary: dispensary,
     shared: shared,
-    contact: contact
+    contact: contact,
+    subscribe: subscribe
   }
 })

@@ -59,7 +59,7 @@ export default {
       var sortedList = {}
       this.posts.forEach(post => {
         let topicIndex = Object.keys(post.mainCategory)[0]
-        if(!Object.keys(post.categories).includes('0')){
+        if (!Object.keys(post.categories).includes('0')) {
           if (sortedList[topicIndex]) {
             sortedList[topicIndex].push(post)
           } else {
@@ -77,8 +77,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('clearPosts')
-    this.$store.dispatch('loadPostFromAllTopic', {topics: [{value: 8}, {value:6}], limit: 6, feature: true})
-    // console.log('author', this.$store.getters.author('YVgHldSv3JLwuJiz24MP'))
+    this.$store.dispatch('loadPostFromAllTopic', {topics: [{value: 8}, {value: 6}], limit: 6, feature: true})
   }
 }
 </script>

@@ -143,7 +143,7 @@ export default{
           commit('setLoading', false)
         })
     },
-    loadPostFromAllTopic ({commit, getters},payload) {
+    loadPostFromAllTopic ({commit, getters}, payload) {
       commit('setLoading', true)
       commit('clearPosts')
       firebase.firestore().collection('categories').orderBy('value').get()
@@ -173,7 +173,7 @@ export default{
           })
           .then((returnedData) => {
             var categories = []
-            if(payload.topics){
+            if (payload.topics) {
               categories = payload.topics
               let posts = []
               if (returnedData.docs.length > 0) {
@@ -202,13 +202,12 @@ export default{
                   snapshot.forEach((doc) => {
                     let obj = doc.data()
                     // do not query post that already downloaded as feature post
-                    if (!payload.feature || !Object.keys(obj.categories).includes('0')){
+                    if (!payload.feature || !Object.keys(obj.categories).includes('0')) {
                       posts.push({
                         ...obj,
                         id: doc.id
                       })
                     }
-                    
                   })
                   commit('addPost', posts)
                 }

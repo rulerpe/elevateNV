@@ -6,36 +6,36 @@
       </v-flex>
     </v-layout>
     <div style="margin-top:40px">
-      <h1 class="display-1 mt-2 mb-2">Contact Us</h1>
+      <h1 class="display-1 mt-2 mb-2">Subscribe</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row>
         <v-flex xs12>
-          <p class="subheading">Elevate Nevada is the state’s premier medicinal cannabis advocacy publication. Elevate’s objective is to provide factual content and information that highlights awareness, education, current events, patient health and wellness, medical breakthroughs, industry advancement, trending topics, and the movement as a whole. By bringing attention and action to the medicinal cannabis conversation, Elevate Nevada​ is rapidly and successfully becoming the channel connecting, educating and informing the cannabis industry as well as the entire community.</p>
+          <p class="subheading">Subscribe to receive our latest ElevateNV Magazine</p>
         </v-flex>
       </v-layout>
-      <v-layout row v-show="contactStatus === 'start'">
+      <v-layout row v-show="subscribeStatus === 'start'">
         <v-flex xs12 sm8 offset-sm2 class="pt-5 text-xs-center text-md-center text-md-center mt-5">
           <p class="headline">
-          Submiting your feedback
+          Submiting
           </p>
           <v-progress-circular indeterminate v-bind:width="7" v-bind:size="70" color="primary"></v-progress-circular>
         </v-flex>
       </v-layout>
-      <v-layout row v-show="contactStatus === 'success'">
+      <v-layout row v-show="subscribeStatus === 'success'">
         <v-flex xs12 sm8 offset-sm2 class="pt-5 text-xs-center text-md-center text-md-center mt-5">
-          <p class="display-1">Your feedback is submitted succeffuly</p>
+          <p class="display-1">Your request has submited successfully, our stuff will contact as soon as possible</p>
         </v-flex>
       </v-layout>
-      <v-layout row wrap v-show="contactStatus === 'none'">
+      <v-layout row wrap v-show="subscribeStatus === 'none'">
         <v-flex xs12>
-          <form @submit.prevent="onSubmitFeedback">
+          <form @submit.prevent="onSubmitSubscription">
           <v-layout row>
             <v-flex xs12 sm12>
               <v-text-field
                 name="name"
                 label="Name"
                 id="name"
-                v-model="feedback.name"
+                v-model="Subscription.name"
                 required></v-text-field>
             </v-flex>
           </v-layout>
@@ -45,7 +45,7 @@
                 name="phone"
                 label="Phone Number"
                 id="phone"
-                v-model="feedback.phone"
+                v-model="Subscription.phone"
                 ></v-text-field>
             </v-flex>
             <v-flex xs12 sm6>
@@ -53,17 +53,17 @@
                 name="email"
                 label="Email"
                 id="email"
-                v-model="feedback.email"
+                v-model="Subscription.email"
                 required></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm12>
               <v-text-field
-                name="comment"
-                label="Write your comment here"
-                id="comment"
-                v-model="feedback.comment"
+                name="address"
+                label="Write your address here"
+                id="address"
+                v-model="Subscription.address"
                 textarea
                 required></v-text-field>
             </v-flex>
@@ -84,29 +84,29 @@
 export default {
   data () {
     return {
-      feedback: {
+      Subscription: {
         name: '',
         phone: '',
         email: '',
-        comment: ''
+        address: ''
       }
     }
   },
   computed: {
     formIsValid () {
-      return this.feedback.name !== '' && this.feedback.email !== '' && this.feedback.comment !== ''
+      return this.Subscription.name !== '' && this.Subscription.email !== '' && this.Subscription.comment !== ''
     },
-    contactStatus () {
-      return this.$store.getters.contactStatus
+    subscribeStatus () {
+      return this.$store.getters.subscribeStatus
     }
   },
   methods: {
-    onSubmitFeedback () {
-      this.$store.dispatch('newFeedback', this.feedback)
+    onSubmitSubscription () {
+      this.$store.dispatch('newSubscribe', this.Subscription)
     }
   },
   mounted () {
-    this.$store.dispatch('setContactStatus', 'none')
+    this.$store.dispatch('setSubscribeStatus', 'none')
   }
 }
 </script>

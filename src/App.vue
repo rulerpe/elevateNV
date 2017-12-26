@@ -75,7 +75,7 @@
         </v-layout>
       </div>
     </div>
-    <v-content :style="contentStyle">
+    <v-content :style="contentStyle" :class="{fixedNavContentStyle: mainNavFixed}">
         <router-view :scrollPosition="scroPosition"></router-view>
     </v-content>
     <v-footer app class="primary accent--text elevation-10 hidden-xs-only">
@@ -154,7 +154,7 @@
         if (document.getElementById('content')) {
           this.scroPosition = document.getElementById('content').getBoundingClientRect().bottom
         }
-        this.mainNavFixed = window.scrollY > 74 && window.outerWidth > 600
+        this.mainNavFixed = window.scrollY > 73 && window.outerWidth > 600
       },
       handleResize (event) {
         console.log(window.outerWidth)

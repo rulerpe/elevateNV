@@ -43,3 +43,27 @@ exports.sendEmailOnFeedbackSubmit = functions.firestore
         console.error(error)
       })
   })
+
+  exports.sendEmailOnSubscriptionSubmit = functions.firestore
+  .document('subscriptions/{subscriptionID}')
+  .onCreate(event => {
+    var subscriptionData = event.data.data()
+    const mailOptions = {
+      from: `${APP_NAME} <noreply@elevateNV.com>`,
+      to: 'peter.chen424321@gmail.com',
+      subject: `New subscription has submitted from ${subscriptionData.name}`,
+      html: `<div>
+              <p>Name: ${subscriptionData.name}</p>
+              <p>Phone: ${subscriptionData.phone}</p>
+              <p>Email: ${subscriptionData.email}</p>
+              <p>Address: ${subscriptionData.address}</p>
+            </div>`
+    }
+    return mailTransport.sendMail(mailOptions)
+      .then(()=>{
+        console.log('email is sent')
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  })

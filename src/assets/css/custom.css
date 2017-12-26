@@ -25,7 +25,9 @@
   position: fixed;
   z-index: 5
 }
-
+.fixedNavContentStyle {
+  margin-top: 117px !important
+}
 .drawBtn {
   margin: 6px 8px
 }
