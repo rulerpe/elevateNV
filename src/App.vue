@@ -5,7 +5,7 @@
         <v-list-tile href="/dispensary-finder">
           <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile href="/digital-issue">
           <v-list-tile-content  class="accent--text">Digital Issues</v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>

@@ -52,7 +52,7 @@ export default {
       },
       listToggleStyle: {
         position: 'absolute',
-        bottom: '0px',
+        bottom: '50px',
         width: document.documentElement.clientWidth + 'px'
       },
       mapView: true,
