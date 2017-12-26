@@ -109,12 +109,12 @@
         menuItems: [
             { title: 'Home', link: '', page: 'Home' },
             { title: 'Patient', link: 'patient-profiles', page: 'Topic' },
-            { title: 'DISCOVER', link: 'discover', page: 'Topic' },
-            { title: 'COOKING', link: 'cooking-with-cannabis', page: 'Topic' },
-            { title: 'MEDICINE', link: 'medicine', page: 'Topic' },
-            { title: 'TRENDS', link: 'trends', page: 'Topic' },
-            { title: 'News', link: 'in-the-news', page: 'Topic' },
-            { title: 'Reviews', link: 'reviews', page: 'Topic' }
+            { title: 'Discover', link: 'discover', page: 'Topic' },
+            { title: 'Cooking', link: 'cooking-with-cannabis', page: 'Topic' },
+            { title: 'Medicine', link: 'medicine', page: 'Topic' },
+            { title: 'Trends', link: 'trends', page: 'Topic' },
+            { title: 'More ', link: '', page: 'AllTopic' },
+            { title: 'Subscribe', link: '', page: 'Subscribe' }
         ],
         blogList: [
             { title: 'Blackabis', link: 'blackabis', page: 'PostDetail' },

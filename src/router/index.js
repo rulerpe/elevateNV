@@ -8,6 +8,8 @@ import Contact from '@/components/pages/Contact'
 
 import DispensaryFinder from '@/components/pages/DispensaryFinder'
 import DigitalIssue from '@/components/pages/DigitalIssue'
+import AllTopic from '@/components/pages/AllTopic'
+import Subscribe from '@/components/pages/Subscribe'
 
 import NewDispensary from '@/components/admin/dispensary/NewDispensary'
 import Dispensaries from '@/components/admin/dispensary/Dispensaries'
@@ -67,6 +69,16 @@ export default new Router({
       path: '/digital-issue',
       name: 'DigitalIssue',
       component: DigitalIssue
+    },
+    {
+      path: '/alltopic',
+      name: 'AllTopic',
+      component: AllTopic
+    },
+    {
+      path: '/subscribe',
+      name: 'Subscribe',
+      component: Subscribe
     },
     {
       path: '/admin/dispensaries',

@@ -143,6 +143,85 @@ export default{
           commit('setLoading', false)
         })
     },
+    loadPostFromAllTopic ({commit, getters},payload) {
+      commit('setLoading', true)
+      commit('clearPosts')
+      firebase.firestore().collection('categories').orderBy('value').get()
+          .then((snapshot) => {
+            var categories = []
+            snapshot.forEach((doc) => {
+              let obj = doc.data()
+              categories.push({
+                text: obj.label,
+                value: obj.value,
+                link: obj.label.replace(/\s+/g, '-')
+              })
+            })
+            commit('setLoadedCategories', categories)
+            return categories
+          })
+          .then((categories) => {
+            if (payload.feature) {
+              return firebase.firestore().collection('posts')
+                .where('categories.' + 0, '>', 0)
+                .orderBy('categories.' + 0)
+                .limit(3)
+                .get()
+            } else {
+              return categories
+            }
+          })
+          .then((returnedData) => {
+            var categories = []
+            if(payload.topics){
+              categories = payload.topics
+              let posts = []
+              if (returnedData.docs.length > 0) {
+                returnedData.forEach((doc) => {
+                  let obj = doc.data()
+                  posts.push({
+                    ...obj,
+                    id: doc.id
+                  })
+                })
+                commit('addPost', posts)
+              }
+            } else {
+              categories = returnedData
+              categories = categories.slice(2)
+            }
+            categories.forEach((category) => {
+              firebase.firestore().collection('posts')
+              .where('mainCategory.' + category.value, '>', 0)
+              .orderBy('mainCategory.' + category.value)
+              .limit(payload.limit)
+              .get()
+              .then((snapshot) => {
+                let posts = []
+                if (snapshot.docs.length > 0) {
+                  snapshot.forEach((doc) => {
+                    let obj = doc.data()
+                    // do not query post that already downloaded as feature post
+                    if (!payload.feature || !Object.keys(obj.categories).includes('0')){
+                      posts.push({
+                        ...obj,
+                        id: doc.id
+                      })
+                    }
+                    
+                  })
+                  commit('addPost', posts)
+                }
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    },
     searchPost ({commit}, payload) {
       commit('setLoading', true)
       firebase.firestore().collection('posts')

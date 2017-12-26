@@ -19,8 +19,6 @@ import { store } from './store'
 import PostTile from './components/pages/homepage/HomePageTile.vue'
 import IssuuComponent from './components/pages/IssuuComponent.vue'
 
-
-
 Vue.use(Vuetify, { theme: {
   primary: '#e0e0e0',
   secondary: '#81c784',

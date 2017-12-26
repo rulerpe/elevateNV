@@ -89,10 +89,11 @@ export default {
   methods: {
     changeIssue (code) {
       this.issuuCode = code
-      var vm = this;
+      var vm = this
       vm.resetIssue = false
-      Vue.nextTick(function() {
+      Vue.nextTick(function () {
         vm.resetIssue = true
+        vm.listToggle = false
       })
     }
   },
