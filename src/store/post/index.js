@@ -38,7 +38,6 @@ export default{
       mainCategory[payload.mainCategory] = payload.createAt
       payload.mainCategory = mainCategory
       payload.categories = categories
-      console.log(payload)
       firebase.firestore().collection('posts').add(payload)
         .then((data) => {
           postId = data.id
@@ -52,7 +51,6 @@ export default{
           })
         })
         .then(() => {
-          console.log('postadded')
           commit('setLoading', false)
         })
         .catch((error) => {
@@ -61,7 +59,6 @@ export default{
         })
     },
     loadPosts ({commit, getters}) {
-      console.log('start loading')
       commit('setLoading', true)
       if (getters.posts.length <= 0) {
         firebase.firestore().collection('posts').get()
@@ -100,7 +97,6 @@ export default{
                 id: doc.id
               })
             })
-            console.log(posts)
             commit('addPost', posts)
           }
         })
@@ -133,7 +129,6 @@ export default{
                 id: doc.id
               })
             })
-            console.log(posts)
             commit('setLoadedPosts', posts)
             commit('setLoading', false)
           }
@@ -247,7 +242,6 @@ export default{
       commit('addPost', payload)
     },
     getRecommendPost ({commit}, payload) {
-      console.log(payload)
       firebase.firestore().collection('posts')
         .where('categories.' + payload.category, '>', 0)
         .orderBy('categories.' + payload.category)
@@ -267,7 +261,6 @@ export default{
     },
     editPost ({commit}, payload) {
       payload.new.updateAt.push(new Date())
-      console.log(payload)
       var categories = {}
       if (payload.new.categories) {
         payload.new.categories.forEach((value) => {
@@ -284,7 +277,6 @@ export default{
           postData[key] = payload.new[key]
         }
       }
-      console.log(postData)
       commit('setLoading', true)
       if (postData.title) {
         postData.shortname = postData.title.replace(/\s+/g, '-').toLowerCase()
@@ -318,7 +310,6 @@ export default{
           }
         })
         .then(() => {
-          console.log('post udpated')
           commit('setLoading', false)
         })
         .catch((error) => {
@@ -327,7 +318,6 @@ export default{
         })
     },
     deletePost ({commit}, payload) {
-      console.log('delete', payload)
       firebase.firestore().collection('posts').doc(payload.id).delete()
         .then(() => {
           return firebase.firestore().collection('authors').doc(payload.author).get()
@@ -343,7 +333,6 @@ export default{
           })
         })
         .then(() => {
-          console.log('deleted')
           commit('deletePost', payload)
           commit('setLoading', false)
         })

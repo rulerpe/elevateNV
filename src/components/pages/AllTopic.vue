@@ -8,7 +8,7 @@
     <div style="margin-top:40px" v-for="(posts, key) in sortedPosts" :key="key">
       <v-layout row>
         <v-flex xs12 sm6 text-xs-left>
-          <h1 class="display-1 custom-a mt-2 mb-2">
+          <h1 class="display-1 custom-a topic-title mt-2 mb-2">
             <router-link :to="{name: 'Topic', params: {category: allCategories[key].link}}">{{_.startCase(allCategories[key].text)}}</router-link>
             </h1>
         </v-flex>
@@ -30,12 +30,6 @@
 export default {
   props: ['category'],
   computed: {
-    // topicTitle () {
-    //   return this._.capitalize(this.category.replace(/-/g, ' '))
-    // },
-    // trendPosts () {
-    //   return this.$store.getters.posts
-    // },
     allCategories () {
       return this.$store.getters.categories
     },
@@ -54,11 +48,6 @@ export default {
       })
       return sortedList
     }
-  },
-  watch: {
-    // category: function () {
-    //   this.$store.dispatch('loadTopicPosts', this.category)
-    // }
   },
   methods: {
 

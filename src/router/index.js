@@ -10,10 +10,20 @@ import DispensaryFinder from '@/components/pages/DispensaryFinder'
 import DigitalIssue from '@/components/pages/DigitalIssue'
 import AllTopic from '@/components/pages/AllTopic'
 import Subscribe from '@/components/pages/Subscribe'
+import AboutUs from '@/components/pages/AboutUs'
+
+import AdminPanel from '@/components/admin/AdminPanel'
 
 import NewDispensary from '@/components/admin/dispensary/NewDispensary'
 import Dispensaries from '@/components/admin/dispensary/Dispensaries'
 import UpdateDispensary from '@/components/admin/dispensary/UpdateDispensary'
+
+import NewAds from '@/components/admin/ads/NewAds'
+import Ads from '@/components/admin/ads/Ads'
+import UpdateAds from '@/components/admin/ads/UpdateAds'
+
+import Login from '@/components/admin/auth/Login'
+import AuthGuard from './auth-guard'
 
 import NewAuthor from '@/components/admin/authors/NewAuthor'
 import Authors from '@/components/admin/authors/Authors'
@@ -33,20 +43,80 @@ export default new Router({
       component: Home
     },
     {
-      path: '/posts',
-      name: 'Posts',
-      component: Posts
-    },
-    {
-      path: '/post/new',
-      name: 'NewPost',
-      component: NewPost
-    },
-    {
-      path: '/post/edit/:shortname',
-      name: 'EditPost',
-      props: true,
-      component: EditPost
+      path: '/admin',
+      component: AdminPanel,
+      beforeEnter: AuthGuard,
+      children: [
+        {
+          path: 'posts',
+          name: 'Posts',
+          component: Posts
+        },
+        {
+          path: 'post/new',
+          name: 'NewPost',
+          component: NewPost
+        },
+        {
+          path: 'post/edit/:shortname',
+          name: 'EditPost',
+          props: true,
+          component: EditPost
+        },
+        {
+          path: 'dispensaries',
+          name: 'Dispensaries',
+          component: Dispensaries
+        },
+        {
+          path: 'dispensary/new',
+          name: 'NewDispensary',
+          component: NewDispensary
+        },
+        {
+          path: 'dispensary/edit/:id',
+          name: 'UpdateDispensary',
+          props: true,
+          component: UpdateDispensary
+        },
+        {
+          path: 'authors',
+          name: 'Authors',
+          component: Authors
+        },
+        {
+          path: 'author/new',
+          name: 'NewAuthor',
+          component: NewAuthor
+        },
+        {
+          path: 'author/edit/:id',
+          name: 'UpdateAuthor',
+          props: true,
+          component: UpdateAuthor
+        },
+        {
+          path: 'fileupload',
+          name: 'FileUpload',
+          component: FileUpload
+        },
+        {
+          path: 'ads',
+          name: 'Ads',
+          component: Ads
+        },
+        {
+          path: 'ads/new',
+          name: 'NewAds',
+          component: NewAds
+        },
+        {
+          path: 'ads/edit/:id',
+          name: 'UpdateAds',
+          props: true,
+          component: UpdateAds
+        }
+      ]
     },
     {
       path: '/post/:shortname',
@@ -71,6 +141,11 @@ export default new Router({
       component: DigitalIssue
     },
     {
+      path: '/about-us',
+      name: 'AboutUs',
+      component: AboutUs
+    },
+    {
       path: '/alltopic',
       name: 'AllTopic',
       component: AllTopic
@@ -81,20 +156,9 @@ export default new Router({
       component: Subscribe
     },
     {
-      path: '/admin/dispensaries',
-      name: 'Dispensaries',
-      component: Dispensaries
-    },
-    {
-      path: '/admin/newdispensary',
-      name: 'NewDispensary',
-      component: NewDispensary
-    },
-    {
-      path: '/admin/updatedispensary/:id',
-      name: 'UpdateDispensary',
-      props: true,
-      component: UpdateDispensary
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/search/:keyword',
@@ -106,27 +170,6 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
-    },
-    {
-      path: '/authors',
-      name: 'Authors',
-      component: Authors
-    },
-    {
-      path: '/newauthor',
-      name: 'NewAuthor',
-      component: NewAuthor
-    },
-    {
-      path: '/updateauthor/:id',
-      name: 'UpdateAuthor',
-      props: true,
-      component: UpdateAuthor
-    },
-    {
-      path: '/admin/fileupload',
-      name: 'FileUpload',
-      component: FileUpload
     }
   ],
   scrollBehavior (to, from, savedPosition) {

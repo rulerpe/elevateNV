@@ -10,7 +10,6 @@ export default{
       state.authors = payload
     },
     addNewAuthor (state, payload) {
-      console.log('addnewauthor', payload)
       state.authors.push(payload)
     },
     updateAuthor (state, payload) {
@@ -43,7 +42,6 @@ export default{
   },
   actions: {
     addNewAuthor ({commit}, payload) {
-      console.log('action', payload)
       commit('setLoading', true)
       const author = {
         name: payload.name,
@@ -67,11 +65,9 @@ export default{
           }
           const filename = payload.image.name
           ext = filename.slice(filename.lastIndexOf('.'))
-          console.log(payload.image)
           return firebase.storage().ref().child('authors/' + id + '.' + ext).put(payload.image)
         })
         .then(fileData => {
-          console.log('filedata ', fileData)
           if (fileData === null) {
             additionalData = defulatAvatar
           } else {
@@ -155,7 +151,6 @@ export default{
           if (payload.image !== null && payload.imageName !== 'default.jpg') {
             const filename = payload.image.name
             ext = filename.slice(filename.lastIndexOf('.'))
-            console.log(payload.image)
             return firebase.storage().ref().child('/authors/' + payload.imageName).delete()
                     .then(() => {
                       return firebase.storage().ref().child('authors/' + payload.id + '.' + ext).put(payload.image)
@@ -189,14 +184,12 @@ export default{
     deleteAuthor ({commit}, payload) {
       firebase.firestore().collection('authors').doc(payload.id).delete()
         .then(() => {
-          console.log('remove image')
           if (payload.imageName !== 'default.jpg') {
             return firebase.storage().ref().child('/authors/' + payload.imageName).delete()
           }
         })
         .then(() => {
           commit('deleteAuthor', payload)
-          console.log('deleted')
         })
         .catch((error) => {
           console.log(error)

@@ -11,18 +11,18 @@
                       hashtags="marijuana,cannabis,weed"
                       twitter-user="rulerpe"
                       inline-template>
-            <div>
-              <div style="cursor: pointer">
+            <div class="social-size">
+              <div class="social-facebook">
                 <network network="facebook">
                   <v-icon>mdi-facebook</v-icon>
                 </network>
               </div>
-              <div class="mt-3 mb-3" style="cursor: pointer">
+              <div class="mt-3 mb-3 social-twitter">
                 <network network="twitter">
                   <v-icon>mdi-twitter</v-icon>
                 </network>
               </div>
-              <div style="cursor: pointer">
+              <div class="social-google">
                 <network network="googleplus">
                   <v-icon>mdi-google-plus</v-icon>
                 </network>
@@ -60,6 +60,36 @@
           <v-layout>
             <v-flex xs12 v-html="post.content" class="post-content">
             </v-flex>
+          </v-layout>
+          <v-layout row class="pt-2 pb-2">
+            <v-flex xs-12 class="text-sm-right text-xs-left">
+              <social-sharing :url="currentUrl"
+                        :title="post.title"
+                        :description="post.subtitle"
+                        quote="Vue is a progressive framework for building user interfaces."
+                        hashtags="marijuana,cannabis,weed"
+                        twitter-user="rulerpe"
+                        inline-template
+                        style="display: inline-block">
+              <div class="social-size">
+                <div class="social-facebook bottom-social">
+                  <network network="facebook">
+                    <v-icon>mdi-facebook</v-icon>
+                  </network>
+                </div>
+                <div class="mt-3 mb-3 social-twitter bottom-social">
+                  <network network="twitter">
+                    <v-icon>mdi-twitter</v-icon>
+                  </network>
+                </div>
+                <div class="social-google bottom-social">
+                  <network network="googleplus">
+                    <v-icon>mdi-google-plus</v-icon>
+                  </network>
+                </div>
+              </div>
+            </social-sharing>
+          </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
@@ -155,7 +185,6 @@ export default {
     },
     recommendedList () {
       return this.$store.getters.posts.filter((post) => {
-        console.log(post.mainCategory)
         const find = post.categories[Object.keys(this.post.mainCategory)[0]]
         return find && post.shortname !== this.shortname
       })

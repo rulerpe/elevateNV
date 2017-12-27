@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     updateAuthor (id) {
-      this.$router.push('/updateauthor/' + id)
+      this.$router.push({name: 'UpdateAuthor', params: {id: id}})
     },
     deleteAuthor (payload) {
       this.$store.dispatch('deleteAuthor', payload)

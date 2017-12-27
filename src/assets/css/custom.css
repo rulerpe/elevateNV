@@ -57,7 +57,9 @@
 .btn--large .btn__content {
   padding: 0;
 }
-
+.topic-title{
+  font-weight: 300 !important
+}
 .post-content p {
   font-size: 18px !important;
   font-weight: 400
@@ -84,4 +86,34 @@
 
 .dispensaryListBackground {
   background: #e9e9e9
+}
+
+.social-size i{
+  font-size: 35px
+}
+.social-facebook, .social-twitter, .social-google {
+  cursor: pointer;
+}
+
+.social-facebook i {
+  color: #3B5998 !important
+}
+.social-twitter i {
+  color: #3B8ACA !important
+}
+.social-google i {
+  color: #e63024 !important
+}
+.social-facebook :hover {
+  color: rgb(48, 80, 150) !important
+}
+.social-twitter :hover {
+  color: rgb(40, 129, 202) !important
+}
+.social-google :hover {
+  color: #e42114 !important
+}
+.bottom-social {
+  display: inline-block;
+  margin-left: 10px
 }

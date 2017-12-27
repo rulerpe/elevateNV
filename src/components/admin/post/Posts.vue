@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     editPost (shortname) {
-      this.$router.push('/post/edit/' + shortname)
+      this.$router.push('/admin/post/edit/' + shortname)
     },
     deletePost (payload) {
       this.$store.dispatch('deletePost', payload)

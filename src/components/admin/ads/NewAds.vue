@@ -2,29 +2,35 @@
   <v-container class="custom-layout">
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h2>Update Author</h2>
+        <h2>Add Ads</h2>
       </v-flex>
     </v-layout>
     <v-layout row>
       <v-flex xs12>
-        <form @submit.prevent="onUpdateAuthor">
+        <form @submit.prevent="onAddAds">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="name"
-                label="Name"
-                id="name"
-                v-model="name"
+                name="title"
+                label="Title"
+                id="title"
+                v-model="ads.title"
                 required></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="bio"
-                label="Bio"
-                id="bio"
-                v-model="bio"></v-text-field>
+                name="link"
+                label="Link"
+                id="link"
+                v-model="ads.link"
+                ></v-text-field>
+            </v-flex>
+          </v-layout>
+         <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-select label="Type" :items="types" v-model="ads.type"></v-select>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -45,7 +51,7 @@
           </v-layout>
            <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="error" :disabled="!formIsValid" type="submit">Update Author</v-btn>
+              <v-btn class="error" :disabled="!formIsValid" type="submit">Add Ads</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -55,52 +61,46 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
 export default {
-  props: ['id'],
   data () {
     return {
-      name: '',
-      bio: '',
+      ads: {
+        title: '',
+        link: '',
+        type: ''
+      },
       imageUrl: '',
-      image: null
+      image: null,
+      types: [
+        {
+          value: 'long',
+          text: 'long'
+        },
+        {
+          value: 'square',
+          text: 'square'
+        }
+      ]
     }
   },
   computed: {
     formIsValid () {
-      return this.name !== ''
+      return this.title !== ''
     }
   },
-  mounted () {
-    firebase.firestore().collection('authors').doc(this.id).get()
-      .then((doc) => {
-        var obj = doc.data()
-        this.name = obj.name
-        this.bio = obj.bio
-        this.imageUrl = obj.imageUrl
-        this.imageName = obj.imageName
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  },
   methods: {
-    onUpdateAuthor () {
+    onAddAds () {
       if (!this.formIsValid) {
         return
       }
-      if (this.iamge === null) {
-        return
+      if (this.image === null) {
+        this.image = 'default'
       }
-      const authorData = {
-        id: this.id,
-        name: this.name,
-        bio: this.bio,
-        image: this.image,
-        imageName: this.imageName
+      const adsData = {
+        ...this.ads
       }
-      this.$store.dispatch('updateAuthor', authorData)
-      this.$router.push({name: 'Authors'})
+      this.$store.dispatch('newAds', {data: adsData, image: this.image})
+      this.$router.push('/admin/ads')
     },
     onPickFile () {
       this.$refs.fileInput.click()

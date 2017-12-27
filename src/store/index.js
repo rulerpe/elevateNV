@@ -7,6 +7,8 @@ import dispensary from './dispensary'
 import shared from './shared'
 import contact from './contact'
 import subscribe from './subscribe'
+import ads from './ads'
+import auth from './auth'
 
 Vue.use(Vuex)
 
@@ -17,6 +19,8 @@ export const store = new Vuex.Store({
     dispensary: dispensary,
     shared: shared,
     contact: contact,
-    subscribe: subscribe
+    subscribe: subscribe,
+    ads: ads,
+    auth: auth
   }
 })

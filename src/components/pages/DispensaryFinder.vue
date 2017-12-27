@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       mapStyle: {
-        height: document.documentElement.clientHeight - 117 - 36 + 'px',
+        height: document.documentElement.clientHeight - 117 + 'px',
         'z-index': 0
       },
       listStyle: {
@@ -135,11 +135,10 @@ export default {
       id: 'mapbox.streets',
       accessToken: 'pk.eyJ1IjoiZWxldmF0ZW52IiwiYSI6ImNqYml6dnNnYjBhbHcyd2p2eXFvb2p1M2wifQ.50iom2BApYbuptk_SuiaEg'
     }
-    console.log(navigator.userAgent)
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       mapSetting.zoomControl = false
-      this.mapStyle.height = document.documentElement.clientHeight - 44 + 'px'
-      this.listStyle.height = document.documentElement.clientHeight - 44 + 'px'
+      this.mapStyle.height = document.documentElement.clientHeight - 56 + 'px'
+      this.listStyle.height = document.documentElement.clientHeight - 56 + 'px'
       this.listStyle.overflow = 'heidden'
       this.listView = false
     }

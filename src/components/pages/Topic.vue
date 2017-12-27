@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <div style="margin-top:40px">
-      <h1 class="display-1 mt-2 mb-2">{{topicTitle}}</h1>
+      <h1 class="display-1 topic-title mt-2 mb-2">{{topicTitle}}</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row wrap >
         <elevate-post-tile v-for="post in trendPosts" :key="post.id" :post="post" size="4" imageHeight="100" height="250"></elevate-post-tile>

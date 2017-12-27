@@ -18,6 +18,7 @@ import router from './router'
 import { store } from './store'
 import PostTile from './components/pages/homepage/HomePageTile.vue'
 import IssuuComponent from './components/pages/IssuuComponent.vue'
+import AdsComponent from './components/pages/AdsComponent.vue'
 
 Vue.use(Vuetify, { theme: {
   primary: '#e0e0e0',
@@ -34,6 +35,7 @@ Vue.use(SocialSharing)
 
 Vue.component('elevate-post-tile', PostTile)
 Vue.component('issuu-component', IssuuComponent)
+Vue.component('ads-component', AdsComponent)
 
 Vue.config.productionTip = false
 
@@ -51,6 +53,11 @@ new Vue({
       projectId: 'elevatenv-dev',
       storageBucket: 'elevatenv-dev.appspot.com',
       messagingSenderId: '222851738472'
+    })
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
     })
   }
 })

@@ -2,11 +2,11 @@
   <v-container grid-list-md class="custom-layout">
     <v-layout row class="mt-3">
       <v-flex sm8 offset-sm2>
-        <img src="https://elevatenv.com/wp-content/uploads/2017/07/Elevate-elements-Web-banner-728x90.jpg" style="width:100%" alt="">
+        <ads-component size="long"></ads-component>
       </v-flex>
     </v-layout>
     <div class="mt-3">
-      <h1 class="display-1 mt-2 mb-2">Top Articles</h1>
+      <h1 class="display-1 topic-title mt-2 mb-2">Top Articles</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row wrap>
         <elevate-post-tile v-if="featurePosts.length > 0" :post="featurePosts[0]" size="6" imageHeight="400" height="600"></elevate-post-tile>
@@ -21,7 +21,7 @@
     <div style="margin-top:40px" v-for="(posts, key) in sortedPosts" :key="key">
       <v-layout row>
         <v-flex xs12 sm6 text-xs-left>
-          <h1 class="display-1 custom-a mt-2 mb-2">
+          <h1 class="display-1 topic-title custom-a mt-2 mb-0">
             <router-link :to="{name: 'Topic', params: {category: allCategories[key].link}}">{{_.startCase(allCategories[key].text)}}</router-link>
             </h1>
         </v-flex>
@@ -31,7 +31,7 @@
             </h4>
         </v-flex>
       </v-layout>
-      <v-divider class="mb-2"></v-divider>
+      <v-divider class="mb-1"></v-divider>
       <v-layout row wrap >
         <elevate-post-tile v-for="post in posts" :key="post.id" :post="post" size="4" imageHeight="100" height="250"></elevate-post-tile>
       </v-layout>

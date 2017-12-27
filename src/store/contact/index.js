@@ -27,7 +27,6 @@ export default{
   },
   actions: {
     newFeedback ({commit}, payload) {
-      console.log('action', payload)
       commit('setContactStatus', 'start')
       commit('setLoading', true)
       payload.createAt = firebase.firestore.FieldValue.serverTimestamp()
@@ -161,13 +160,5 @@ export default{
     contactStatus (state) {
       return state.contactStatus
     }
-    // author (state) {
-    //   return (authorId) => {
-    //     return state.authors.find((author) => {
-    //       return author.id === authorId
-    //     })
-    //   }
-    // }
-
   }
 }

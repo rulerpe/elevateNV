@@ -10,7 +10,6 @@ export default{
       state.dispensaries = payload
     },
     newDispensary (state, payload) {
-      console.log('newDispensary', payload)
       state.dispensaries.push(payload)
     },
     updateDispensary (state, payload) {
@@ -43,7 +42,6 @@ export default{
   },
   actions: {
     newDispensary ({commit}, payload) {
-      console.log('action', payload)
       commit('setLoading', true)
       payload.data.shortName = payload.data.name.replace(/\s+/g, '-').toLowerCase()
       const dispensary = {
@@ -67,11 +65,9 @@ export default{
           }
           const filename = payload.image.name
           ext = filename.slice(filename.lastIndexOf('.'))
-          console.log(payload.image)
           return firebase.storage().ref().child('dispensaries/' + id + ext).put(payload.image)
         })
         .then(fileData => {
-          console.log('filedata ', fileData)
           if (fileData === null) {
             additionalData = defulatLogo
           } else {
@@ -128,27 +124,16 @@ export default{
           })
       }
     },
-    // loadAuthor ({commit}, payload) {
-    //   firebase.firestore().collection('authors').doc(payload).get()
-    //     .then((doc) => {
-    //       const obj = doc.data()
-    //       const author = {
-    //         id: doc.id,
-    //         name: obj.name,
-    //         bio: obj.bio,
-    //         imageUrl: obj.imageUrl,
-    //         imageName: obj.imageName,
-    //         posts: obj.posts
-    //       }
-    //       commit('loadAuthor', author)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
     updateDispensary ({commit, getters}, payload) {
       commit('setLoading', true)
-      const uploadObj = payload.data
+      const uploadObj = {
+        name: payload.data.name,
+        website: payload.data.website,
+        phone: payload.data.phone,
+        address: payload.data.address,
+        geo: payload.data.geo,
+        detailUrl: payload.data.detailUrl
+      }
       uploadObj.shortName = payload.data.name.replace(/\s+/g, '-').toLowerCase()
       let imageUrl
       let ext
@@ -157,11 +142,14 @@ export default{
           if (payload.image !== null) {
             const filename = payload.image.name
             ext = filename.slice(filename.lastIndexOf('.'))
-            console.log(payload.image)
-            return firebase.storage().ref().child('/dispensaries/' + payload.data.imageName).delete()
+            if (payload.data.imageName) {
+              return firebase.storage().ref().child('/dispensaries/' + payload.data.imageName).delete()
                     .then(() => {
                       return firebase.storage().ref().child('dispensaries/' + payload.data.id + ext).put(payload.image)
                     })
+            } else {
+              return firebase.storage().ref().child('dispensaries/' + payload.data.id + ext).put(payload.image)
+            }
           } else {
             return null
           }
@@ -171,7 +159,7 @@ export default{
             imageUrl = fileData.downloadURL
             return firebase.firestore().collection('dispensaries').doc(payload.data.id).update({
               imageUrl: imageUrl,
-              imageName: uploadObj.id + ext
+              imageName: payload.data.id + ext
             })
           }
         })
@@ -190,14 +178,12 @@ export default{
     deleteDispensary ({commit}, payload) {
       firebase.firestore().collection('dispensaries').doc(payload.id).delete()
         .then(() => {
-          console.log('remove image')
           if (payload.imageName !== 'default.jpg') {
             return firebase.storage().ref().child('/dispensaries/' + payload.imageName).delete()
           }
         })
         .then(() => {
           commit('deleteDispensary', payload)
-          console.log('deleted')
         })
         .catch((error) => {
           console.log(error)

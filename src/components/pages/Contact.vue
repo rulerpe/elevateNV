@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <div style="margin-top:40px">
-      <h1 class="display-1 mt-2 mb-2">Contact Us</h1>
+      <h1 class="display-1 topic-title mt-2 mb-2">Contact Us</h1>
       <v-divider class="mb-2"></v-divider>
       <v-layout row>
         <v-flex xs12>

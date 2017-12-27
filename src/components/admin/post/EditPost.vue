@@ -183,8 +183,8 @@ export default {
       const readtime = Math.ceil(wordcount / 200) // in minute, round up the number
       this.postData.wordcount = wordcount
       this.postData.readtime = readtime
-      console.log(this.postData)
       this.$store.dispatch('editPost', {orginal: this.orgPostData, new: this.postData})
+      this.$router.push({name: 'Posts'})
     },
     showcontent () {
       console.log(this.postData)
@@ -236,7 +236,6 @@ export default {
           mainCategory = (parseInt(value))
         }
         this.postData.mainCategory = mainCategory
-        console.log(this.postData)
       })
       .catch((error) => {
         console.log(error)

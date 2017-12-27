@@ -21,7 +21,6 @@ export default {
   mounted () {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       this.issuuStyle.height = document.documentElement.clientHeight - 44 + 'px'
-      console.log(this.issuuStyle)
     }
   },
   created () {
