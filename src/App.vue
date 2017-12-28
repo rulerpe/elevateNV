@@ -94,7 +94,7 @@
     <v-content :style="contentStyle" :class="{fixedNavContentStyle: mainNavFixed}">
         <router-view :scrollPosition="scroPosition"></router-view>
     </v-content>
-    <v-footer app class="primary accent--text elevation-10" v-show="noFooter">
+    <v-footer app class="primary accent--text elevation-10" v-show="!noFooter">
       <v-container class="footerNav pa-2">
         <v-layout row wrap>
           <v-flex xs12 sm5 class="text-xs-center mt-4 mb-4">

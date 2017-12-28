@@ -40,7 +40,7 @@
             </v-flex>
           </v-layout>
           <v-layout row>
-            <v-flex xs12 sm6>
+            <v-flex xs6 sm6>
               <v-text-field
                 name="phone"
                 label="Phone Number"
@@ -48,7 +48,7 @@
                 v-model="Subscription.phone"
                 ></v-text-field>
             </v-flex>
-            <v-flex xs12 sm6>
+            <v-flex xs6 sm6>
               <v-text-field
                 name="email"
                 label="Email"

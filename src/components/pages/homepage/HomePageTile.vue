@@ -1,7 +1,7 @@
 <template>
-  <v-flex d-flex xs12 :sm6="columeSize.sm6" :sm4="columeSize.sm4" v-if="post" :style="{height:height+'px'}">
+  <v-flex d-flex xs12 :sm6="columeSize.sm6" :sm4="columeSize.sm4" v-if="post" :style="{height:cardHeight+'px'}">
     <v-card :to="{name: 'PostDetail', params: {shortname: post.shortname}}">
-      <v-card-media :src="post.featureImageUrl" :height="imageHeight">
+      <v-card-media :src="post.featureImageUrl" :height="carImgHeight">
       </v-card-media>
       <v-card-title primary-title class="pt-2">
         <div>
@@ -33,6 +33,12 @@ export default {
     }
   },
   computed: {
+    cardHeight () {
+      return this.mobile ? '300' : this.height
+    },
+    carImgHeight () {
+      return this.mobile ? '150' : this.imageHeight
+    },
     columeSize () {
       if (this.size === '6') {
         return {sm6: true, sm4: false, sm12: false}
@@ -47,6 +53,9 @@ export default {
     },
     author () {
       return this.$store.getters.author(this.post.author)
+    },
+    mobile () {
+      return this.$store.getters.mobile
     }
   },
   methods: {
