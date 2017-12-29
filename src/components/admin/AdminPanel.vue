@@ -14,6 +14,8 @@
         <h2>Ads</h2>
         <router-link :to="{name:'Ads'}"><v-btn raised>All Ads</v-btn></router-link>
         <router-link :to="{name:'NewAds'}"><v-btn raised>New Ads</v-btn></router-link>
+        <h2>Upload</h2>
+        <router-link :to="{name:'FileUpload'}"><v-btn raised>Upload</v-btn></router-link>
         <h2>Log Out</h2>
         <v-btn color="error" raised @click="logout()" >
           Log Out

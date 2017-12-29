@@ -117,7 +117,7 @@
             </v-layout>
             <v-layout row>
               <v-flex xs12>
-                <router-link :to="{ name: 'Subsribe'}">Subsribe</router-link>
+                <router-link :to="{ name: 'Subscribe'}">Subscribe</router-link>
               </v-flex>
             </v-layout>
             <v-layout row>
@@ -196,6 +196,10 @@
 
 <script>
   export default {
+    metaInfo: {
+      title: 'ElevateNV',
+      titleTemplate: '%s | ElevateNV'
+    },
     data () {
       return {
         sideNav: false,

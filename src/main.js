@@ -11,6 +11,8 @@ import VueLodash from 'vue-lodash'
 
 import SocialSharing from 'vue-social-sharing'
 
+import Meta from 'vue-meta'
+
 import './assets/css/custom.css'
 import '../node_modules/mdi/css/materialdesignicons.min.css'
 import App from './App'
@@ -32,6 +34,7 @@ Vue.use(Vuetify, { theme: {
 Vue.use(VueScrollTo)
 Vue.use(VueLodash, lodash)
 Vue.use(SocialSharing)
+Vue.use(Meta)
 
 Vue.component('elevate-post-tile', PostTile)
 Vue.component('issuu-component', IssuuComponent)

@@ -27,7 +27,7 @@ export default{
     newPost ({commit}, payload) {
       let postId = ''
       commit('setLoading', true)
-      payload.shortname = payload.title.replace(/\s+/g, '-').toLowerCase()
+      payload.shortname = payload.title.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, '-').toLowerCase()
       payload.createAt = Date.now()
       payload.updateAt = []
       var categories = {}
@@ -159,7 +159,7 @@ export default{
             if (payload.feature) {
               return firebase.firestore().collection('posts')
                 .where('categories.' + 0, '>', 0)
-                .orderBy('categories.' + 0)
+                .orderBy('categories.' + 0, 'desc')
                 .limit(3)
                 .get()
             } else {
@@ -279,7 +279,7 @@ export default{
       }
       commit('setLoading', true)
       if (postData.title) {
-        postData.shortname = postData.title.replace(/\s+/g, '-').toLowerCase()
+        postData.shortname = postData.title.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, '-').toLowerCase()
       }
       firebase.firestore().collection('posts').doc(payload.orginal.id).update(postData)
         .then(() => {

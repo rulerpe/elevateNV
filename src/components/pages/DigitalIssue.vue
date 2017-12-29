@@ -59,6 +59,9 @@
 <script>
 import Vue from 'vue'
 export default {
+  metaInfo: {
+    title: 'Digital Issues'
+  },
   data () {
     return {
       issueList: [

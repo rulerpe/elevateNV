@@ -7,7 +7,7 @@
           <social-sharing :url="currentUrl"
                       :title="post.title"
                       :description="post.subtitle"
-                      quote="Vue is a progressive framework for building user interfaces."
+                      :quote="post.subtitle"
                       hashtags="marijuana,cannabis,weed"
                       twitter-user="rulerpe"
                       inline-template>
@@ -40,7 +40,7 @@
               </v-avatar>
               <v-content style="margin-left:10px">
                 <div class="subheading">{{post.author.name}}</div>
-                <div class="body-1">{{post.postDate}} . {{post.readtime}} min read</div>
+                <div class="body-1">{{postDate}} . {{post.readtime}} min read</div>
               </v-content>
             </v-flex>
           </v-layout>
@@ -137,6 +137,7 @@
 
 <script>
 import * as firebase from 'firebase'
+import * as moment from 'moment'
 require('firebase/firestore')
 
 export default {
@@ -148,12 +149,29 @@ export default {
         subTitle: '',
         author: {},
         content: '',
-        postDate: ''
+        postDate: '',
       },
+      featureImageUrl: '',
       currentUrl: ''
     }
   },
+  metaInfo () {
+    return {
+      title: _.startCase(this.shortname.replace(/\-/g, ' ')),
+      meta: [
+        {name: 'twitter:card', content: _.startCase(this.shortname.replace(/\-/g, ' '))},
+        {name: 'twitter:site', content: '@elevateNV'},
+        {name: 'twitter:creator', content: '@elevateNV'},
+        {property: 'og:url', content: window.location.href},
+        {property: 'og:title', content: _.startCase(this.shortname.replace(/\-/g, ' '))},
+        {property: 'og:image', content: this.featureImageUrl},
+      ]
+    }
+  },
   computed: {
+    postDate () {
+      return moment(this.post.postDate).format('MMM DD YYYY')
+    },
     reachBottom () {
       if (this.scrollPosition > window.innerHeight) {
         return {
@@ -193,8 +211,10 @@ export default {
       var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
       if (hasPost && typeof hasPost.author === 'string') {
         hasPost.author = this.$store.getters.author(hasPost.author)
+        this.featureImageUrl = hasPost.featureImageUrl
         return hasPost
       } else {
+        this.featureImageUrl = hasPost.featureImageUrl
         return hasPost
       }
     }
