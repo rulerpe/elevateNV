@@ -1,13 +1,13 @@
 <template>
-  <v-container class="pa-0 custom-layout" v-if = "post">
+  <v-container class="pa-0 custom-layout" v-if = "postData.title">
     <v-layout row class="mt-4" id="content">
       <v-flex hidden-xs-only sm1 style="position:relative"> 
         <div  
           :class="reachBottomSocial">
           <social-sharing :url="currentUrl"
-                      :title="post.title"
-                      :description="post.subtitle"
-                      :quote="post.subtitle"
+                      :title="postData.title"
+                      :description="postData.subtitle"
+                      :quote="postData.subtitle"
                       hashtags="marijuana,cannabis,weed"
                       twitter-user="rulerpe"
                       inline-template>
@@ -36,36 +36,36 @@
           <v-layout row>
             <v-flex xs12 style="display: flex;">
               <v-avatar size="60px" slot="activator">
-                <img :src="post.author.imageUrl" alt="">
+                <img :src="postData.author.imageUrl" alt="">
               </v-avatar>
               <v-content style="margin-left:10px">
-                <div class="subheading">{{post.author.name}}</div>
-                <div class="body-1">{{postDate}} . {{post.readtime}} min read</div>
+                <div class="subheading">{{postData.author.name}}</div>
+                <div class="body-1">{{postDate}} . {{postData.readtime}} min read</div>
               </v-content>
             </v-flex>
           </v-layout>
-          <v-layout row class="pt-2 pb-2 post-content" v-if="post.showFeatureImage">
+          <v-layout row class="pt-2 pb-2 post-content" v-if="postData.showFeatureImage">
             <v-flex xs12>
-              <img :src="post.featureImageUrl" :alt="post.shortname">
+              <img :src="postData.featureImageUrl" :alt="postData.shortname">
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
-            <h3 class="display-2 hidden-xs-only" style="font-weight:500">{{post.title}}</h3>
-            <h3 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{post.title}}</h3>
+            <h3 class="display-2 hidden-xs-only" style="font-weight:500">{{postData.title}}</h3>
+            <h3 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{postData.title}}</h3>
           </v-layout>
           <v-layout row class=" pb-2">
-            <h6 class="headline grey--text lighten-1 hidden-xs-only">{{post.subtitle}}</h6>
-            <h6 class="subheading grey--text lighten-1 hidden-sm-and-up">{{post.subtitle}}</h6>
+            <h6 class="headline grey--text lighten-1 hidden-xs-only">{{postData.subtitle}}</h6>
+            <h6 class="subheading grey--text lighten-1 hidden-sm-and-up">{{postData.subtitle}}</h6>
           </v-layout>
           <v-layout>
-            <v-flex xs12 v-html="post.content" class="post-content">
+            <v-flex xs12 v-html="postData.content" class="post-content">
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs-12 class="text-sm-right text-xs-left">
               <social-sharing :url="currentUrl"
-                        :title="post.title"
-                        :description="post.subtitle"
+                        :title="postData.title"
+                        :description="postData.subtitle"
                         quote="Vue is a progressive framework for building user interfaces."
                         hashtags="marijuana,cannabis,weed"
                         twitter-user="rulerpe"
@@ -93,7 +93,7 @@
           </v-layout>
           <v-layout row class="pt-2 pb-2">
             <v-flex xs12>
-              <v-chip v-show="showCategories(key)" class="custom-a" v-for="(category, key) in post.categories" :key="category.value" label >
+              <v-chip v-show="showCategories(key)" class="custom-a" v-for="(category, key) in postData.categories" :key="category.value" label >
                 <router-link :to="{name: 'Topic', params: {category:getCategory(key).link}}">{{getCategory(key).text}}</router-link>
               </v-chip>
             </v-flex>
@@ -146,12 +146,13 @@ export default {
     return {
       postData: {
         title: '',
-        subTitle: '',
+        subtitle: '',
         author: {},
         content: '',
         postDate: '',
+        featureImageUrl: '',
+        thumbImage: ''
       },
-      featureImageUrl: '',
       currentUrl: ''
     }
   },
@@ -159,18 +160,24 @@ export default {
     return {
       title: _.startCase(this.shortname.replace(/\-/g, ' ')),
       meta: [
-        {name: 'twitter:card', content: _.startCase(this.shortname.replace(/\-/g, ' '))},
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:title', content: this.postData.title},
+        {name: 'twitter:description', content: this.postData.subtitle},
+        {name: 'twitter:image', content: this.postData.featureImageUrl},
         {name: 'twitter:site', content: '@elevateNV'},
         {name: 'twitter:creator', content: '@elevateNV'},
-        {property: 'og:url', content: window.location.href},
-        {property: 'og:title', content: _.startCase(this.shortname.replace(/\-/g, ' '))},
-        {property: 'og:image', content: this.featureImageUrl},
+        {property: 'og:type', content: 'article'},
+        // change url on production
+        {property: 'og:url', content: window.location.href.replace('http://localhost:8002/', 'https://elevatenv-dev.firebaseapp.com/')},
+        {property: 'og:title', content: this.postData.title},
+        {property: 'og:description', content: this.postData.subtitle},
+        {property: 'og:image', content: this.postData.featureImageUrl}
       ]
     }
   },
   computed: {
     postDate () {
-      return moment(this.post.postDate).format('MMM DD YYYY')
+      return moment(this.postData.postDate).format('MMM DD YYYY')
     },
     reachBottom () {
       if (this.scrollPosition > window.innerHeight) {
@@ -209,12 +216,11 @@ export default {
     },
     post () {
       var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
+      console.log(hasPost)
       if (hasPost && typeof hasPost.author === 'string') {
         hasPost.author = this.$store.getters.author(hasPost.author)
-        this.featureImageUrl = hasPost.featureImageUrl
         return hasPost
       } else {
-        this.featureImageUrl = hasPost.featureImageUrl
         return hasPost
       }
     }
@@ -238,7 +244,7 @@ export default {
   mounted () {
     this.$store.dispatch('loadCategories')
     this.currentUrl = window.location.href
-    let hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
+    var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
     if (!hasPost) {
       firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
         .then((data) => {
@@ -247,12 +253,15 @@ export default {
         })
         .then((data) => {
           hasPost.author = data.data()
+          this.postData = hasPost
           this.$store.dispatch('addPost', hasPost)
           this.$store.dispatch('getRecommendPost', {shortname: this.shortname, category: Object.keys(hasPost.mainCategory)[0]})
         })
         .catch((error) => {
           console.log(error)
         })
+    } else {
+      this.postData = hasPost
     }
   }
 }

@@ -115,10 +115,15 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     ]),
     new PrerenderSpaPlugin(
+      // edite node_modules\prerender-spa-plugin\lib\phantom-page-render.js, replace &amp; from outerHTML to &, for twitter to read meta property properly
       // Absolute path to compiled SPA 
       path.join(__dirname, '../dist'),
       // List of routes to prerender 
-      [ '/', '/contact' ]
+      [ '/', '/contact', '/post/athletes-score' ],
+      {
+        
+        captureAfterTime: 2500
+      }
     )
   ]
 })

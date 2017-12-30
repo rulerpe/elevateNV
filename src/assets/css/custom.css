@@ -93,25 +93,47 @@
 }
 .social-facebook, .social-twitter, .social-google {
   cursor: pointer;
+  border-radius: 10px
 }
 
 .social-facebook i {
-  color: #3B5998 !important
+  color: #3B5998 !important;
+  background-color: #fafafa;
+  -webkit-transition: background-color 0.4s, color 0.5s;
+  -moz-transition: background-color 0.4s, color 0.5s;
+  -o-transition: background-color 0.4s, color 0.5s;
+  transition: background-color 0.4s, color 0.5s;
+  border-radius: 3px
 }
 .social-twitter i {
-  color: #3B8ACA !important
+  color: #3B8ACA !important;
+  background-color: #fafafa;
+  -webkit-transition: background-color 0.4s, color 0.5s;
+  -moz-transition: background-color 0.4s, color 0.5s;
+  -o-transition: background-color 0.4s, color 0.5s;
+  transition: background-color 0.4s, color 0.5s;
+  border-radius: 3px
 }
 .social-google i {
-  color: #e63024 !important
+  color: #e63024 !important;
+  background-color: #fafafa;
+  -webkit-transition: background-color 0.4s, color 0.5s;
+  -moz-transition: background-color 0.4s, color 0.5s;
+  -o-transition: background-color 0.4s, color 0.5s;
+  transition: background-color 0.4s, color 0.5s;
+  border-radius: 3px
 }
 .social-facebook :hover {
-  color: rgb(48, 80, 150) !important
+  color: #fafafa !important;
+  background-color: #3B5998
 }
 .social-twitter :hover {
-  color: rgb(40, 129, 202) !important
+  color: #fafafa !important;
+  background-color: #3B8ACA
 }
 .social-google :hover {
-  color: #e42114 !important
+  color: #fafafa !important;
+  background-color: #e63024
 }
 .bottom-social {
   display: inline-block;
