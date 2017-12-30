@@ -158,6 +158,7 @@ export default {
   },
   metaInfo () {
     return {
+      // eslint-disable-next-line
       title: _.startCase(this.shortname.replace(/\-/g, ' ')),
       meta: [
         {name: 'twitter:card', content: 'summary'},

@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <v-navigation-drawer fixed app temporary v-model="sideNav" style="z-index: 900">
+    <v-navigation-drawer fixed temporary v-model="sideNav" style="z-index: 900">
       <v-list>
         <v-list-tile href="/dispensary-finder">
           <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
@@ -33,7 +33,7 @@
       <div class="primary accent--text elevation-2 mainNav" :class="{ mainNavFixed: mainNavFixed ,mobileNavFixed:mobileNavFixed}" :style="{height: navHeight}">
         <v-layout row class="custom-layout">
           <v-flex xs2 sm4 class="pa-1">
-            <v-btn flat icon @click.stop="sideNav = !sideNav"
+            <v-btn flat icon @click.stop="openNavDrawer"
               class="hidden-sm-and-up drawBtn">
               <v-icon>menu</v-icon>
             </v-btn>
@@ -270,6 +270,19 @@
         this.$router.push({name: 'Search', params: { keyword: this.searchKeyword }})
         this.searchKeyword = ''
         this.showSearch = false
+      },
+      closeNavDrawer (e) {
+        if (e.target.className === 'overlay overlay--active') {
+          this.sideNav = false
+        }
+        e.preventDefault()
+      },
+      openNavDrawer () {
+        this.sideNav = !this.sideNavsideNav
+        var el = document.getElementsByClassName('application')
+        Array.from(el).forEach(function (element) {
+          element.addEventListener('touchstart', this.closeNavDrawer)
+        }, this)
       }
     },
     mounted  () {
