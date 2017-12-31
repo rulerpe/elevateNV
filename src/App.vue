@@ -49,7 +49,7 @@
           <v-flex align-content-center xs8 sm4 class="pt-2 pb-1">
             <div class="text-xs-center">
               <a href="/">
-              <img src="./assets/ELEVATE-LOGO.png" alt="" :style="{width: logoSize}"></a>
+              <img src="/static/elevatenv-logo.png" alt="" :style="{width: logoSize}"></a>
             </div>
           </v-flex>
           <v-flex v-if="!isMobile" xs4 sm4 class="pa-1">
@@ -100,7 +100,7 @@
           <v-flex xs12 sm5 class="text-xs-center mt-4 mb-4">
             <div class="text-xs-center">
               <a href="/">
-              <img src="./assets/ELEVATE-LOGO.png" alt="" :style="{width: logoSize}"></a>
+              <img src="/static/elevatenv-logo.png" alt="" :style="{width: logoSize}"></a>
             </div>
             <div class="mt-4 custom-a">
               <a href="https://www.instagram.com/elevatenevada/"><v-icon class="mr-1">mdi-instagram</v-icon></a>

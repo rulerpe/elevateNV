@@ -59,8 +59,25 @@
 <script>
 import Vue from 'vue'
 export default {
-  metaInfo: {
-    title: 'Digital Issues'
+  metaInfo () {
+    return {
+      // eslint-disable-next-line
+      title: 'Digital Issues',
+      meta: [
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:title', content: 'Digital Issues'},
+        {name: 'twitter:description', content: 'ElevateNV digital magazines'},
+        {name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Fdownload.png?alt=media&token=da4513f5-8808-4646-aae3-7ce8877f834f'},
+        {name: 'twitter:site', content: '@elevateNV'},
+        {name: 'twitter:creator', content: '@elevateNV'},
+        {property: 'og:type', content: 'article'},
+        // change url on production
+        {property: 'og:url', content: window.location.href.replace('http://localhost:8002/', 'https://elevatenv-dev.firebaseapp.com/')},
+        {property: 'og:title', content: 'Digital Issues'},
+        {property: 'og:description', content: 'ElevateNV digital magazines'},
+        {property: 'og:image', content: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Fdownload.png?alt=media&token=da4513f5-8808-4646-aae3-7ce8877f834f'}
+      ]
+    }
   },
   data () {
     return {
