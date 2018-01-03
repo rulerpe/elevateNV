@@ -6,7 +6,7 @@
       </v-card-media>
       <v-card-title primary-title class="pt-2">
         <div>
-          <h4 class="custom-headline headline mb-0">{{post.title}}</h4>
+          <h4 class="custom-headline headline mb-0">{{title}}</h4>
           <div v-if="showSubtitle()" class="subheading">{{subHeading}}</div>
         </div>
       </v-card-title>
@@ -35,16 +35,21 @@
 import * as moment from 'moment'
 export default {
   props: ['post', 'size', 'imageHeight', 'height', 'tag'],
-  data () {
-    return {
-    }
-  },
   computed: {
     subHeading () {
-      if (this.mobile || this.height <= 300) {
+      if (!this.post.subtitle) {
+        return ''
+      } else if (this.mobile || this.height <= 300) {
         return this.post.subtitle.slice(0, 35) + ' ...'
       } else {
         return this.post.subtitle
+      }
+    },
+    title () {
+      if (this.post.title.length > 40) {
+        return this.post.title.slice(0, 40) + ' ...'
+      } else {
+        return this.post.title
       }
     },
     cardHeight () {
@@ -63,7 +68,7 @@ export default {
       }
     },
     postDate () {
-      return moment(this.post.postDate).format('MMM DD')
+      return moment(parseInt(this.post.postDate)).format('MMM DD')
     },
     author () {
       return this.$store.getters.author(this.post.author)
@@ -75,6 +80,8 @@ export default {
   methods: {
     showSubtitle () {
       if (this.post.title.length > 25 && this.mobile) {
+        return false
+      } else if (this.post.title.length > 25 && this.height < 300) {
         return false
       } else {
         return true

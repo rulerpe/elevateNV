@@ -51,7 +51,7 @@ export default{
       let id
       let ext
       let defulatAvatar = {
-        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/authors%2Fdefault.jpg?alt=media&token=de254fb8-9b6e-48e0-953d-c8e3b60eeaa5',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/authors%2Fdefault.jpg?alt=media&token=4c194203-6bf4-4c19-bb07-b7375c02d95d',
         imageName: 'default.jpg'
       }
       firebase.firestore().collection('authors').add(author)

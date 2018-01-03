@@ -31,6 +31,7 @@ export default{
       payload.shortname = payload.title.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, '-').toLowerCase()
       payload.createAt = Date.now()
       payload.updateAt = []
+      payload.postDate = moment(payload.postDate).format('x')
       var categories = {}
       payload.categories.forEach((value) => {
         categories[value] = payload.createAt
@@ -62,7 +63,9 @@ export default{
     loadPosts ({commit, getters}) {
       commit('setLoading', true)
       if (getters.posts.length <= 0) {
-        firebase.firestore().collection('posts').get()
+        firebase.firestore().collection('posts')
+        .orderBy('postDate', 'desc')
+        .get()
           .then((snapshot) => {
             const posts = []
             snapshot.forEach((doc) => {
@@ -282,6 +285,7 @@ export default{
     },
     editPost ({commit}, payload) {
       payload.new.updateAt.push(new Date())
+      payload.new.postDate = moment(payload.new.postDate).format('x')
       var categories = {}
       if (payload.new.categories) {
         payload.new.categories.forEach((value) => {

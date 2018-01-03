@@ -11,7 +11,7 @@
     <v-layout row>
       <v-flex sm12>
         <v-layout row v-for="post in posts" v-bind:key="post.title" class="primary pa-1 mb-1" >
-          <v-flex sm3>{{post.postDate}}</v-flex>
+          <v-flex sm3>{{parseDate(post.postDate)}}</v-flex>
           <v-flex sm6 style="cursor: pointer;" @click="editPost(post.shortname)">{{post.title}}</v-flex>
           <v-flex sm3>
             <v-btn color="error" raised @click="deletePost({id:post.id,author:post.author})" >
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import * as moment from 'moment'
 export default {
   computed: {
     posts () {
@@ -40,6 +41,9 @@ export default {
     },
     deletePost (payload) {
       this.$store.dispatch('deletePost', payload)
+    },
+    parseDate (date) {
+      return moment(parseInt(date)).format('MMM DD YYYY')
     }
   }
 }

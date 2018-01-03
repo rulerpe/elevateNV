@@ -136,6 +136,7 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 
 import * as firebase from 'firebase'
+import * as moment from 'moment'
 require('firebase/firestore')
 
 export default {
@@ -236,6 +237,7 @@ export default {
           mainCategory = (parseInt(value))
         }
         this.postData.mainCategory = mainCategory
+        this.postData.postDate =  moment(parseInt(this.postData.postDate)).format('YYYY-MM-DD')
       })
       .catch((error) => {
         console.log(error)

@@ -178,7 +178,7 @@ export default {
   },
   computed: {
     postDate () {
-      return moment(this.postData.postDate).format('MMM DD YYYY')
+      return moment(parseInt(this.postData.postDate)).format('MMM DD YYYY')
     },
     reachBottom () {
       if (this.scrollPosition > window.innerHeight) {
