@@ -95,12 +95,12 @@
         <router-view :scrollPosition="scroPosition"></router-view>
     </v-content>
     <v-footer app class="primary accent--text elevation-10" v-show="!noFooter">
-      <v-container class="footerNav pa-2">
+      <v-container class=" pa-4" style="margin:0 auto">
         <v-layout row wrap>
-          <v-flex xs12 sm5 class="text-xs-center mt-4 mb-4">
+          <v-flex xs12 sm2 offset-sm1 class="text-xs-center mt-4 mb-4">
             <div class="text-xs-center">
               <a href="/">
-              <img src="/static/elevatenv-logo.png" alt="" :style="{width: logoSize}"></a>
+              <img src="/static/elevatenv-logo.png" alt="" style="width: 100%"></a>
             </div>
             <div class="mt-4 custom-a">
               <a href="https://www.instagram.com/elevatenevada/"><v-icon class="mr-1">mdi-instagram</v-icon></a>
@@ -108,33 +108,33 @@
               <a href="https://www.facebook.com/ElevateNV"><v-icon class="mr-1">mdi-facebook</v-icon></a>
             </div>
           </v-flex>
-          <v-flex xs6 sm3 class="text-xs-center text-sm-right subheading custom-a">
+          <v-flex xs12 sm2 offset-sm2 class="text-xs-left text-sm-left body-2 custom-a">
             <h3>ElevateNV</h3>
-            <v-layout row>
+            <v-layout row class="body-1 mt-1">
               <v-flex xs12>
                 <router-link :to="{ name: 'AboutUs'}">About Us</router-link>
               </v-flex>
             </v-layout>
-            <v-layout row>
+            <v-layout row class="body-1">
               <v-flex xs12>
                 <router-link :to="{ name: 'Subscribe'}">Subscribe</router-link>
               </v-flex>
             </v-layout>
-            <v-layout row>
+            <v-layout row class="body-1">
               <v-flex xs12>
                 <router-link :to="{ name: 'Contact'}">Contact</router-link>
               </v-flex>
             </v-layout>
-            <v-layout row>
+            <v-layout row class="body-1">
               <v-flex xs12>
               Advertise
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs6 sm3 class="text-xs-center text-sm-right subheading custom-a">
+          <v-flex xs12 sm4 class="text-xs-left text-sm-left body-2 custom-a">
             <h3>Elevate in the News</h3>
-            <v-layout row>
-              <v-flex sm12>
+            <v-layout row class="body-1 mt-1">
+              <v-flex sm6>
                 <v-layout row>
                   <v-flex xs12>
                     <a href="https://elevatenv.com/fox-5s-more-show/">Fox 5&rsquo;s More Show</a>
@@ -160,6 +160,8 @@
                     <a href="http://www.reviewjournal.com/columns-blogs/doug-elfman/medical-marijuana-works-well-celebrity-chef-kerry-simon">Review Journal</a>
                   </v-flex>
                 </v-layout>
+              </v-flex>
+              <v-flex sm6>
                 <v-layout row>
                   <v-flex xs12>
                     <a href="http://www.getcardedvegas.com/new-magazine-re-nevada-medical-marijuana/">Get Carded Vegas</a>

@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import * as moment from 'moment'
 require('firebase/firestore')
 
 export default{
@@ -82,10 +83,10 @@ export default{
     },
     loadHomePagePosts ({commit}, payload) {
       commit('setLoading', true)
-      payload.forEach((category) => {
-        firebase.firestore().collection('posts')
-        .where('mainCategory.' + category, '>', 0)
-        .orderBy('mainCategory.' + category)
+      firebase.firestore().collection('posts')
+        .where('categories.' + 0, '>', 0)
+        .orderBy('categories.' + 0, 'desc')
+        .limit(3)
         .get()
         .then((snapshot) => {
           let posts = []
@@ -99,11 +100,31 @@ export default{
             })
             commit('addPost', posts)
           }
+          const today = moment().format('x')
+          console.log(today)
+          return firebase.firestore().collection('posts')
+                  .orderBy('postDate', 'desc')
+                  .limit(12)
+                  .get()
+        })
+        .then((snapshot) => {
+          let posts = []
+          if (snapshot.docs.length > 0) {
+            snapshot.forEach((doc) => {
+              let obj = doc.data()
+              if (!Object.keys(obj.categories).includes('0')) {
+                posts.push({
+                  ...obj,
+                  id: doc.id
+                })
+              }
+            })
+            commit('addPost', posts)
+          }
         })
         .catch((error) => {
           console.log(error)
         })
-      })
     },
     loadTopicPosts ({commit}, payload) {
       commit('clearPosts')

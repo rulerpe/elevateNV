@@ -122,7 +122,7 @@ export default {
       dispensariesList.forEach(function (dispensary) {
         var geo = dispensary.geo.split(',')
         this.popup[dispensary.id] = Leaflet.popup({closeButton: false})
-          .setContent(`<a style="text-decoration: none" href="${dispensary.website}">
+          .setContent(`<a style="text-decoration: none" href="${dispensary.detailUrl}">
           <div style="display: flex;align-items:center">
             <div style="flex-basis: 30%;align-self:center">
               <img style="width:100%" src="${dispensary.imageUrl}" alt="${dispensary.name}">
