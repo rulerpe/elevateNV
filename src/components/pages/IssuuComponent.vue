@@ -25,7 +25,7 @@ export default {
   },
   created () {
     let issuu = document.createElement('script')
-    issuu.setAttribute('src', '//e.issuu.com/embed.js')
+    issuu.src = 'https://e.issuu.com/embed.js'
     document.head.appendChild(issuu)
   }
 }

@@ -92,6 +92,25 @@ export default {
       }
     }
   },
+  metaInfo () {
+    return {
+      // eslint-disable-next-line
+      title: 'Subscribe',
+      meta: [
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:title', content: 'Subscribe'},
+        {name: 'twitter:description', content: 'Subscribe'}, {name: 'twitter:image', content: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Fdownload.png?alt=media&token=da4513f5-8808-4646-aae3-7ce8877f834f'},
+        {name: 'twitter:site', content: '@elevateNV'},
+        {name: 'twitter:creator', content: '@elevateNV'},
+        {property: 'og:type', content: 'article'},
+        // change url on production
+        {property: 'og:url', content: window.location.href.replace('http://localhost:8002/', 'https://elevatenv-dev.firebaseapp.com/')},
+        {property: 'og:title', content: 'Subscribe'},
+        {property: 'og:description', content: 'Subscribe'},
+        {property: 'og:image', content: 'https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Fdownload.png?alt=media&token=da4513f5-8808-4646-aae3-7ce8877f834f'}
+      ]
+    }
+  },
   computed: {
     formIsValid () {
       return this.Subscription.name !== '' && this.Subscription.email !== '' && this.Subscription.comment !== ''

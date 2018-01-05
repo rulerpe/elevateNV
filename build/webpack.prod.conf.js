@@ -122,10 +122,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Absolute path to compiled SPA 
       path.join(__dirname, '../dist'),
       // List of routes to prerender 
-      [ '/', '/contact', '/post/athletes-score' ],
+      [ '/', '/contact', '/dispensary-finder', '/about-us', '/subscribe', '/topic/dispensary', '/topic/industry-connect', '/topic/trends', '/topic/the-grow', '/topic/cooking-with-cannabis', '/topic/medicine', '/topic/conversation', '/topic/blog', '/post/athletes-score', '/post/medizin', '/post/advances-in-technology-make-suntrac-hybrid-climate-systems-light-years-ahead-of-yesterdays-hvacair-conditioning-systems', '/post/town-of-nipton', '/post/making-your-list-and-checking-it-twice', '/post/from-practical-to-magical', '/post/trimming-services-save-money-and-time', '/post/establishing-an-inhouse-laboratory', '/post/grow-op-overview-tryke', '/post/a-dog%E2%80%99s-tale', '/post/the-impact-of-marijuana-on-the-fitness-lifestyle', '/post/-elevating-the-conversation-with-robert-l-cook-md-mph-professor-in-epidemiology', '/post/blackabis'],
       {
-        
-        captureAfterTime: 2500
+        captureAfterTime: 5000
       }
     )
   ]

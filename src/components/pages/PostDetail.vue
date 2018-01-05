@@ -219,9 +219,11 @@ export default {
       var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
       console.log(hasPost)
       if (hasPost && typeof hasPost.author === 'string') {
+        this.postData = hasPost
         hasPost.author = this.$store.getters.author(hasPost.author)
         return hasPost
-      } else {
+      } else if (hasPost) {
+        this.postData = hasPost
         return hasPost
       }
     }
@@ -243,6 +245,7 @@ export default {
     }
   },
   mounted () {
+    console.log('mounted')
     this.$store.dispatch('loadCategories')
     this.currentUrl = window.location.href
     var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
@@ -262,7 +265,10 @@ export default {
           console.log(error)
         })
     } else {
-      this.postData = hasPost
+      if (typeof hasPost.author === 'string') {
+        hasPost.author = this.$store.getters.author(hasPost.author)
+        this.postData = hasPost
+      }
     }
   }
 }

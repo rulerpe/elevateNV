@@ -71,7 +71,11 @@ export default {
       return moment(parseInt(this.post.postDate)).format('MMM DD')
     },
     author () {
-      return this.$store.getters.author(this.post.author)
+      if (typeof this.post.author === 'string') {
+        return this.$store.getters.author(this.post.author)
+      } else {
+        return this.post.author
+      }
     },
     mobile () {
       return this.$store.getters.mobile
@@ -89,6 +93,7 @@ export default {
     }
   },
   mounted () {
+    console.log('mount title')
     if (this.post !== undefined && typeof this.post.author === 'string' && this.$store.getters.author(this.post.author) === undefined) {
       this.$store.dispatch('loadAuthor', this.post.author)
     }

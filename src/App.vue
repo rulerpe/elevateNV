@@ -283,7 +283,7 @@
         this.sideNav = !this.sideNavsideNav
         var el = document.getElementsByClassName('application')
         Array.from(el).forEach(function (element) {
-          element.addEventListener('touchstart', this.closeNavDrawer)
+          element.addEventListener('touchend', this.closeNavDrawer)
         }, this)
       }
     },

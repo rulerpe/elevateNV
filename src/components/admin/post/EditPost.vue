@@ -237,6 +237,7 @@ export default {
           mainCategory = (parseInt(value))
         }
         this.postData.mainCategory = mainCategory
+        // eslint-disable-next-line
         this.postData.postDate =  moment(parseInt(this.postData.postDate)).format('YYYY-MM-DD')
       })
       .catch((error) => {
