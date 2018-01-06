@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <v-navigation-drawer fixed temporary v-model="sideNav" style="z-index: 900">
+    <v-navigation-drawer fixed temporary v-model="sideNav">
       <v-list>
         <v-list-tile href="/dispensary-finder">
           <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
@@ -227,8 +227,7 @@
         showSearch: false,
         searchKeyword: '',
         navStyle: {
-          height: this.navHeight,
-          zIndex: 500
+          height: this.navHeight
         }
       }
     },
@@ -274,17 +273,16 @@
         this.showSearch = false
       },
       closeNavDrawer (e) {
+        e.preventDefault()
+        console.log('test')
         if (e.target.className === 'overlay overlay--active') {
+          console.log('overlay')
           this.sideNav = false
         }
-        e.preventDefault()
       },
       openNavDrawer () {
         this.sideNav = !this.sideNavsideNav
-        var el = document.getElementsByClassName('application')
-        Array.from(el).forEach(function (element) {
-          element.addEventListener('touchend', this.closeNavDrawer)
-        }, this)
+        window.addEventListener('click', this.closeNavDrawer, false)
       }
     },
     mounted  () {

@@ -213,7 +213,7 @@ export default {
       return this.$store.getters.posts.filter((post) => {
         const find = post.categories[Object.keys(this.post.mainCategory)[0]]
         return find && post.shortname !== this.shortname
-      })
+      }).slice(0, 3)
     },
     post () {
       var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
