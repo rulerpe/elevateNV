@@ -4,10 +4,21 @@
 
 <script>
 export default {
-  props: ['size'],
+  props: ['size', 'page'],
   computed: {
     randomAd () {
-      let filteredAds = this.ads.filter(ad => ad.type === this.size)
+      let filteredAds = this.ads.filter(ad => {
+        let result = ad.type === this.size
+        // for pages that onyl display specific ads
+        if (this.page) {
+          if (ad.page) {
+            result = ad.page === this.page
+          } else {
+            result = ad.page === this.page
+          }
+        }
+        return result
+      })
       return filteredAds[Math.floor(Math.random() * filteredAds.length)]
     },
     ads () {

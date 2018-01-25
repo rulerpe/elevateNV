@@ -1,5 +1,10 @@
 <template>
   <v-container class="mt-0 mb-0 pa-0">
+    <v-layout row class="mt-2 mb-1">
+      <v-flex sm8 offset-sm2>
+        <ads-component size="long" ></ads-component>
+      </v-flex>
+    </v-layout>
     <div v-if="mobile" :style="issuePicker">
       <v-layout row>
         <v-flex xs12 class="pa-3">

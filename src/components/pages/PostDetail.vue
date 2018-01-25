@@ -1,5 +1,10 @@
 <template>
   <v-container class="pa-0 custom-layout" v-if = "postData.title">
+    <v-layout row class="mt-3">
+      <v-flex sm8 offset-sm2>
+        <ads-component size="long"></ads-component>
+      </v-flex>
+    </v-layout>
     <v-layout row class="mt-4" id="content">
       <v-flex hidden-xs-only sm1 style="position:relative"> 
         <div  

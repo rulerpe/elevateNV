@@ -9,7 +9,7 @@
           <v-list-tile-content  class="accent--text">Digital Issues</v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
-          <v-list-tile-content  class="accent--text">Blog</v-list-tile-content>
+          <v-list-tile-content  class="accent--text">Blogs</v-list-tile-content>
         </v-list-tile>
         <v-list-tile :to="{name: 'PostDetail', params:{shortname: 'blackabis'}}">
           <v-list-tile-content  class="accent--text ml-3">Blackabis</v-list-tile-content>
@@ -67,7 +67,7 @@
               <a href="https://www.facebook.com/ElevateNV"><v-icon class="mr-1">mdi-facebook</v-icon></a>
               <v-menu offset-y>
                 <v-btn class="hidden-xs-only" color="primary" light style="margin:0; font-weight:400" slot="activator">
-                  Blog
+                  Blogs
                 </v-btn>
                 <v-list>
                   <v-list-tile v-for="blog in blogList" :key="blog.link" :to="{name: blog.page, params: {category: blog.link,shortname: blog.link}}">
@@ -109,7 +109,7 @@
             </div>
           </v-flex>
           <v-flex xs12 sm2 offset-sm2 class="text-xs-left text-sm-left body-2 custom-a">
-            <h3>ElevateNV</h3>
+            <h3>elevateNV</h3>
             <v-layout row class="body-1 mt-1">
               <v-flex xs12>
                 <router-link :to="{ name: 'AboutUs'}">About Us</router-link>
@@ -132,7 +132,7 @@
             </v-layout>
           </v-flex>
           <v-flex xs12 sm4 class="text-xs-left text-sm-left body-2 custom-a">
-            <h3>Elevate in the News</h3>
+            <h3>elevate in the News</h3>
             <v-layout row class="body-1 mt-1">
               <v-flex sm6>
                 <v-layout row>
@@ -207,10 +207,10 @@
         sideNav: false,
         menuItems: [
             { title: 'Home', link: '', page: 'Home' },
-            { title: 'Patient', link: 'patient-profiles', page: 'Topic' },
-            { title: 'Discover', link: 'discover', page: 'Topic' },
-            { title: 'Cooking', link: 'cooking-with-cannabis', page: 'Topic' },
-            { title: 'Medicine', link: 'medicine', page: 'Topic' },
+            { title: 'Healing', link: 'patient-profiles', page: 'Topic' },
+            { title: 'Reviews', link: 'reviews', page: 'Topic' },
+            { title: 'Recipes', link: 'cooking-with-cannabis', page: 'Topic' },
+            { title: 'Learn', link: 'medicine', page: 'Topic' },
             { title: 'Trends', link: 'trends', page: 'Topic' },
             { title: 'More ', link: '', page: 'AllTopic' },
             { title: 'Subscribe', link: '', page: 'Subscribe' }

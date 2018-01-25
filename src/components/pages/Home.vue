@@ -21,7 +21,7 @@
     <div style="margin-top:40px">
       <v-layout row>
         <v-flex xs12 sm6 text-xs-left>
-          <h1 class="display-1 topic-title custom-a mt-2 mb-0">Lastest Artiles</h1>
+          <h1 class="display-1 topic-title custom-a mt-2 mb-0">Latest Articles</h1>
         </v-flex>
         <v-flex hidden-xs-only sm6 text-sm-right>
           

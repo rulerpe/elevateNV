@@ -17,6 +17,11 @@
         </v-list>
       </v-flex>
       <v-flex v-show="mapView" xs12 sm10>
+        <v-layout row class="mt-3" style="position: absolute; z-index: 999;">
+          <v-flex sm8 offset-sm2>
+            <ads-component size="long" :page="$route.name"></ads-component>
+          </v-flex>
+        </v-layout>
         <div id="mapid" :style="mapStyle"></div>
       </v-flex>
     </v-layout>
