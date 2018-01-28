@@ -11,6 +11,7 @@ import DigitalIssue from '@/components/pages/DigitalIssue'
 import AllTopic from '@/components/pages/AllTopic'
 import Subscribe from '@/components/pages/Subscribe'
 import AboutUs from '@/components/pages/AboutUs'
+import PageNotFound from '@/components/pages/PageNotFound'
 
 import AdminPanel from '@/components/admin/AdminPanel'
 
@@ -170,6 +171,11 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '*',
+      name: 'PageNotFound',
+      component: PageNotFound
     }
   ],
   scrollBehavior (to, from, savedPosition) {
