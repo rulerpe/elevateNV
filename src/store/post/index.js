@@ -28,7 +28,7 @@ export default{
     newPost ({commit}, payload) {
       let postId = ''
       commit('setLoading', true)
-      payload.shortname = payload.title.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, '-').toLowerCase()
+      payload.shortname = payload.title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase().substring(0, 50)
       payload.createAt = Date.now()
       payload.updateAt = []
       payload.postDate = moment(payload.postDate).format('x')
@@ -304,7 +304,7 @@ export default{
       }
       commit('setLoading', true)
       if (postData.title) {
-        postData.shortname = postData.title.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, '-').toLowerCase()
+        postData.shortname = postData.title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase().substring(0, 50)
       }
       firebase.firestore().collection('posts').doc(payload.orginal.id).update(postData)
         .then(() => {
