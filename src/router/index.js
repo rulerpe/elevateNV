@@ -5,6 +5,7 @@ import PostDetail from '@/components/pages/PostDetail'
 import Topic from '@/components/pages/Topic'
 import Search from '@/components/pages/Search'
 import Contact from '@/components/pages/Contact'
+import Advertise from '@/components/pages/Advertise'
 
 import DispensaryFinder from '@/components/pages/DispensaryFinder'
 import DigitalIssue from '@/components/pages/DigitalIssue'
@@ -171,6 +172,11 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '/advertise',
+      name: 'Advertise',
+      component: Advertise
     },
     {
       path: '*',

@@ -96,7 +96,8 @@ export default{
     loadDispensaries ({commit, getters}) {
       commit('setLoading', true)
       if (getters.dispensaries.length <= 0) {
-        firebase.firestore().collection('dispensaries').get()
+        firebase.firestore().collection('dispensaries')
+          .get()
           .then((snapshot) => {
             const dispensaries = []
             snapshot.forEach((doc) => {

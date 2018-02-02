@@ -88,16 +88,55 @@ export default {
     return {
       issueList: [
         {
+          title: '2018',
+          issues: [
+            { title: 'February', code: '15520179/57952216' },
+            { title: 'January', code: '15520179/57072307' }
+          ]
+        },
+        {
           title: '2017',
           issues: [
             { title: 'December', code: '15520179/56734942' },
-            { title: 'November', code: '15520179/56735321' }
+            { title: 'November', code: '15520179/56735321' },
+            { title: 'October', code: '15520179/54021940' },
+            { title: 'September', code: '15520179/52953347' },
+            { title: 'August', code: '15520179/51854181' },
+            { title: 'July', code: '15520179/50709871' },
+            { title: 'June', code: '15520179/49611544' },
+            { title: 'May', code: '15520179/47988864' },
+            { title: 'April', code: '15520179/47187793' },
+            { title: 'March', code: '15520179/45498517' },
+            { title: 'February', code: '15520179/43889182' },
+            { title: 'January', code: '15520179/42552068' }
           ]
         },
         {
           title: '2016',
           issues: [
-            { title: 'December', code: '15520179/57000255' }
+            { title: 'December', code: '15520179/57000255' },
+            { title: 'November', code: '15520179/40274380' },
+            { title: 'October', code: '15520179/39353547' },
+            { title: 'September', code: '15520179/38618073' },
+            { title: 'August', code: '15520179/37617622' },
+            { title: 'July', code: '15520179/37055425' },
+            { title: 'June', code: '15520179/36198693' },
+            { title: 'May', code: '15520179/35347239' },
+            { title: 'April', code: '15520179/34596606' },
+            { title: 'March', code: '15520179/33861239' },
+            { title: 'February', code: '15520179/33123664' },
+            { title: 'January', code: '15520179/32534653' }
+          ]
+        },
+        {
+          title: '2015',
+          issues: [
+            { title: 'December', code: '15520179/31845559' },
+            { title: 'November', code: '15520179/31087117' },
+            { title: 'October', code: '15520179/30514253' },
+            { title: 'September/August', code: '15520179/14698093' },
+            { title: 'July/June', code: '15520179/13387948' },
+            { title: 'Inaugural Issue', code: '15520179/12888254' }
           ]
         }
       ],

@@ -53,7 +53,9 @@ export default {
         'z-index': 0
       },
       listStyle: {
-        'margin-top': '0'
+        'margin-top': '0',
+        height: document.documentElement.clientHeight - 117 + 'px',
+        overflow: 'scroll'
       },
       listToggleStyle: {
         position: 'absolute',
@@ -92,7 +94,11 @@ export default {
     },
     findOnMap (dispensary) {
       if (this.mobile) {
-        this.$router.push(dispensary.detailUrl)
+        if (dispensary.detailUrl) {
+          this.$router.push(dispensary.detailUrl)
+        } else {
+          window.open(dispensary.website)
+        }
       } else {
         var geo = dispensary.geo.split(',')
         this.popup[dispensary.id]
@@ -116,7 +122,17 @@ export default {
       return this.$store.getters.mobile
     },
     dispensaries () {
+      var sortByName = (a, b) => {
+        if (a.shortName.charAt(0) > b.shortName.charAt(0)) {
+          return 1
+        }
+        if (a.shortName.charAt(0) < b.shortName.charAt(0)) {
+          return -1
+        }
+        return 0
+      }
       var dispensariesList = this.$store.getters.dispensaries
+      dispensariesList = dispensariesList.sort(sortByName)
       var MarkerIcon = Leaflet.Icon.extend({
         options: {
           iconSize: [50, 50],
@@ -126,8 +142,9 @@ export default {
       })
       dispensariesList.forEach(function (dispensary) {
         var geo = dispensary.geo.split(',')
+        const url = dispensary.detailUrl || dispensary.website
         this.popup[dispensary.id] = Leaflet.popup({closeButton: false})
-          .setContent(`<a style="text-decoration: none" href="${dispensary.detailUrl}">
+          .setContent(`<a style="text-decoration: none" target="_blank" href="${url}">
           <div style="display: flex;align-items:center">
             <div style="flex-basis: 30%;align-self:center">
               <img style="width:100%" src="${dispensary.imageUrl}" alt="${dispensary.name}">

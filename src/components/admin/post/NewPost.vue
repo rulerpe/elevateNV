@@ -94,7 +94,6 @@
               <option value="4"></option>
               <option selected>Normal</option>
             </select>
-            
             <button class="ql-list" value="ordered"></button>
             <button class="ql-list" value="bullet"></button>
 
@@ -116,6 +115,7 @@
               <option value="blue"></option>
               <option value="purple"></option>
             </select>
+            <button type="button" class="ql-video"></button>
             <button class="ql-link"></button>
             <div style="position: reletive">
               <input type="text" v-model="contentImage">

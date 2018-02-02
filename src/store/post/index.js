@@ -145,6 +145,9 @@ export default{
         })
         .then((snapshot) => {
           let posts = []
+          var dateOrder = function (a, b) {
+            return b.postDate - a.postDate
+          }
           if (snapshot.docs.length > 0) {
             snapshot.forEach((doc) => {
               let obj = doc.data()
@@ -153,6 +156,7 @@ export default{
                 id: doc.id
               })
             })
+            posts.sort(dateOrder)
             commit('setLoadedPosts', posts)
             commit('setLoading', false)
           }
@@ -368,7 +372,7 @@ export default{
     },
     loadCategories ({commit, getters}) {
       if (getters.categories.length <= 0) {
-        firebase.firestore().collection('categories').orderBy('value').get()
+        firebase.firestore().collection('categories').orderBy('label').get()
           .then((snapshot) => {
             var categories = []
             snapshot.forEach((doc) => {

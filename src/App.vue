@@ -217,7 +217,8 @@
         ],
         blogList: [
             { title: 'Blackabis', link: 'blackabis', page: 'PostDetail' },
-            { title: 'The Grow', link: 'the-grow', page: 'Topic' }
+            { title: 'The Grow', link: 'the-grow', page: 'Topic' },
+            { title: 'Vape escape', link: 'vape-escape', page: 'Topic' }
         ],
         mainNavFixed: false,
         mobileNavFixed: false,
