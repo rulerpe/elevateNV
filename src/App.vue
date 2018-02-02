@@ -127,7 +127,7 @@
             </v-layout>
             <v-layout row class="body-1">
               <v-flex xs12>
-              Advertise
+              <router-link :to="{ name: 'Advertise'}">Advertise</router-link>
               </v-flex>
             </v-layout>
           </v-flex>
