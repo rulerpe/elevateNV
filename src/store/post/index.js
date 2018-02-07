@@ -106,6 +106,7 @@ export default{
           const today = moment().format('x')
           console.log(today)
           return firebase.firestore().collection('posts')
+                  .where('postDate', '<', today)
                   .orderBy('postDate', 'desc')
                   .limit(12)
                   .get()
@@ -132,6 +133,7 @@ export default{
     loadTopicPosts ({commit}, payload) {
       commit('clearPosts')
       commit('setLoading', true)
+      const today = moment().format('x')
       const category = payload.replace(/-/g, ' ')
       firebase.firestore().collection('categories')
         .where('label', '==', category)
@@ -151,10 +153,12 @@ export default{
           if (snapshot.docs.length > 0) {
             snapshot.forEach((doc) => {
               let obj = doc.data()
-              posts.push({
-                ...obj,
-                id: doc.id
-              })
+              if (obj.postDate < today) {
+                posts.push({
+                  ...obj,
+                  id: doc.id
+                })
+              }
             })
             posts.sort(dateOrder)
             commit('setLoadedPosts', posts)
@@ -169,6 +173,7 @@ export default{
     loadPostFromAllTopic ({commit, getters}, payload) {
       commit('setLoading', true)
       commit('clearPosts')
+      const today = moment().format('x')
       firebase.firestore().collection('categories').orderBy('value').get()
           .then((snapshot) => {
             var categories = []
@@ -224,12 +229,14 @@ export default{
                 if (snapshot.docs.length > 0) {
                   snapshot.forEach((doc) => {
                     let obj = doc.data()
-                    // do not query post that already downloaded as feature post
-                    if (!payload.feature || !Object.keys(obj.categories).includes('0')) {
-                      posts.push({
-                        ...obj,
-                        id: doc.id
-                      })
+                    if (obj.postDate < today) {
+                      // do not query post that already downloaded as feature post
+                      if (!payload.feature || !Object.keys(obj.categories).includes('0')) {
+                        posts.push({
+                          ...obj,
+                          id: doc.id
+                        })
+                      }
                     }
                   })
                   commit('addPost', posts)

@@ -2,10 +2,10 @@
   <v-app light>
     <v-navigation-drawer fixed temporary v-model="sideNav">
       <v-list>
-        <v-list-tile href="/dispensary-finder">
+        <v-list-tile :to="{name: 'DispensaryFinder'}">
           <v-list-tile-content  class="accent--text">Dispensary Finder</v-list-tile-content>
         </v-list-tile>
-        <v-list-tile href="/digital-issue">
+        <v-list-tile :to="{name: 'DigitalIssue'}">
           <v-list-tile-content  class="accent--text">Digital Issues</v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
@@ -16,6 +16,9 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'Topic', params:{category: 'the-grow'}}">
           <v-list-tile-content  class="accent--text ml-3">The Grow</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile :to="{name: 'Topic', params:{category: 'vape-escape'}}">
+          <v-list-tile-content  class="accent--text ml-3">Vape Escape</v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile v-for="item in menuItems" :key="item.title" :to="{name: item.page, params: {category:item.link}}">
@@ -38,10 +41,10 @@
               <v-icon>menu</v-icon>
             </v-btn>
               <div align="left" class="hidden-xs-only" >
-                <v-btn color="primary" light style="margin:0; font-weight:400" href="/dispensary-finder">
+                <v-btn color="primary" light style="margin:0; font-weight:400" :to="{name: 'DispensaryFinder'}">
                   Dispensary Finder
                 </v-btn>
-                <v-btn color="primary" light style="margin:0; font-weight:400" href="/digital-issue">
+                <v-btn color="primary" light style="margin:0; font-weight:400" :to="{name: 'DigitalIssue'}">
                   Digital Issues
                 </v-btn>
               </div>
@@ -207,10 +210,10 @@
         sideNav: false,
         menuItems: [
             { title: 'Home', link: '', page: 'Home' },
-            { title: 'Healing', link: 'patient-profiles', page: 'Topic' },
+            { title: 'Healing', link: 'healing', page: 'Topic' },
             { title: 'Reviews', link: 'reviews', page: 'Topic' },
             { title: 'Recipes', link: 'cooking-with-cannabis', page: 'Topic' },
-            { title: 'Learn', link: 'medicine', page: 'Topic' },
+            { title: 'Learn', link: 'learn', page: 'Topic' },
             { title: 'Trends', link: 'trends', page: 'Topic' },
             { title: 'More ', link: '', page: 'AllTopic' },
             { title: 'Subscribe', link: '', page: 'Subscribe' }
@@ -218,7 +221,7 @@
         blogList: [
             { title: 'Blackabis', link: 'blackabis', page: 'PostDetail' },
             { title: 'The Grow', link: 'the-grow', page: 'Topic' },
-            { title: 'Vape escape', link: 'vape-escape', page: 'Topic' }
+            { title: 'Vape Escape', link: 'vape-escape', page: 'Topic' }
         ],
         mainNavFixed: false,
         mobileNavFixed: false,

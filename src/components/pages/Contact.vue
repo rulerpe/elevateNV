@@ -76,6 +76,12 @@
         </form>
         </v-flex>
       </v-layout>
+      <v-divider class="mt-3 mb-3"></v-divider>
+      <v-layout  class="mt-4 mb-5">
+        <v-flex xs12 sm12>
+          <h3 class="title">For more information or to speak to someone from the elevate team, please phone 702.855.3840</h3>
+        </v-flex>
+      </v-layout>
     </div>
   </v-container>
 </template>

@@ -14,7 +14,7 @@
                       :description="postData.subtitle"
                       :quote="postData.subtitle"
                       hashtags="marijuana,cannabis,weed"
-                      twitter-user="rulerpe"
+                      twitter-user="ElevateNV"
                       inline-template>
             <div class="social-size">
               <div class="social-facebook">
@@ -55,12 +55,12 @@
             </v-flex>
           </v-layout>
           <v-layout row class="pt-2 pb-2">
-            <h3 class="display-2 hidden-xs-only" style="font-weight:500">{{postData.title}}</h3>
-            <h3 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{postData.title}}</h3>
+            <h1 class="display-2 hidden-xs-only" style="font-weight:500">{{postData.title}}</h1>
+            <h1 class="custom-headline display-1 hidden-sm-and-up" style="font-weight:500">{{postData.title}}</h1>
           </v-layout>
           <v-layout row class=" pb-2">
-            <h6 class="headline grey--text lighten-1 hidden-xs-only">{{postData.subtitle}}</h6>
-            <h6 class="subheading grey--text lighten-1 hidden-sm-and-up">{{postData.subtitle}}</h6>
+            <h2 class="headline grey--text lighten-1 hidden-xs-only">{{postData.subtitle}}</h2>
+            <h2 class="subheading grey--text lighten-1 hidden-sm-and-up">{{postData.subtitle}}</h2>
           </v-layout>
           <v-layout>
             <v-flex xs12 v-html="postData.content" class="post-content">
@@ -71,9 +71,9 @@
               <social-sharing :url="currentUrl"
                         :title="postData.title"
                         :description="postData.subtitle"
-                        quote="Vue is a progressive framework for building user interfaces."
+                        :quote="postData.subtitle"
                         hashtags="marijuana,cannabis,weed"
-                        twitter-user="rulerpe"
+                        twitter-user="ElevateNV"
                         inline-template
                         style="display: inline-block">
               <div class="social-size">

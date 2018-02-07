@@ -74,8 +74,12 @@ export default {
     sortedPosts () {
       var sortedList = []
       this.posts.forEach(function (post) {
-        post.tag = this.allCategories[Object.keys(post.mainCategory)[0]].text
-        console.log('maincategory', post.mainCategory)
+        try {
+          post.tag = this.allCategories[Object.keys(post.mainCategory)[0]].text
+        } catch (error) {
+          console(error)
+          this.$store.dispatch('loadHomePagePosts')
+        }
         if (!Object.keys(post.categories).includes('0')) {
           sortedList.push(post)
         } else {
@@ -84,6 +88,11 @@ export default {
       }, this)
       return sortedList
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$store.dispatch('clearPosts')
+    this.$store.dispatch('loadHomePagePosts')
+    next()
   },
   mounted () {
     this.$store.dispatch('clearPosts')

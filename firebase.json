@@ -15,7 +15,20 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "redirects": [ {
+      "source" : "/about-us/*",
+      "destination" : "/about-us",
+      "type" : 301
+    }, {
+      "source" : "/media-kit",
+      "destination" : "/advertise",
+      "type" : 301
+    }, {
+      "source" : "/digital-issues/*",
+      "destination" : "/digital-issues",
+      "type" : 301
+    } ]
   },
   "storage": {
     "rules": "storage.rules"

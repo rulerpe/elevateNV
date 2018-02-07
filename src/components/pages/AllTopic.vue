@@ -72,7 +72,7 @@ export default {
 
   },
   mounted () {
-    this.$store.dispatch('loadPostFromAllTopic', {limit: 3, feature: false})
+    this.$store.dispatch('loadPostFromAllTopic', {limit: 10, feature: false})
   }
 }
 </script>

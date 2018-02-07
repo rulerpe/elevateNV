@@ -126,7 +126,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // List of routes to prerender 
       postList.postList,
       {
-        captureAfterTime: 2000,
+        captureAfterTime: 8000,
         maxAttempts: 5,
       }
     )

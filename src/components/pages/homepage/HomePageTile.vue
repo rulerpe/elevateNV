@@ -93,7 +93,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mount title')
     if (this.post !== undefined && typeof this.post.author === 'string' && this.$store.getters.author(this.post.author) === undefined) {
       this.$store.dispatch('loadAuthor', this.post.author)
     }
