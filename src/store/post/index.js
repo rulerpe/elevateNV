@@ -143,6 +143,7 @@ export default{
           return firebase.firestore().collection('posts')
             .where('categories.' + topic, '>', 0)
             .orderBy('categories.' + topic)
+            .limit(15)
             .get()
         })
         .then((snapshot) => {
@@ -221,7 +222,7 @@ export default{
             categories.forEach((category) => {
               firebase.firestore().collection('posts')
               .where('mainCategory.' + category.value, '>', 0)
-              .orderBy('mainCategory.' + category.value)
+              .orderBy('mainCategory.' + category.value, 'desc')
               .limit(payload.limit)
               .get()
               .then((snapshot) => {

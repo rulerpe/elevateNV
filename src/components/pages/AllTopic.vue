@@ -5,7 +5,7 @@
         <img src="https://elevatenv.com/wp-content/uploads/2017/07/Elevate-elements-Web-banner-728x90.jpg" style="width:100%" alt="">
       </v-flex>
     </v-layout>
-    <div style="margin-top:40px" v-for="(posts, key) in sortedPosts" :key="key">
+    <div style="margin-top:40px" v-for="(catposts, key) in sortedPosts" :key="key">
       <v-layout row>
         <v-flex xs12 sm6 text-xs-left>
           <h1 class="display-1 custom-a topic-title mt-2 mb-2">
@@ -20,7 +20,7 @@
       </v-layout>
       <v-divider class="mb-2"></v-divider>
       <v-layout row wrap >
-        <elevate-post-tile v-for="post in posts" :key="post.id" :post="post" size="4" imageHeight="100" height="250"></elevate-post-tile>
+        <elevate-post-tile v-for="post in catposts" :key="post.id" :post="post" size="4" imageHeight="100" height="250"></elevate-post-tile>
       </v-layout>
     </div>
   </v-container>
@@ -72,7 +72,7 @@ export default {
 
   },
   mounted () {
-    this.$store.dispatch('loadPostFromAllTopic', {limit: 10, feature: false})
+    this.$store.dispatch('loadPostFromAllTopic', {limit: 3, feature: false})
   }
 }
 </script>
