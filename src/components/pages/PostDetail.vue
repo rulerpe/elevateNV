@@ -222,7 +222,6 @@ export default {
     },
     post () {
       var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
-      console.log(hasPost)
       if (hasPost && typeof hasPost.author === 'string') {
         this.postData = hasPost
         hasPost.author = this.$store.getters.author(hasPost.author)
@@ -250,13 +249,15 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted')
     this.$store.dispatch('loadCategories')
     this.currentUrl = window.location.href
     var hasPost = this.$store.getters.posts.find(post => post.shortname === this.shortname)
     if (!hasPost) {
       firebase.firestore().collection('posts').where('shortname', '==', this.shortname).get()
         .then((data) => {
+          if (data.docs.length === 0) {
+            throw new Error('post not exist')
+          }
           hasPost = data.docs[0].data()
           return firebase.firestore().collection('authors').doc(hasPost.author).get()
         })
@@ -268,6 +269,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+          this.$router.push({name: 'Home'})
         })
     } else {
       if (typeof hasPost.author === 'string') {

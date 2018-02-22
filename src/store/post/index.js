@@ -104,7 +104,6 @@ export default{
             commit('addPost', posts)
           }
           const today = moment().format('x')
-          console.log(today)
           return firebase.firestore().collection('posts')
                   .where('postDate', '<', today)
                   .orderBy('postDate', 'desc')
