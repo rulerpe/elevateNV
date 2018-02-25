@@ -183,7 +183,7 @@ export default new Router({
       path: '*',
       name: 'PageNotFound',
       beforeEnter: (to, from, next) => {
-        next('/post'+to.path)
+        next('/post'+to.path.substring(0,50))
       },
       component: PageNotFound
     }

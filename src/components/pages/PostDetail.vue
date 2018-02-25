@@ -156,7 +156,8 @@ export default {
         content: '',
         postDate: '',
         featureImageUrl: '',
-        thumbImage: ''
+        thumbImage: '',
+        metaDescription: ''
       },
       currentUrl: ''
     }
@@ -166,6 +167,7 @@ export default {
       // eslint-disable-next-line
       title: _.startCase(this.shortname.replace(/\-/g, ' ')),
       meta: [
+        {name: 'description', content: this.postData.metaDescription},
         {name: 'twitter:card', content: 'summary'},
         {name: 'twitter:title', content: this.postData.title},
         {name: 'twitter:description', content: this.postData.subtitle},
@@ -174,7 +176,7 @@ export default {
         {name: 'twitter:creator', content: '@elevateNV'},
         {property: 'og:type', content: 'article'},
         // change url on production
-        {property: 'og:url', content: window.location.href.replace('http://localhost:8002/', 'https://elevatenv-dev.firebaseapp.com/')},
+        {property: 'og:url', content: 'https://elevatenv.com' + window.location.pathname},
         {property: 'og:title', content: this.postData.title},
         {property: 'og:description', content: this.postData.subtitle},
         {property: 'og:image', content: this.postData.featureImageUrl}

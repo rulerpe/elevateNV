@@ -11,6 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PrerenderSpaPlugin = require('prerender-spa-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const lodash = require('lodash')
 
 const env = require('../config/prod.env')
 
@@ -118,20 +119,33 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-    new PrerenderSpaPlugin(
-      // edite node_modules\prerender-spa-plugin\lib\phantom-page-render.js, replace &amp; from outerHTML to &, for twitter to read meta property properly
-      // Absolute path to compiled SPA 
-      path.join(__dirname, '../dist'),
-      // List of routes to prerender 
-      postList.postList,
-      {
-        captureAfterTime: 8000,
-        maxAttempts: 5,
-      }
-    )
+    ])
   ]
 })
+if (postList.postList.length > 20) {
+  console.log("length",postList.postList.length)
+  let paths = postList.postList // the routes
+  let chunks = lodash.chunk(paths, 4) // using lodash.chunk
+  let distPath = path.join(__dirname, '../dist')
+  let progress = 0
+  chunks.forEach(chunk => {
+    webpackConfig.plugins.push(new PrerenderSpaPlugin(distPath, chunk, {
+        captureAfterTime: 5000,
+        postProcessHtml (context) {
+          // need to log something after each route finish
+          // or CI will fail if no log for 10 mins
+          console.log(`[PRE-RENDER] (${++progress} / ${paths.length}) ${context.route}`)
+          return context.html
+        }
+      }
+    ))
+  })
+} else {
+  let distPath = path.join(__dirname, '../dist')
+  webpackConfig.plugins.push(new PrerenderSpaPlugin(distPath, postList.postList, {
+    captureAfterTime: 8000
+  }))
+}
 
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
