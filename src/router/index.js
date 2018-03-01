@@ -45,82 +45,82 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-    // {
-    //   path: '/admin',
-    //   component: AdminPanel,
-    //   beforeEnter: AuthGuard,
-    //   children: [
-    //     {
-    //       path: 'posts',
-    //       name: 'Posts',
-    //       component: Posts
-    //     },
-    //     {
-    //       path: 'post/new',
-    //       name: 'NewPost',
-    //       component: NewPost
-    //     },
-    //     {
-    //       path: 'post/edit/:shortname',
-    //       name: 'EditPost',
-    //       props: true,
-    //       component: EditPost
-    //     },
-    //     {
-    //       path: 'dispensaries',
-    //       name: 'Dispensaries',
-    //       component: Dispensaries
-    //     },
-    //     {
-    //       path: 'dispensary/new',
-    //       name: 'NewDispensary',
-    //       component: NewDispensary
-    //     },
-    //     {
-    //       path: 'dispensary/edit/:id',
-    //       name: 'UpdateDispensary',
-    //       props: true,
-    //       component: UpdateDispensary
-    //     },
-    //     {
-    //       path: 'authors',
-    //       name: 'Authors',
-    //       component: Authors
-    //     },
-    //     {
-    //       path: 'author/new',
-    //       name: 'NewAuthor',
-    //       component: NewAuthor
-    //     },
-    //     {
-    //       path: 'author/edit/:id',
-    //       name: 'UpdateAuthor',
-    //       props: true,
-    //       component: UpdateAuthor
-    //     },
-    //     {
-    //       path: 'fileupload',
-    //       name: 'FileUpload',
-    //       component: FileUpload
-    //     },
-    //     {
-    //       path: 'ads',
-    //       name: 'Ads',
-    //       component: Ads
-    //     },
-    //     {
-    //       path: 'ads/new',
-    //       name: 'NewAds',
-    //       component: NewAds
-    //     },
-    //     {
-    //       path: 'ads/edit/:id',
-    //       name: 'UpdateAds',
-    //       props: true,
-    //       component: UpdateAds
-    //     }
-    //   ]
-    // },
+    {
+      path: '/admin',
+      component: AdminPanel,
+      beforeEnter: AuthGuard,
+      children: [
+        {
+          path: 'posts',
+          name: 'Posts',
+          component: Posts
+        },
+        {
+          path: 'post/new',
+          name: 'NewPost',
+          component: NewPost
+        },
+        {
+          path: 'post/edit/:shortname',
+          name: 'EditPost',
+          props: true,
+          component: EditPost
+        },
+        {
+          path: 'dispensaries',
+          name: 'Dispensaries',
+          component: Dispensaries
+        },
+        {
+          path: 'dispensary/new',
+          name: 'NewDispensary',
+          component: NewDispensary
+        },
+        {
+          path: 'dispensary/edit/:id',
+          name: 'UpdateDispensary',
+          props: true,
+          component: UpdateDispensary
+        },
+        {
+          path: 'authors',
+          name: 'Authors',
+          component: Authors
+        },
+        {
+          path: 'author/new',
+          name: 'NewAuthor',
+          component: NewAuthor
+        },
+        {
+          path: 'author/edit/:id',
+          name: 'UpdateAuthor',
+          props: true,
+          component: UpdateAuthor
+        },
+        {
+          path: 'fileupload',
+          name: 'FileUpload',
+          component: FileUpload
+        },
+        {
+          path: 'ads',
+          name: 'Ads',
+          component: Ads
+        },
+        {
+          path: 'ads/new',
+          name: 'NewAds',
+          component: NewAds
+        },
+        {
+          path: 'ads/edit/:id',
+          name: 'UpdateAds',
+          props: true,
+          component: UpdateAds
+        }
+      ]
+    },
     {
       path: '/post/:shortname',
       name: 'PostDetail',
@@ -183,7 +183,7 @@ export default new Router({
       path: '*',
       name: 'PageNotFound',
       beforeEnter: (to, from, next) => {
-        next('/post'+to.path.substring(0,50))
+        next('/post'+to.path.substring(0,51))
       },
       component: PageNotFound
     }

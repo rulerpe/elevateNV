@@ -15,7 +15,7 @@
       </v-layout>
       <v-layout row >
         <v-flex xs12>
-          <iframe src="https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Felevate_rate-card_2016_No-Rates.pdf?alt=media&token=4174f803-8b55-43e1-ae5b-e177606d51d3" style="width: 100%;height: 900px;border: none;"></iframe>
+          <iframe src="https://firebasestorage.googleapis.com/v0/b/elevatenv-dev.appspot.com/o/other%2Felevate_mediakit%202018.pdf?alt=media&token=faf2f783-f8a9-4e12-8ada-943b1b5444fb" style="width: 100%;height: 900px;border: none;"></iframe>
         </v-flex>
       </v-layout>
     </div>

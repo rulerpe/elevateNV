@@ -12,10 +12,15 @@
       <v-flex sm12>
         <v-layout row v-for="post in posts" v-bind:key="post.title" class="primary pa-1 mb-1" >
           <v-flex sm3>{{parseDate(post.postDate)}}</v-flex>
-          <v-flex sm6 style="cursor: pointer;" @click="editPost(post.shortname)">{{post.title}}</v-flex>
-          <v-flex sm3>
+          <v-flex sm5 style="cursor: pointer;" @click="editPost(post.shortname)">{{post.title}}</v-flex>
+          <v-flex sm2>
             <v-btn color="error" raised @click="deletePost({id:post.id,author:post.author})" >
               Delete
+            </v-btn>
+          </v-flex>
+          <v-flex sm2>
+            <v-btn color="error" raised @click="viewPost({id:post.id, shortname:post.shortname})" >
+              View
             </v-btn>
           </v-flex>
         </v-layout>
@@ -36,6 +41,9 @@ export default {
     this.$store.dispatch('loadPosts')
   },
   methods: {
+    viewPost (id, shortname) {
+      this.$router.push('/post/' + shortname)
+    },
     editPost (shortname) {
       this.$router.push('/admin/post/edit/' + shortname)
     },

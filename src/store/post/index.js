@@ -86,10 +86,13 @@ export default{
     },
     loadHomePagePosts ({commit}, payload) {
       commit('setLoading', true)
+      // date for categories and maincategory is in integer
+      // date for postdate is in string
+      const today = moment().format('x')
       firebase.firestore().collection('posts')
-        .where('categories.' + 0, '>', 0)
+        .where('categories.' + 0, '<', parseInt(today))
         .orderBy('categories.' + 0, 'desc')
-        .limit(3)
+        .limit(6)
         .get()
         .then((snapshot) => {
           let posts = []
@@ -103,7 +106,6 @@ export default{
             })
             commit('addPost', posts)
           }
-          const today = moment().format('x')
           return firebase.firestore().collection('posts')
                   .where('postDate', '<', today)
                   .orderBy('postDate', 'desc')
@@ -297,15 +299,16 @@ export default{
     editPost ({commit}, payload) {
       payload.new.updateAt.push(new Date())
       payload.new.postDate = moment(payload.new.postDate).format('x')
+      var postDateInt = parseInt(payload.new.postDate)
       var categories = {}
       if (payload.new.categories) {
         payload.new.categories.forEach((value) => {
-          categories[value] = payload.new.createAt
+          categories[value] = postDateInt
         })
         payload.new.categories = categories
       }
       let mainCategory = {}
-      mainCategory[payload.new.mainCategory] = payload.new.createAt
+      mainCategory[payload.new.mainCategory] = postDateInt
       payload.new.mainCategory = mainCategory
       const postData = {}
       for (const key in payload.new) {
@@ -379,7 +382,7 @@ export default{
     },
     loadCategories ({commit, getters}) {
       if (getters.categories.length <= 0) {
-        firebase.firestore().collection('categories').orderBy('label').get()
+        firebase.firestore().collection('categories').orderBy('value').get()
           .then((snapshot) => {
             var categories = []
             snapshot.forEach((doc) => {
