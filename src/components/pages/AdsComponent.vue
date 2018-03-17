@@ -1,5 +1,8 @@
 <template>
-  <a v-if="randomAd" :href="randomAd.link"><img :src="randomAd.imageUrl" style="width:100%" :alt="randomAd.title"></a>
+  <div style="text-align: center;">
+    <a v-if="size ==='long'" target="_blank" :href="randomAd.link"><img :src="randomAd.imageUrl" style="width:100%" :alt="randomAd.title"></a>
+    <a v-if="size ==='square'" target="_blank" :href="randomAd.link"><img style="height:100%" :src="randomAd.imageUrl" :alt="randomAd.title"></a>
+  </div>
 </template>
 
 <script>

@@ -19,7 +19,7 @@
             </v-btn>
           </v-flex>
           <v-flex sm2>
-            <v-btn color="error" raised @click="viewPost({id:post.id, shortname:post.shortname})" >
+            <v-btn color="error" raised @click="viewPost(post.shortname)" >
               View
             </v-btn>
           </v-flex>
@@ -41,7 +41,7 @@ export default {
     this.$store.dispatch('loadPosts')
   },
   methods: {
-    viewPost (id, shortname) {
+    viewPost (shortname) {
       this.$router.push('/post/' + shortname)
     },
     editPost (shortname) {

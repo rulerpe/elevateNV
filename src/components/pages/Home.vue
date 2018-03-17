@@ -30,6 +30,9 @@
       <v-divider class="mb-1"></v-divider>
       <v-layout row wrap >
         <elevate-post-tile v-for="post in sortedPosts" :key="post.id" :post="post" size="4" imageHeight="100" height="250" tag="true"></elevate-post-tile>
+        <v-flex d-flex xs12 sm4 style="height:250px">
+          <ads-component size="square"></ads-component>
+        </v-flex>
       </v-layout>
     </div>
   </v-container>

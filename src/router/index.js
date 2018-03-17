@@ -36,6 +36,9 @@ import EditPost from '@/components/admin/post/EditPost'
 import Posts from '@/components/admin/post/Posts'
 import FileUpload from '@/components/admin/FileUpload'
 
+import StingAlarm from '@/components/pages/customPages/stingalarm.vue'
+import IndustryConnect from '@/components/pages/customPages/IndustryConnect.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -178,6 +181,16 @@ export default new Router({
       path: '/advertise',
       name: 'Advertise',
       component: Advertise
+    },
+    {
+      path: '/sting-alarm',
+      name: 'StingAlarm',
+      component: StingAlarm
+    },
+    {
+      path: '/industry-connect',
+      name: 'IndustryConnect',
+      component: IndustryConnect
     },
     {
       path: '*',

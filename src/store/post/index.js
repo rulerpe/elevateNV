@@ -40,7 +40,19 @@ export default{
       mainCategory[payload.mainCategory] = payload.createAt
       payload.mainCategory = mainCategory
       payload.categories = categories
-      firebase.firestore().collection('posts').add(payload)
+      if (payload.subtitle) {
+        payload.metaDescription = payload.subtitle
+      } else {
+        // eslint-disable-next-line
+        var tagFilter = /\<[^\<\>]+\>/g
+        // eslint-disable-next-line
+        var filter2 = /(\r\n|\r|\n)/g
+        // eslint-disable-next-line
+        var filterRemoveSpace = /\s+/g
+        var filteredBody = payload.content.slice(0, 250).replace(tagFilter, '').replace(filter2, '').replace(filterRemoveSpace, ' ').trim() + '...'
+        payload.metaDescription = filteredBody
+      }
+      firebase.firestore().collection('posts').doc(payload.shortname).set(payload)
         .then((data) => {
           postId = data.id
           return firebase.firestore().collection('authors').doc(payload.author).get()
@@ -109,7 +121,7 @@ export default{
           return firebase.firestore().collection('posts')
                   .where('postDate', '<', today)
                   .orderBy('postDate', 'desc')
-                  .limit(12)
+                  .limit(11)
                   .get()
         })
         .then((snapshot) => {
@@ -315,6 +327,18 @@ export default{
         if (payload.new[key] !== payload.orginal[key]) {
           postData[key] = payload.new[key]
         }
+      }
+      if (payload.new.subtitle !== '') {
+        postData.metaDescription = payload.new.subtitle
+      } else {
+        // eslint-disable-next-line
+        var tagFilter = /\<[^\<\>]+\>/g
+        // eslint-disable-next-line
+        var filter2 = /(\r\n|\r|\n)/g
+        // eslint-disable-next-line
+        var filterRemoveSpace = /\s+/g
+        var filteredBody = payload.new.content.slice(0, 250).replace(tagFilter, '').replace(filter2, '').replace(filterRemoveSpace, ' ').trim() + '...'
+        postData.metaDescription = filteredBody
       }
       commit('setLoading', true)
       if (postData.title) {

@@ -117,11 +117,7 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <v-layout row class="mt-3 mr-2 ml-2">
-      <v-flex sm8 offset-sm2>
-        <img src="https://elevatenv.com/wp-content/uploads/2015/05/Elevate_ConnorConnor_728x90_0515.jpeg" style="width:100%" alt="">
-      </v-flex>
-    </v-layout>
+
     <v-layout row class="mt-4 mr-2 ml-2">
       <div>
         <h1 class="headline mt-2 mb-2">Recommended</h1>
