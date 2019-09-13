@@ -156,11 +156,11 @@ export default{
           return firebase.firestore().collection('posts')
             .where('categories.' + topic, '>', 0)
             .orderBy('categories.' + topic)
-            .limit(15)
             .get()
         })
         .then((snapshot) => {
           let posts = []
+          console.log(snapshot.docs.length)
           var dateOrder = function (a, b) {
             return b.postDate - a.postDate
           }

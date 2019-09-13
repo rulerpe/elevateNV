@@ -85,9 +85,8 @@
   margin-top:24px !important;
 }
 
-.post-content ul {
-  margin-left: 20px;
-  font-size: 18px
+.post-content ul, .post-content ol {
+  margin-left: 50px;
 }
 .custom-a a{
   text-decoration: none

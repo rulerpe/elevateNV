@@ -2,7 +2,7 @@
   <v-container class="mt-0 mb-0 pa-0">
     <v-layout row class="mt-2 mb-1">
       <v-flex sm8 offset-sm2>
-        <ads-component size="long" ></ads-component>
+        <ads-component size="long"></ads-component>
       </v-flex>
     </v-layout>
     <div v-if="mobile" :style="issuePicker">
@@ -90,6 +90,9 @@ export default {
         {
           title: '2018',
           issues: [
+            { title: 'June', code: '15520179/61968664' },
+            { title: 'May', code: '15520179/60876562' },
+            { title: 'April', code: '15520179/59874350' },
             { title: 'March', code: '15520179/58990954' },
             { title: 'February', code: '15520179/57952216' },
             { title: 'January', code: '15520179/57072307' }
@@ -146,7 +149,7 @@ export default {
         top: '30px',
         width: document.documentElement.clientWidth + 'px'
       },
-      issuuCode: '15520179/56734942',
+      issuuCode: '15520179/61968664',
       resetIssue: true,
       listToggle: false
     }

@@ -2,7 +2,7 @@
   <v-container grid-list-md class="custom-layout">
     <v-layout row class="mt-3">
       <v-flex sm8 offset-sm2>
-        <img src="https://elevatenv.com/wp-content/uploads/2017/07/Elevate-elements-Web-banner-728x90.jpg" style="width:100%" alt="">
+        <ads-component size="long"></ads-component>
       </v-flex>
     </v-layout>
     <div style="margin-top:40px">
@@ -23,7 +23,7 @@
       </v-layout>
       <v-layout row v-show="subscribeStatus === 'success'">
         <v-flex xs12 sm8 offset-sm2 class="pt-5 text-xs-center text-md-center text-md-center mt-5">
-          <p class="display-1">Your request has submited successfully, our stuff will contact as soon as possible</p>
+          <p class="display-1">Your request has submited successfully, our staff will contact as soon as possible</p>
         </v-flex>
       </v-layout>
       <v-layout row wrap v-show="subscribeStatus === 'none'">
@@ -60,11 +60,30 @@
           <v-layout row>
             <v-flex xs12 sm12>
               <v-text-field
-                name="address"
-                label="Write your address here"
-                id="address"
-                v-model="Subscription.address"
-                textarea
+                name="addressStreet"
+                label="Street Address"
+                v-model="Subscription.addressStreet"
+                required></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm4>
+              <v-text-field
+                name="addressCity"
+                label="City"
+                v-model="Subscription.addressCity"
+                required></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm4>
+              <v-text-field
+                name="addressState"
+                label="State"
+                v-model="Subscription.addressState"
+                required></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm4>
+              <v-text-field
+                name="addressZipcode"
+                label="Zip Code"
+                v-model="Subscription.addressZipcode"
                 required></v-text-field>
             </v-flex>
           </v-layout>
@@ -88,7 +107,10 @@ export default {
         name: '',
         phone: '',
         email: '',
-        address: ''
+        addressStreet: '',
+        addressCity: '',
+        addressState: '',
+        addressZipcode: ''
       }
     }
   },

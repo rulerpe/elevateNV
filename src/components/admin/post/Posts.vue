@@ -19,9 +19,8 @@
             </v-btn>
           </v-flex>
           <v-flex sm2>
-            <v-btn color="error" raised @click="viewPost(post.shortname)" >
-              View
-            </v-btn>
+            <a :href="'/post/'+post.shortname" target="_blank">
+              View</a>
           </v-flex>
         </v-layout>
         </v-flex>

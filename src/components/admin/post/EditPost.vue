@@ -120,6 +120,10 @@
               <input type="text" v-model="imageUrl">
               <button @click="insertImage()">Insert</button>
             </div>
+            <div style="position: reletive">
+              <input type="text" v-model="codeUrl">
+              <button @click="insertEmbededCode()">Code</button>
+            </div>
           </div>
         </quill-editor>
         <button @click="showcontent">show</button>
@@ -147,6 +151,7 @@ export default {
   data () {
     return {
       imageUrl: '',
+      codeUrl: '',
       name: '01-example',
       content: '',
       editorOption: {
@@ -177,6 +182,10 @@ export default {
     insertImage () {
       const currentPosition = this.$refs.myTextEditor.quill.getSelection()
       this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'image', this.imageUrl)
+    },
+    insertEmbededCode () {
+      const currentPosition = this.$refs.myTextEditor.quill.getSelection()
+      this.$refs.myTextEditor.quill.insertEmbed(currentPosition.index, 'video', this.codeUrl)
     },
     onEditPost () {
       const text = this.$refs.myTextEditor.quill.getText()

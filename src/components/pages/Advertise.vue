@@ -2,7 +2,7 @@
   <v-container grid-list-md class="custom-layout">
     <v-layout row class="mt-3">
       <v-flex sm8 offset-sm2>
-        <img src="https://elevatenv.com/wp-content/uploads/2017/07/Elevate-elements-Web-banner-728x90.jpg" style="width:100%" alt="">
+        <ads-component size="long"></ads-component>
       </v-flex>
     </v-layout>
     <div style="margin-top:40px">
